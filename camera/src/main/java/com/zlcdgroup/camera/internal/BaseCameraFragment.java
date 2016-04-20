@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zlcdgroup.camera.R;
@@ -28,8 +30,17 @@ import static android.app.Activity.RESULT_CANCELED;
  */
 abstract class BaseCameraFragment extends Fragment implements CameraUriInterface, View.OnClickListener {
 
-    protected ImageButton mButtonVideo;
-    protected ImageButton mButtonFacing;
+    protected ImageView  flash_model,volume_model;//闪光灯与拍照声音
+
+    protected  ImageView  cancel_camera,tack_camera,config_camera;//拍照及确定取消
+
+    protected  AutoFitTextureView   textureView;//预览界面
+
+    protected RelativeLayout  camera_layout,camera_toploayou;
+
+
+    protected   View  camera_moveleft,camera_movetop;
+
     protected TextView mRecordDuration;
 
     private boolean mIsRecording;
@@ -74,36 +85,26 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        flash_model = (ImageView)view.findViewById(R.id.flash_model);
+        volume_model = (ImageView)view.findViewById(R.id.flash_model);
+        cancel_camera = (ImageView)view.findViewById(R.id.cancel_camera);
+        tack_camera = (ImageView)view.findViewById(R.id.tack_camera);
+        config_camera = (ImageView)view.findViewById(R.id.config_camera);
+        textureView = (AutoFitTextureView)view.findViewById(R.id.preview_view);
+        camera_layout = (RelativeLayout)view.findViewById(R.id.camera_layout);
+        camera_toploayou = (RelativeLayout)view.findViewById(R.id.camera_toploayou);
+        camera_moveleft = view.findViewById(R.id.camera_moveleft);
+        camera_movetop  = view.findViewById(R.id.camera_movetop);
 
-        mButtonVideo = (ImageButton) view.findViewById(R.id.video);
-        mButtonFacing = (ImageButton) view.findViewById(R.id.facing);
-        if (CameraUtil.isArcWelder())
-            mButtonFacing.setVisibility(View.GONE);
-        mRecordDuration = (TextView) view.findViewById(R.id.recordDuration);
-        mButtonFacing.setImageDrawable(VC.get(this, mInterface.getCurrentCameraPosition() == CAMERA_POSITION_BACK ?
-                R.drawable.mcam_camera_front : R.drawable.mcam_camera_rear));
-        if (mMediaRecorder != null && mIsRecording) {
-            mButtonVideo.setImageDrawable(VC.get(this, R.drawable.mcam_action_stop));
-        } else {
-            mButtonVideo.setImageDrawable(VC.get(this, R.drawable.mcam_action_capture));
-            mInterface.setDidRecord(false);
-        }
-
-        mButtonVideo.setOnClickListener(this);
-        mButtonFacing.setOnClickListener(this);
-
-        final int primaryColor = getArguments().getInt(CameraIntentKey.PRIMARY_COLOR);
-        view.findViewById(R.id.controlsFrame).setBackgroundColor(CameraUtil.darkenColor(primaryColor));
-
-        if (savedInstanceState != null)
-            mOutputUri = savedInstanceState.getString("output_uri");
     }
+
+
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mButtonVideo = null;
-        mButtonFacing = null;
+
         mRecordDuration = null;
     }
 
@@ -130,7 +131,11 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     @NonNull
     protected final File getOutputMediaFile() {
-        return CameraUtil.makeTempFile(getActivity(), getArguments().getString(CameraIntentKey.SAVE_DIR), ".mp4");
+        return CameraUtil.makeTempFile(getActivity(), getArguments().getString(CameraIntentKey.SAVE_DIR),getArguentsByKey(CameraIntentKey.SAVE_NAME), ".jpg");
+    }
+
+    public   String    getArguentsByKey(String  key){
+       return getArguments().getString(key);
     }
 
     public abstract void openCamera();

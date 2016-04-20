@@ -10,10 +10,12 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import android.text.TextUtils;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -38,13 +40,16 @@ public class CameraUtil {
     }
 
     @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
-    public static File makeTempFile(@NonNull Context context, @Nullable String saveDir, String extension) {
-        if (saveDir == null)
+    public static File makeTempFile(@NonNull Context context, @Nullable String saveDir,String  saveName, String extension) {
+        if (saveDir == null){
             saveDir = context.getExternalCacheDir().getAbsolutePath();
-        final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        final File dir = new File(saveDir);
+        }
+        if(TextUtils.isEmpty(saveName)){
+            saveName =  UUID.randomUUID().toString().replace("-","");
+        }
+         File dir = new File(saveDir);
         dir.mkdirs();
-        return new File(dir, "VID_" + timeStamp + extension);
+        return new File(dir, saveName + extension);
     }
 
     public static boolean hasCamera(Context context) {
