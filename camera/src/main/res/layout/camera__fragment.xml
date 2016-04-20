@@ -1,0 +1,106 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" >
+
+    <com.zlcdgroup.camera.internal.AutoFitTextureView
+        android:id="@+id/preview_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+  </RelativeLayout>
+
+  <RelativeLayout android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="horizontal"
+
+      android:id="@+id/camera_layout">
+    <View android:layout_width="fill_parent"
+        android:layout_height="2dp"
+
+        android:id="@+id/camera_moveleft"
+
+        android:background="@color/camera_white"/>
+
+
+  </RelativeLayout>
+
+  <RelativeLayout android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/camera_toploayou"
+  >
+    <View android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:id="@+id/camera_movetop"
+
+        android:background="@color/camera_white"/>
+  </RelativeLayout>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/camera_tools_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+       >
+
+        <ImageView
+            android:id="@+id/cancel_camera"
+            android:layout_width="wrap_content"
+            android:src="@drawable/camera_cancel"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/capture_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/tackpic_camera"
+            />
+
+           <ImageView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentRight="true"
+                      android:layout_marginRight="20dp"
+                      android:src="@drawable/camera_config"/>
+
+    </RelativeLayout>
+    </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent" >
+
+    <ImageView
+        android:id="@+id/flash_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_device_access_flash_automatic" />
+
+    <ImageView
+        android:id="@+id/volume_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/flash_model"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_device_access_volume_on" />
+  </RelativeLayout>
+
+</FrameLayout>
