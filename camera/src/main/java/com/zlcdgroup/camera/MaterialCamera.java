@@ -18,6 +18,7 @@ public class MaterialCamera {
 
     public static final String ERROR_EXTRA = "mcam_error";
     public static final String STATUS_EXTRA = "mcam_status";
+    public static final String RESULT_FILE="result_file";
 
     public static final int STATUS_RECORDED = 1;
     public static final int STATUS_RETRY = 2;
@@ -71,19 +72,8 @@ public class MaterialCamera {
         final Class<?> cls = CameraUtil.hasCamera2(mContext) ?
                 CaptureActivity2.class : CaptureActivity.class;
         Intent intent = new Intent(mContext, cls)
-                .putExtra(CameraIntentKey.LENGTH_LIMIT, mLengthLimit)
-                .putExtra(CameraIntentKey.ALLOW_RETRY, mAllowRetry)
-                .putExtra(CameraIntentKey.AUTO_SUBMIT, mAutoSubmit)
                 .putExtra(CameraIntentKey.SAVE_DIR, mSaveDir)
-                .putExtra(CameraIntentKey.PRIMARY_COLOR, mPrimaryColor)
-                .putExtra(CameraIntentKey.SHOW_PORTRAIT_WARNING, mShowPortraitWarning)
-                .putExtra(CameraIntentKey.DEFAULT_TO_FRONT_FACING, mDefaultToFrontFacing)
-                .putExtra(CameraIntentKey.COUNTDOWN_IMMEDIATELY, mCountdownImmediately)
-                .putExtra(CameraIntentKey.RETRY_EXITS, mRetryExists)
-                .putExtra(CameraIntentKey.RESTART_TIMER_ON_RETRY, mRestartTimerOnRetry)
-                .putExtra(CameraIntentKey.CONTINUE_TIMER_IN_PLAYBACK, mContinueTimerInPlayback);
-
-
+                .putExtra(CameraIntentKey.SAVE_NAME,mSaveName);
         return intent;
     }
 

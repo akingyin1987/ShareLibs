@@ -5,6 +5,8 @@ package com.zlcdgroup.camera;
 public class CameraPreferences {
     
     public static final String KEY_AUTO_FOCUS = "preferences_auto_focus";
+
+    public static final String KEY_VOLUME="preferences_volume";
     
     public static final String KEY_DISABLE_AUTO_ORIENTATION = "preferences_orientation";
     
@@ -19,6 +21,8 @@ public class CameraPreferences {
     public static final String KEY_DISABLE_EXPOSURE = "preferences_disable_exposure";
     
     public static final String KEY_FRONT_LIGHT_MODE = "preferences_front_light_mode";
+
+
     
     public static final String KEY_VIBRATE = "preferences_vibrate";
     
