@@ -92,7 +92,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         flash_model = (ImageView)view.findViewById(R.id.flash_model);
-        volume_model = (ImageView)view.findViewById(R.id.flash_model);
+        volume_model = (ImageView)view.findViewById(R.id.volume_model);
         cancel_camera = (ImageView)view.findViewById(R.id.cancel_camera);
         tack_camera = (ImageView)view.findViewById(R.id.tack_camera);
         config_camera = (ImageView)view.findViewById(R.id.config_camera);
@@ -377,6 +377,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 camera_layout.setVisibility(View.VISIBLE);
                 camera_movetop.setVisibility(View.VISIBLE);
             }
+            sharedPreferences.edit().putInt(CameraPreferences.KEY_GUIDE,guide);
         }else if(view.getId() == R.id.camera_screen){
             SharedPreferences  sharedPreferences = getShare();
             int  screen  = sharedPreferences.getInt(CameraPreferences.KEY_SCREEN,0);

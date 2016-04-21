@@ -102,6 +102,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     @Override
     public void onFrontLight(FrontLightMode frontLightMode) {
         mCameraManager.setFrontLightMode(frontLightMode);
+        mCameraManager.setFrontLightMode(frontLightMode,null);
     }
 
     @Override
