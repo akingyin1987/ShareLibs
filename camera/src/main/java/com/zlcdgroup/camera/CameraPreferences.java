@@ -7,6 +7,14 @@ public class CameraPreferences {
     public static final String KEY_AUTO_FOCUS = "preferences_auto_focus";
 
     public static final String KEY_VOLUME="preferences_volume";
+
+    public static final String KEY_SCREEN ="preferences_screen";
+
+    public static final String KEY_GUIDE="preferences_gride";
+
+    public static final String KEY_GUIDE_TOP="preferences_gride_top";
+
+    public static final String KEY_GUIDE_LEFT="preferences_gride_left";
     
     public static final String KEY_DISABLE_AUTO_ORIENTATION = "preferences_orientation";
     

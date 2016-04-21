@@ -13,6 +13,12 @@ public interface BaseCaptureInterface {
 
     void   onVolume(VolumeMode   volumeMode);//拍照声音
 
+    void   onAutoFocus();//自动对焦
+
+    void   onCancelFocus();//取消对焦
+
+    void   onTakePic(String  dir,String  fileName,boolean  sound);//拍照
+
 
 
 

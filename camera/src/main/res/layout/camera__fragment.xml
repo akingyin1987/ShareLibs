@@ -66,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:background="@drawable/fab"
             android:src="@drawable/tackpic_camera"
             />
 
@@ -83,25 +84,54 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent" >
 
-    <ImageView
-        android:id="@+id/flash_model"
-        android:layout_width="wrap_content"
+    <LinearLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/ic_device_access_flash_automatic" />
+        >
+      <ImageView
+          android:id="@+id/flash_model"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
 
-    <ImageView
-        android:id="@+id/volume_model"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/flash_model"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/ic_device_access_volume_on" />
+          android:src="@drawable/ic_device_access_flash_automatic" />
+
+      <ImageView
+          android:id="@+id/volume_model"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+
+          android:layout_marginTop="5dp"
+          android:src="@drawable/ic_device_access_volume_on" />
+
+      <ImageView
+          android:id="@+id/camera_screen"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="8dp"
+          android:src="@drawable/screen_rotation" />
+
+      <ImageView
+          android:id="@+id/camera_guideline"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="10dp"
+          android:src="@drawable/camera_guideline" />
+
+      <ImageView
+          android:id="@+id/camera_setting"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="10dp"
+          android:src="@drawable/camera_settings" />
+    </LinearLayout>
+
+
   </RelativeLayout>
 
 </FrameLayout>
