@@ -2,5 +2,5 @@
 <resources>
   
   <color name="camera_white">#ffffffff</color>
-  <color name="camera_transparent">#00000000</color>
+  <color name="camera_transparent">#000000</color>
 </resources>

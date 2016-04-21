@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.zlcdgroup.camera.CameraManager;
 import com.zlcdgroup.camera.CameraPreferences;
@@ -127,13 +128,20 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     }
 
 
+    public   Point   getScreen(){
+       WindowManager   windowManager =  getActivity().getWindowManager();
+        Point   point = new Point();
+        windowManager.getDefaultDisplay().getRealSize(point);
+        System.out.println(point.x+":"+point.y);
+        return  point;
+    }
 
     @Override
     public void openCamera(SurfaceTexture  surfaceTexture) {
 
         try {
             mCameraManager.openCamera(surfaceTexture);
-
+            getScreen();
             mCameraManager.setFrontLightMode(frontLightMode,null);
             mCameraManager.startCameraPreview();
             Point screan = mCameraManager.getScreenResolution();

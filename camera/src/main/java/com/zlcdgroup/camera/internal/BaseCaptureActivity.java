@@ -2,12 +2,14 @@ package com.zlcdgroup.camera.internal;
 
 import android.Manifest;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
@@ -17,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 
 import com.zlcdgroup.camera.R;
@@ -28,7 +31,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public abstract class BaseCaptureActivity extends AppCompatActivity  {
+public abstract class BaseCaptureActivity extends Activity {
 
     private int mCameraPosition = CAMERA_POSITION_UNKNOWN;
 
@@ -69,7 +72,9 @@ public abstract class BaseCaptureActivity extends AppCompatActivity  {
             return;
         }
         setContentView(R.layout.camera_activity);
-
+        if(null != getActionBar()){
+            getActionBar().hide();
+        }
 
 
         if (null == savedInstanceState) {

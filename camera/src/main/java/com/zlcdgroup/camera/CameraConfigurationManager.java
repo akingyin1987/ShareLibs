@@ -48,10 +48,13 @@ CameraConfigurationManager(Context context) {
     this.context = context;
     WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     Display display = manager.getDefaultDisplay();
+
     Point theScreenResolution = new Point();
-    display.getSize(theScreenResolution);
+    display.getRealSize(theScreenResolution);
+  //  display.getSize(theScreenResolution);
     screenResolution = theScreenResolution;
   }
+
 
   /**
    * Reads, one time, values from the camera that are needed by the app.
@@ -78,7 +81,7 @@ CameraConfigurationManager(Context context) {
 	  if(null != parameters.getPictureSize()){
 		  defaultpoint = new  Point(parameters.getPreviewSize().width, parameters.getPreviewSize().height);
 	  }
-	  
+	  System.out.println(screenResolution.x+":"+screenResolution.y);
 	  cameraResolution = CameraConfigurationUtils.findBestPreviewSizeValue(parameters, screenResolution);
 
 	 // cameraResolution = CameraConfigurationUtils.getCameraResolution(parameters, screenResolution);
