@@ -313,9 +313,9 @@ public final class CameraManager implements AutoFocusListion {
 		}
 	}
 
-	public void startFocus() {
+	public  synchronized void startFocus() {
 		try {
-			System.out.println("previewing="+previewing);
+
 			if (previewing) {
 
 				if (autoFocusManager == null) {
@@ -327,24 +327,17 @@ public final class CameraManager implements AutoFocusListion {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("2222222222");
-			stopPreview();
-			closeDriver();
-			resultHandler.sendEmptyMessage(CameraPreferences.RESET_CAMERA);
 		}
 
 	}
 
 	public synchronized void startCameraPreview() {
 		Camera theCamera = camera;
-		System.out.println("prev=" + previewing);
+
 		if (theCamera != null && !previewing) {
 			Parameters params = theCamera.getParameters();
 			params.setPictureFormat(PixelFormat.JPEG);
 			Point cameraResolution = configManager.getCameraResolution();
-
-			System.out.println("previewsize=" + params.getPreviewSize().width + ":" + params.getPreviewSize().height);
-			System.out.println("picturesize=" + params.getPictureSize().width + ":" + params.getPictureSize().height);
 			params.setPreviewSize(cameraResolution.x, cameraResolution.y);
 			params.setPictureSize(cameraResolution.x, cameraResolution.y);
 			previewsize = cameraResolution;
@@ -366,7 +359,7 @@ public final class CameraManager implements AutoFocusListion {
 	}
 
 	public void setDefaultPreviewSize(Parameters parameters, Point defaultpoint) {
-		System.out.println("default=" + defaultpoint.x + ":" + defaultpoint.y);
+
 		parameters.setPreviewSize(defaultpoint.x, defaultpoint.y);
 		if (Math.max(defaultpoint.x, defaultpoint.y) < 960) {
 			parameters.setPictureSize(defaultpoint.x * 2, defaultpoint.y * 2);
@@ -427,6 +420,12 @@ public final class CameraManager implements AutoFocusListion {
 					autoFocusManager.start();
 				}
 			}
+		}
+	}
+
+	public  synchronized  void  cancelAutoFocus(){
+		if(null != autoFocusManager){
+			autoFocusManager.stop();
 		}
 	}
 

@@ -21,6 +21,8 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
 
     public CameraManager mCameraManager;
 
+
+
     public boolean isSend = true;// 是否处于变焦中
     public boolean hasTakePicture = false; // 是否已拍完照片
 
@@ -72,6 +74,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
 
         try {
             mCameraManager.openCamera(surfaceTexture);
+            mCameraManager.startPreview();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,22 +101,22 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
 
     @Override
     public void onFrontLight(FrontLightMode frontLightMode) {
-
+        mCameraManager.setFrontLightMode(frontLightMode);
     }
 
     @Override
     public void onVolume(VolumeMode volumeMode) {
-
+       mCameraManager.setVolueMode(volumeMode);
     }
 
     @Override
     public void onAutoFocus() {
-
+          mCameraManager.startFocus();
     }
 
     @Override
     public void onCancelFocus() {
-
+          mCameraManager.cancelAutoFocus();
     }
 
     @Override
@@ -136,5 +139,10 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
 
         }
         getActivity().finish();
+    }
+
+    @Override
+    public boolean hasTakePicture() {
+        return hasTakePicture;
     }
 }

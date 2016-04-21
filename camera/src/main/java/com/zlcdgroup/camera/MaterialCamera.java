@@ -69,9 +69,8 @@ public class MaterialCamera {
 
 
     public Intent getIntent() {
-        final Class<?> cls = CameraUtil.hasCamera2(mContext) ?
-                CaptureActivity2.class : CaptureActivity.class;
-        Intent intent = new Intent(mContext, cls)
+
+        Intent intent = new Intent(mContext, CaptureActivity.class)
                 .putExtra(CameraIntentKey.SAVE_DIR, mSaveDir)
                 .putExtra(CameraIntentKey.SAVE_NAME,mSaveName);
         return intent;

@@ -6,6 +6,9 @@
       android:supportsRtl="true"
   >
 
+    <activity android:name=".CaptureActivity"
+              android:screenOrientation="portrait"
+              android:theme="@style/Theme.TranslucentNavigationBar"></activity>
   </application>
 
 </manifest>
