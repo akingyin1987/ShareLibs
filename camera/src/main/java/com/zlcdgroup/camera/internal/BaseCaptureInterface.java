@@ -1,68 +1,19 @@
 package com.zlcdgroup.camera.internal;
 
-import android.support.annotation.Nullable;
+
+import com.zlcdgroup.camera.FrontLightMode;
+import com.zlcdgroup.camera.VolumeMode;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
 public interface BaseCaptureInterface {
 
-    void onRetry(@Nullable String outputUri);
+    void   onFrontLight(FrontLightMode  frontLightMode);//闪光灯
 
-    void onShowPreview(@Nullable String outputUri, boolean countdownIsAtZero);
+    void   onVolume(VolumeMode   volumeMode);//拍照声音
 
-    void setRecordingStart(long start);
 
-    void setRecordingEnd(long end);
 
-    long getRecordingStart();
 
-    long getRecordingEnd();
-
-    boolean hasLengthLimit();
-
-    boolean countdownImmediately();
-
-    long getLengthLimit();
-
-    void setCameraPosition(int position);
-
-    void toggleCameraPosition();
-
-    Object getCurrentCameraId();
-
-    @BaseCaptureActivity.CameraPosition
-    int getCurrentCameraPosition();
-
-    void setFrontCamera(Object id);
-
-    void setBackCamera(Object id);
-
-    Object getFrontCamera();
-
-    Object getBackCamera();
-
-    void useVideo(String uri);
-
-    boolean shouldAutoSubmit();
-
-    boolean allowRetry();
-
-    void setDidRecord(boolean didRecord);
-
-    boolean didRecord();
-
-    boolean restartTimerOnRetry();
-
-    boolean continueTimerInPlayback();
-
-    int videoBitRate();
-
-    int videoFrameRate();
-
-    int videoPreferredHeight();
-
-    float videoPreferredAspect();
-
-    long maxAllowedFileSize();
 }
