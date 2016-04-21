@@ -79,7 +79,9 @@ public abstract class BaseCaptureActivity extends AppCompatActivity  {
             saveName = savedInstanceState.getString(CameraIntentKey.SAVE_NAME);
             saveDir = savedInstanceState.getString(CameraIntentKey.SAVE_DIR);
         }
-
+        getFragmentManager().beginTransaction()
+            .replace(R.id.camera_content, createFragment())
+            .commit();
     }
 
     private void checkPermissions() {

@@ -114,6 +114,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         tack_camera.setOnClickListener(this);
         config_camera.setOnClickListener(this);
         textureView.setOnClickListener(this);
+        textureView.setSurfaceTextureListener(this);
         zoomBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
