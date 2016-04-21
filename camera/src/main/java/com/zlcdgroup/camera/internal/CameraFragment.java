@@ -1,35 +1,28 @@
 package com.zlcdgroup.camera.internal;
-
 import android.annotation.TargetApi;
-
-import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-
 import android.os.Build;
 import android.os.Bundle;
-
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
-import android.widget.RelativeLayout;
+import com.zlcdgroup.camera.CameraManager;
 import com.zlcdgroup.camera.FrontLightMode;
 import com.zlcdgroup.camera.VolumeMode;
-
+import java.io.IOException;
 
 /**
  * camera 5.0以下使用
  */
 @SuppressWarnings("deprecation")
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-public class CameraFragment extends BaseCameraFragment implements BaseCaptureInterface {
+public class CameraFragment extends BaseCameraFragment implements BaseCaptureInterface,Camera.ErrorCallback {
 
-    CameraPreview mPreviewView;
-    RelativeLayout mPreviewFrame;
+    public CameraManager mCameraManager;
 
-    private Camera.Size mVideoSize;
-    private Camera mCamera;
-    private Point mWindowSize;
-    private int mDisplayOrientation;
-    private boolean mIsAutoFocusing;
+    public boolean isSend = true;// 是否处于变焦中
+    public boolean hasTakePicture = false; // 是否已拍完照片
 
     public static CameraFragment newInstance() {
         CameraFragment fragment = new CameraFragment();
@@ -38,18 +31,26 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     }
 
 
+    Handler   resultHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setmInterface(this);
+        mCameraManager = new CameraManager(getActivity(), resultHandler);
+        mCameraManager.setErrorCallback(this);
 
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mPreviewFrame = null;
+
     }
 
     @Override
@@ -60,7 +61,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
 
     @Override
     public void onPause() {
-        if (mCamera != null) mCamera.lock();
+
         super.onPause();
     }
 
@@ -69,6 +70,12 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     @Override
     public void openCamera(SurfaceTexture  surfaceTexture) {
 
+        try {
+            mCameraManager.openCamera(surfaceTexture);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -77,16 +84,10 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     @Override
     public void closeCamera() {
         try {
-            if (mCamera != null) {
-                try {
-                    mCamera.lock();
-                } catch (Throwable ignored) {
-                }
-                mCamera.release();
-                mCamera = null;
-            }
+             mCameraManager.stopPreview();
+             mCameraManager.closeDriver();
         } catch (IllegalStateException e) {
-            throwError(new Exception("Illegal state while trying to close camera.", e));
+           e.printStackTrace();
         }
     }
 
@@ -118,5 +119,22 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     @Override
     public void onTakePic(String dir, String fileName, boolean sound) {
 
+    }
+
+    @Override
+    public void onCameraAngle(int angle) {
+
+    }
+
+    @Override
+    public void onError(int error, Camera camera) {
+        if(error == Camera.CAMERA_ERROR_UNKNOWN){
+            showMessage("拍照错误！");
+
+        }else if(error == Camera.CAMERA_ERROR_SERVER_DIED){
+            showMessage("相机服务出错了！");
+
+        }
+        getActivity().finish();
     }
 }

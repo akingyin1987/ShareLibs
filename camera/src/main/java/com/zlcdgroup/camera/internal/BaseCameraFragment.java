@@ -2,21 +2,31 @@ package com.zlcdgroup.camera.internal;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.SurfaceTexture;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
+import android.widget.Toast;
+import com.zlcdgroup.camera.CameraManager;
 import com.zlcdgroup.camera.CameraPreferences;
 import com.zlcdgroup.camera.FrontLightMode;
 import com.zlcdgroup.camera.MaterialCamera;
@@ -32,13 +42,15 @@ import static android.app.Activity.RESULT_OK;
 /**
  *
  */
-abstract class BaseCameraFragment extends Fragment implements CameraUriInterface,TextureView.SurfaceTextureListener, View.OnClickListener {
+abstract class BaseCameraFragment extends Fragment implements CameraUriInterface,TextureView.SurfaceTextureListener, View.OnClickListener,SensorEventListener {
 
     protected ImageView  flash_model,volume_model;//闪光灯与拍照声音
 
     protected  ImageView  cancel_camera,tack_camera,config_camera;//拍照及确定取消
 
     protected  AutoFitTextureView   textureView;//预览界面
+
+    protected SeekBar    zoomBar;
 
     protected  ImageView  camera_screen,camera_guideline,camera_setting;
 
@@ -75,6 +87,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         return inflater.inflate(R.layout.camera__fragment, container, false);
     }
 
+    boolean  isSend = false;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -91,6 +104,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         camera_screen = (ImageView)view.findViewById(R.id.camera_screen);
         camera_setting = (ImageView)view.findViewById(R.id.camera_setting);
         camera_guideline = (ImageView)view.findViewById(R.id.camera_guideline);
+        zoomBar = (SeekBar)view.findViewById(R.id.bar);
         camera_screen.setOnClickListener(this);
         camera_guideline.setOnClickListener(this);
         camera_setting.setOnClickListener(this);
@@ -100,12 +114,37 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         tack_camera.setOnClickListener(this);
         config_camera.setOnClickListener(this);
         textureView.setOnClickListener(this);
+        zoomBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(hasTakePicture()){
+                    return  ;
+                }
+
+                if (!isSend) {
+                    handler.sendEmptyMessageDelayed(CameraManager.CHANGE_ZOOM, 3000);
+                    isSend = true;
+                }
+            }
+
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         initCameraConfig();
     }
 
     protected FrontLightMode   frontLightMode;
     protected VolumeMode       volumeMode;
+    protected  SensorManager  mManager;
+    protected  Sensor   mSensor;
     private  void   initCameraConfig(){
+        mManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mSensor = mManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         SharedPreferences     sharedPreferences = getShare();
         int   frontlight = sharedPreferences.getInt(CameraPreferences.KEY_FRONT_LIGHT_MODE, 0);
         initFrontlight(frontlight);
@@ -201,9 +240,14 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         mRecordDuration = null;
     }
 
+
+
     @Override
     public void onResume() {
         super.onResume();
+        if (null != mManager) {
+            mManager.registerListener(this,mSensor,SensorManager.SENSOR_DELAY_UI);
+        }
 
     }
 
@@ -230,19 +274,23 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     public abstract void settingCamera(View  view);
 
+    public abstract void  onCameraAngle(int  angle);
+
+    public abstract  boolean  hasTakePicture();//是否在拍照中
 
 
 
 
-    public void cleanup() {
-        closeCamera();
 
-    }
+
 
     @Override
     public void onPause() {
         super.onPause();
-        cleanup();
+        if (null != mManager) {
+            mManager.unregisterListener(this);
+        }
+
     }
 
     @Override
@@ -365,5 +413,89 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     @Override
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
 
+    }
+    private float oldX = 0;
+    private float oldY = 0;
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // TODO Auto-generated method stub
+        float x = event.values[SensorManager.DATA_X];
+
+        float y = event.values[SensorManager.DATA_Y];
+        // Log.i(TAG, "onSensorChanged = " + x + "--------" + y);
+        if ((Math.abs(y) > Math.abs(x)) && y > 0) {
+            if ((Math.abs(oldX) < Math.abs(oldY)) && oldY > 0) {
+            } else {
+                oldX = x;
+                oldY = y;
+                onCameraAngle(90);
+
+            }
+
+        } else if ((Math.abs(x) - Math.abs(y) > 1) && x > 0) {
+            if ((Math.abs(oldX) > Math.abs(oldY)) && oldX > 0) {
+            } else {
+                oldX = x;
+                oldY = y;
+                onCameraAngle(0);
+            }
+        } else if ((Math.abs(x) - Math.abs(y) > 1) && x < 0) {
+            if ((Math.abs(oldX) > Math.abs(oldY)) && oldX < 0) {
+            } else {
+                oldX = x;
+                oldY = y;
+                onCameraAngle(180);
+
+            }
+        } else if ((Math.abs(x) < Math.abs(y)) && y < 0) {
+            if ((Math.abs(oldX) < Math.abs(oldY)) && oldY < 0) {
+            } else {
+                oldX = x;
+                oldY = y;
+                onCameraAngle(270);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    Handler   handler = new Handler();
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if(hasTakePicture()){
+                    return  false;
+                }
+
+                zoomBar.setVisibility(View.VISIBLE);
+                zoomBar.setProgress(zoomBar.getProgress() - 10);
+                handler.sendEmptyMessageDelayed(CameraManager.CHANGE_ZOOM, 3000);
+                break;
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                if(hasTakePicture()){
+                    return  false;
+                }
+
+                zoomBar.setVisibility(View.VISIBLE);
+                zoomBar.setProgress(zoomBar.getProgress() + 10);
+                handler.sendEmptyMessageDelayed(CameraManager.CHANGE_ZOOM, 3000);
+                break;
+            case KeyEvent.KEYCODE_MENU:
+                return false;
+            default:
+                break;
+        }
+        return true;
+    }
+
+
+    public void showMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

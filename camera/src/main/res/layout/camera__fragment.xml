@@ -77,7 +77,20 @@
                       android:id="@+id/config_camera"
                       android:src="@drawable/camera_config"/>
 
+
     </RelativeLayout>
+      <SeekBar
+          android:id="@+id/bar"
+          style="@android:style/Widget.ProgressBar.Horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_above="@id/camera_tools_view"
+          android:layout_alignParentLeft="true"
+          android:layout_marginBottom="50dp"
+          android:layout_marginLeft="30dp"
+          android:layout_marginRight="30dp"
+          android:max="100"
+          android:visibility="gone" />
     </RelativeLayout>
 
   <RelativeLayout

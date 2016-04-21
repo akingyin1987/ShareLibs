@@ -21,6 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.hardware.Camera.ErrorCallback;
 import android.hardware.Camera.Parameters;
@@ -243,7 +244,7 @@ public final class CameraManager implements AutoFocusListion {
 	}
 
 	// 初始花相机及预览
-	public synchronized void openCamera(SurfaceHolder holder) throws IOException {
+	public synchronized void openCamera(SurfaceTexture holder) throws IOException {
 		Camera theCamera = camera;
 		if (theCamera == null) {
 			// 获取手机后置的摄像头
@@ -272,7 +273,8 @@ public final class CameraManager implements AutoFocusListion {
 		}
 		// 设置摄像头预览view
 		theCamera.setErrorCallback(errorCallback);
-		theCamera.setPreviewDisplay(holder);
+
+		theCamera.setPreviewTexture(holder);
 	}
 
 	public synchronized boolean isOpen() {
