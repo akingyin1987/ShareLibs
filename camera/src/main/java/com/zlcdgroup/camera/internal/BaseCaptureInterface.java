@@ -17,7 +17,9 @@ public interface BaseCaptureInterface {
 
     void   onCancelFocus();//取消对焦
 
-    void   onTakePic(String  dir,String  fileName,boolean  sound);//拍照
+    void   onTakePic(String  dir,String  fileName,boolean  sound,int  land);//拍照
+
+    void   onZoom(int   zoom);
 
 
 

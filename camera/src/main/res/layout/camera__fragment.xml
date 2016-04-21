@@ -57,9 +57,11 @@
         <ImageView
             android:id="@+id/cancel_camera"
             android:layout_width="wrap_content"
-            android:src="@drawable/camera_cancel"
+            android:src="@drawable/btn_style_cancel_1"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
             android:layout_height="wrap_content"/>
 
         <ImageView
@@ -67,8 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/fab"
-            android:src="@drawable/tackpic_camera"
+
+            android:src="@drawable/btn_style_takepicture_2"
             />
 
            <ImageView android:layout_width="wrap_content"
@@ -76,7 +78,9 @@
                       android:layout_alignParentRight="true"
                       android:layout_marginRight="20dp"
                       android:id="@+id/config_camera"
-                      android:src="@drawable/camera_config"/>
+                      android:layout_centerInParent="true"
+                      android:visibility="gone"
+                      android:src="@drawable/btn_style_save_2"/>
 
 
     </RelativeLayout>

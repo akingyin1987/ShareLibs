@@ -1,6 +1,7 @@
 package com.zlcdgroup.camera.internal;
 
 import android.app.Activity;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +14,9 @@ import android.hardware.SensorManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -133,7 +136,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             }
 
             @Override public void onStopTrackingTouch(SeekBar seekBar) {
-
+                    mInterface.onZoom(seekBar.getProgress());
             }
         });
         initCameraConfig();
@@ -391,7 +394,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         }else if(view.getId() == R.id.tack_camera){
             if(null != mInterface){
                 mInterface.onCancelFocus();
-                mInterface.onTakePic(getArguentsByKey(CameraIntentKey.SAVE_DIR),getArguentsByKey(CameraIntentKey.SAVE_NAME),volumeMode==VolumeMode.ON);
+                mInterface.onTakePic(getArguentsByKey(CameraIntentKey.SAVE_DIR),getArguentsByKey(CameraIntentKey.SAVE_NAME),volumeMode==VolumeMode.ON,screen);
             }
         }
     }
@@ -432,6 +435,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 oldX = x;
                 oldY = y;
                 onCameraAngle(90);
+                tack_camera.setImageResource(R.drawable.btn_style_takepicture_2);
 
             }
 
@@ -441,6 +445,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 oldX = x;
                 oldY = y;
                 onCameraAngle(0);
+                tack_camera.setImageResource(R.drawable.btn_style_takepicture_1);
             }
         } else if ((Math.abs(x) - Math.abs(y) > 1) && x < 0) {
             if ((Math.abs(oldX) > Math.abs(oldY)) && oldX < 0) {
@@ -448,7 +453,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 oldX = x;
                 oldY = y;
                 onCameraAngle(180);
-
+                tack_camera.setImageResource(R.drawable.btn_style_takepicture_3);
             }
         } else if ((Math.abs(x) < Math.abs(y)) && y < 0) {
             if ((Math.abs(oldX) < Math.abs(oldY)) && oldY < 0) {
@@ -456,6 +461,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 oldX = x;
                 oldY = y;
                 onCameraAngle(270);
+                tack_camera.setImageResource(R.drawable.btn_style_takepicture_4);
             }
         }
     }
@@ -465,7 +471,23 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     }
 
-    Handler   handler = new Handler();
+
+      Handler   handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                // 隐藏zoombar
+                case CameraManager.CHANGE_ZOOM:
+                    zoomBar.setVisibility(View.GONE);
+                    isSend = false;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
@@ -500,4 +522,25 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
+
+
+    public   void   tackingPicShowView(){
+        tack_camera.setVisibility(View.INVISIBLE);
+        config_camera.setVisibility(View.INVISIBLE);
+        cancel_camera.setVisibility(View.INVISIBLE);
+    }
+
+    public   void   tackSucShowView(){
+        tack_camera.setVisibility(View.INVISIBLE);
+        config_camera.setVisibility(View.VISIBLE);
+        cancel_camera.setVisibility(View.VISIBLE);
+    }
+
+    public   void   reStartShowView(){
+        tack_camera.setVisibility(View.VISIBLE);
+        config_camera.setVisibility(View.INVISIBLE);
+        cancel_camera.setVisibility(View.INVISIBLE);
+    }
+
+
 }

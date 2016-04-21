@@ -121,13 +121,16 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     }
 
     @Override
-    public void onTakePic(String dir, String fileName, boolean sound) {
-
+    public void onTakePic(String dir, String fileName, boolean sound,int land) {
+         mCameraManager.setLandscape(land);
+         mCameraManager.setImageName(fileName);
+         mCameraManager.setPath(dir);
+         mCameraManager.tackPic(0);
     }
 
     @Override
     public void onCameraAngle(int angle) {
-
+        mCameraManager.setResult(angle);
     }
 
     @Override
@@ -140,6 +143,11 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
 
         }
         getActivity().finish();
+    }
+
+    @Override
+    public void onZoom(int zoom) {
+        mCameraManager.setZoom(zoom);
     }
 
     @Override
