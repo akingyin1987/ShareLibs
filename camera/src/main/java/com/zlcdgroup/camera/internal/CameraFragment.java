@@ -1,15 +1,24 @@
 package com.zlcdgroup.camera.internal;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.ViewGroup;
+
 import com.zlcdgroup.camera.CameraManager;
+import com.zlcdgroup.camera.CameraPreferences;
 import com.zlcdgroup.camera.FrontLightMode;
+import com.zlcdgroup.camera.MathUtils;
 import com.zlcdgroup.camera.VolumeMode;
+
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -32,11 +41,60 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
         return fragment;
     }
 
-
+    @SuppressLint("HandlerLeak")
     Handler   resultHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            switch (msg.what) {
+                case CameraPreferences.TACKPIC_RESULT_DATA_OK:
+                    tackSucShowView();
+                    hasTakePicture = true;
+                    mCameraManager.stopPreview();
+                    viewfinder_view.setVisibility(View.GONE);
+                    break;
+                case CameraPreferences.TACKPIC_RESULT_DATA_NO:
+                    mCameraManager.startCameraPreview();
+                    viewfinder_view.setVisibility(View.GONE);
+                    showMessage("转换图片失败!");
+                    hasTakePicture = false;
+                    reStartShowView();
+
+                    break;
+                case CameraPreferences.TACKPIC_RESULT_VIEWBASEIMG_OK:
+                    viewfinder_view.setVisibility(View.VISIBLE);
+                    try {
+                        File file = new File(msg.obj.toString());
+                        if(file.exists()){
+                            viewfinder_view.setImageURI(Uri.parse(msg.obj.toString()));
+                        }
+                    }catch (Exception e){
+
+                    }
+
+                    break;
+                case CameraPreferences.TACKPIC_RESULT_VIEWBASEIMG_ERROR:
+                    mCameraManager.startCameraPreview();
+
+                    showMessage("转换图片失败!");
+                    hasTakePicture = false;
+                    reStartShowView();
+                    break;
+                case CameraPreferences.TACKPIC_RESULT_VIEWIMG_OK:
+                    hasTakePicture = true;
+                    tackSucShowView();
+
+                    break;
+                case CameraPreferences.TACKPIC_RESULT_VIEWIMG_ERROR:
+                    mCameraManager.startCameraPreview();
+                    viewfinder_view.setVisibility(View.GONE);
+                    hasTakePicture = false;
+                    reStartShowView();
+                    break;
+
+                default:
+                    break;
+            }
         }
     };
 
@@ -45,6 +103,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
         super.onViewCreated(view, savedInstanceState);
         setmInterface(this);
         mCameraManager = new CameraManager(getActivity(), resultHandler);
+        mCameraManager.setFrontLightMode(frontLightMode);
         mCameraManager.setErrorCallback(this);
 
     }
@@ -74,8 +133,32 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
 
         try {
             mCameraManager.openCamera(surfaceTexture);
-            mCameraManager.startPreview();
 
+            mCameraManager.setFrontLightMode(frontLightMode,null);
+            mCameraManager.startCameraPreview();
+            Point screan = mCameraManager.getScreenResolution();
+
+            Point   camera = mCameraManager.getCameraResolution();
+            System.out.println("bese=="+camera.x+":"+camera.y);
+            Point   best = MathUtils.findBestViewSize(screan, camera);
+            if(null != best){
+                ViewGroup.LayoutParams layoutParams = textureView.getLayoutParams();
+                ViewGroup.LayoutParams viewfinderViewParams = viewfinder_view.getLayoutParams();
+                if(best.x == 0 && layoutParams.height != best.y){
+                    layoutParams.height = best.y;
+                    textureView.setLayoutParams(layoutParams);
+                    viewfinderViewParams.height = layoutParams.height;
+                    viewfinder_view.setLayoutParams(viewfinderViewParams);
+
+                }else if(best.y == 0 && layoutParams.width != best.x){
+                    layoutParams.width = best.x;
+                    textureView.setLayoutParams(layoutParams);
+                    viewfinderViewParams.width = layoutParams.width;
+                    viewfinder_view.setLayoutParams(viewfinderViewParams);
+
+                }
+            }
+           mCameraManager.setVolueMode(volumeMode);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,6 +208,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
          mCameraManager.setLandscape(land);
          mCameraManager.setImageName(fileName);
          mCameraManager.setPath(dir);
+        System.out.println(dir+":"+fileName);
          mCameraManager.tackPic(0);
     }
 

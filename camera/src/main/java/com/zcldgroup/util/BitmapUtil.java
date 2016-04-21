@@ -11,11 +11,15 @@ import android.graphics.Rect;
 import android.media.ExifInterface;
 import android.text.TextPaint;
 import android.util.DisplayMetrics;
+
+import java.io.ByteArrayInputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -82,8 +86,56 @@ public class BitmapUtil {
       // 获取缩放后图片
       return BitmapFactory.decodeFile(path, newOpts);
     } catch (Exception e) {
+      e.printStackTrace();
       // TODO: handle exception
       return null;
+    }
+  }
+
+
+  public synchronized static void saveFileCache(byte[] fileData,
+                                                String folderPath, String fileName) throws Exception {
+
+    File file = new File(folderPath, fileName);
+    OutputStream os = null;
+    ByteArrayInputStream is = new ByteArrayInputStream(fileData);
+    try {
+
+      os = new FileOutputStream(file);
+      byte[] buffer = new byte[1024*8];
+      int len = 0;
+      while (-1 != (len = is.read(buffer))) {
+
+        os.write(buffer, 0, len);
+      }
+      os.flush();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new Exception(e);
+    } finally {
+      closeIO(os,is);
+    }
+  }
+
+  /**
+   * 关闭流
+   *
+   * @param closeables
+   */
+  public static void closeIO(Closeable... closeables) {
+    if (null == closeables || closeables.length <= 0) {
+      return;
+    }
+    for (Closeable cb : closeables) {
+      try {
+        if (null == cb) {
+          continue;
+        }
+        cb.close();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
     }
   }
 
@@ -101,39 +153,27 @@ public class BitmapUtil {
    */
   public static Bitmap dataToBaseBitmap(byte[] data, String path, String img, int rotat) {
 
-    Bitmap img_src = null;
-
-    FileOutputStream fos = null;
     try {
       File file = new File(path);
       if (!file.exists()) {
         file.mkdirs();
       }
-      fos = new FileOutputStream(new File(path, img));
-      img_src = BitmapFactory.decodeByteArray(data, 0, data.length);
+      saveFileCache(data,path,img);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return  null;
+    }
+    Bitmap img_src = null;
 
-      // img_src.compress(Bitmap.CompressFormat.JPEG, 80, fos);
-      // if(img_src.getWidth() > img_src.getHeight()){
-      // img_src = createBitmap(path+img, maxWidth, maxHigth);
-      // }else{
-      // img_src = createBitmap(path+img, maxHigth, maxWidth);
-      // }
-      //
+    FileOutputStream fos = null;
+    try {
+      img_src = createBitmap(path+File.separator+img,960,960);
+      File   temp = new File(path,img);
       Matrix m = new Matrix();
 
       m.setRotate(rotat);
-
       img_src = Bitmap.createBitmap(img_src, 0, 0, img_src.getWidth(), img_src.getHeight(), m, true);
-
-
-      // int w = img_src.getWidth();
-      // int h = img_src.getHeight();
-      //
-      // if (w * 16 != h *9 && w*9 != h*16 ) {
-      // Rect rect = getFramingRect(w, h);
-      // img_src = Bitmap.createBitmap(img_src,rect.left,
-      // rect.top, rect.width(), rect.height());
-      // }
+      fos = new FileOutputStream(temp);
       img_src.compress(Bitmap.CompressFormat.JPEG, quality, fos);
 
     } catch (Exception e) {

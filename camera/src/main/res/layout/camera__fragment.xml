@@ -16,6 +16,18 @@
         android:layout_centerInParent="true" />
   </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.zlcdgroup.camera.widget.TouchImageView
+            android:id="@+id/viewfinder_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/camera_transparent" />
+    </RelativeLayout>
+
   <RelativeLayout android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="horizontal"

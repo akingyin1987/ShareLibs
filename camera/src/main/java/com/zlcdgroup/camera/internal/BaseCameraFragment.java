@@ -1,5 +1,6 @@
 package com.zlcdgroup.camera.internal;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 
 import android.app.Fragment;
@@ -36,6 +37,8 @@ import com.zlcdgroup.camera.MaterialCamera;
 import com.zlcdgroup.camera.R;
 import com.zlcdgroup.camera.VolumeMode;
 import com.zlcdgroup.camera.util.CameraUtil;
+import com.zlcdgroup.camera.widget.TouchImageView;
+
 import java.io.File;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -52,6 +55,8 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     protected  ImageView  cancel_camera,tack_camera,config_camera;//拍照及确定取消
 
     protected  AutoFitTextureView   textureView;//预览界面
+
+    protected TouchImageView   viewfinder_view;
 
     protected SeekBar    zoomBar;
 
@@ -108,6 +113,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         camera_setting = (ImageView)view.findViewById(R.id.camera_setting);
         camera_guideline = (ImageView)view.findViewById(R.id.camera_guideline);
         zoomBar = (SeekBar)view.findViewById(R.id.bar);
+        viewfinder_view = (TouchImageView)view.findViewById(R.id.viewfinder_view);
         camera_screen.setOnClickListener(this);
         camera_guideline.setOnClickListener(this);
         camera_setting.setOnClickListener(this);
@@ -393,7 +399,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             }
         }else if(view.getId() == R.id.tack_camera){
             if(null != mInterface){
-                mInterface.onCancelFocus();
+
                 mInterface.onTakePic(getArguentsByKey(CameraIntentKey.SAVE_DIR),getArguentsByKey(CameraIntentKey.SAVE_NAME),volumeMode==VolumeMode.ON,screen);
             }
         }
@@ -406,7 +412,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-
+            System.out.println("onSurfaceTextureSizeChanged");
     }
 
     @Override
@@ -471,7 +477,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     }
 
-
+      @SuppressLint("HandlerLeak")
       Handler   handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
