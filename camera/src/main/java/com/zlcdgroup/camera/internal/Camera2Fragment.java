@@ -998,9 +998,11 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     @Override
     public void onFrontLight(FrontLightMode frontLightMode) {
 
-
+        mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
+            CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
         switch (frontLightMode){
             case OFF:
+
                 mPreviewRequestBuilder.set(CaptureRequest.FLASH_MODE,
                     CameraMetadata.FLASH_MODE_OFF);
                 break;
@@ -1030,11 +1032,30 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     @Override
     public void onAutoFocus() {
+        mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
+            CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+        try {
+            mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mCaptureCallback,
+                mBackgroundHandler);
 
+            mState = STATE_PREVIEW;
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override public void onCancelFocus() {
+    @Override
+    public void onCancelFocus() {
+        mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
+            CaptureRequest.CONTROL_AF_MODE_OFF);
+        try {
+            mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mCaptureCallback,
+                mBackgroundHandler);
 
+            mState = STATE_PREVIEW;
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
