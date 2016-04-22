@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_size_middle">16.0sp</dimen>
+    <dimen name="dialogBase_width">310.0dip</dimen>
+    <dimen name="dialogBase_titleHeight">48.0dip</dimen>
+    <dimen name="dialogBase_titleIconMargin">12.0dip</dimen>
+    <dimen name="dialogBase_content_margin">12.0dip</dimen>
+    <dimen name="dialogBase_message_paddingTop">5.0dip</dimen>
+    <dimen name="dialogBase_message_paddingLeft">2.0dip</dimen>
+    <dimen name="dialogBase_message_paddingRight">2.0dip</dimen>
+    <dimen name="dialogBase_message_lineSpacing">5.0dip</dimen>
+    <dimen name="dialogBase_button_marginTop">2.0dip</dimen>
+    <dimen name="dialogBase_listWidth">254.0dip</dimen>
+    <dimen name="dialogBase_btnWidth">135.0dip</dimen>
+    <dimen name="dialogBase_btnHeight">44.0dip</dimen>
+    <dimen name="dialogBase_btnArea_marginLeft">10.0dip</dimen>
+    <dimen name="dialogBase_btnArea_marginRight">10.0dip</dimen>
+    <dimen name="dialogBase_btnArea_marginTop">20.0dip</dimen>
+    <dimen name="dialogBase_divider_width">1.0px</dimen>
+    <dimen name="dialogBase_title_marginTop">15.0dip</dimen>
+    <dimen name="dialogBase_title_marginLeft">15.0dip</dimen>
+    <dimen name="dialogBase_title_marginRight">15.0dip</dimen>
+    <dimen name="dialogBase_body_marginTop">10.0dip</dimen>
+    <dimen name="dialogBase_body_marginLeft">15.0dip</dimen>
+    <dimen name="dialogBase_body_marginRight">15.0dip</dimen>
+    <dimen name="dialogBase_body_marginBottom">10.0dip</dimen>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tuya_transparent">#00000000</color>
+
+    <color name="color_hei">#ff000000</color>
+    <color name="dialog_gray">#34000000</color>
+    <color name="dialog_blue">#ff0079ff</color>
+
+</resources>
