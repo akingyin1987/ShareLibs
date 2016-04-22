@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/login_edit_normal"
+    android:gravity="center" >
+
+    <TextView
+        android:id="@+id/txt"
+        android:layout_width="fill_parent"
+        android:layout_height="110dp"
+        android:gravity="fill"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/img_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
+        
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+               
+                 />
+
+            <ImageView
+                android:id="@+id/video_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:src="@drawable/icn_play_small"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/img_text"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:singleLine="true"
+            
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/copy_img"
+               android:layout_gravity="right"
+               android:visibility="gone"
+               android:src="@drawable/icon_ok"/>
+</FrameLayout>

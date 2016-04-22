@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"   
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/title_bar_height"
+    android:background="@drawable/skin_header"
+    android:gravity="center_vertical"
+    android:id="@+id/white_titlebar_layout"
+    android:padding="0.0px" >
+
+       <!-- 标题名 -->
+
+    <TextView
+        android:id="@+id/title_name"
+        style="@style/TitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="96.0dip"
+        android:layout_marginRight="96.0dip"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:text="@null" />
+
+    <!-- 上下结构的标题名 -->
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="5.0dip"
+        android:layout_marginLeft="96.0dip"
+        android:layout_marginRight="96.0dip"
+        android:layout_marginTop="5.0dip"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/title_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@null"
+            android:textColor="@color/skin_bar_text"
+            android:textSize="16.0dip" />
+
+        <TextView
+            android:id="@+id/title_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_top"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@null"
+            android:textColor="@color/skin_bar_text"
+            android:textSize="12.0dip" />
+    </RelativeLayout>
+
+    <!-- 左边按钮，自带一个返回箭头 -->
+
+
+    <TextView
+        android:id="@+id/ivTitleBtnLeft"
+        style="@style/TitleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="36.0dip"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:drawableLeft="@drawable/back"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxWidth="88.0dip"
+        android:minWidth="55.0dip"
+        android:singleLine="true"
+        android:text="@null"
+        android:visibility="visible" />
+
+    <!-- 左边按钮，不带返回箭头 -->
+
+    <ImageView
+        android:id="@+id/ivTitleBtnLeftButton"
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+       
+        
+        android:scaleType="center"
+        android:includeFontPadding="false"
+        android:maxWidth="88.0dip"
+        android:minWidth="52.0dip"
+       
+        
+        android:visibility="gone" />
+
+    <!-- 右边按钮 -->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/ivTitleBtnRightImage"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" 
+        android:scaleType="center"
+        android:src="@drawable/save"/>
+</RelativeLayout>

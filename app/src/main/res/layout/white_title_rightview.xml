@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingRight="5.0dip" >
+
+    <!-- 右边文字按钮 -->
+
+    <TextView
+        android:id="@+id/ivTitleBtnRightText"
+        style="@style/TitleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_button_right_selector"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxWidth="100.0dip"
+        android:minWidth="52.0dip"
+        android:singleLine="true"
+        android:text="@null"
+        android:visibility="gone" />
+
+    <!-- 右边图片按钮最宽100dp -->
+
+    <ImageView
+        android:id="@+id/ivTitleBtnRightImage"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+         
+        android:layout_marginRight="0.0dip"
+        android:background="@drawable/top_button_right_selector"
+        android:includeFontPadding="false"
+        android:maxWidth="100.0dip"
+        
+        android:scaleType="centerInside"
+        android:visibility="visible" />
+
+
+    <!-- 右边图片按钮 35*35dp RelativeLayout做为点击事件 -->
+
+    <RelativeLayout
+        android:id="@+id/rlTitleBtnRightLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ivTitleBtnRightImage"
+        android:layout_alignLeft="@id/ivTitleBtnRightImage"
+        android:layout_alignRight="@id/ivTitleBtnRightImage"
+        android:layout_alignTop="@id/ivTitleBtnRightImage"
+        android:background="@drawable/top_button_right_selector"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/ivTitleBtnRightCenterImage"
+            android:layout_width="35.0dip"
+            android:layout_height="35.0dip"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside" />
+    </RelativeLayout>
+
+    <!-- 右上角的小图片可用作提示 -->
+
+    <ImageView
+        android:id="@+id/ivTitleBtnRightHintImg"
+        android:layout_width="12.0dip"
+        android:layout_height="12.0dip"
+        android:layout_alignRight="@id/ivTitleBtnRightImage"
+        android:layout_marginRight="0.0dip"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="0.0dip"
+        android:layout_height="0.0dip"
+        android:layout_below="@id/ivTitleBtnRightImage"
+        android:background="#00000000"
+        android:visibility="invisible" />
+
+</RelativeLayout>

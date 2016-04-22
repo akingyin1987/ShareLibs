@@ -8,5 +8,37 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <style name="TitleText">
+    <item name="android:textSize">17.0dip</item>
+    <item name="android:textColor">@color/skin_bar_text</item>
+  </style>
+  <!-- 实线 -->
+  <style name="border_line">
+    <item name="android:background">@color/border_color</item>
+    <item name="android:layout_width">fill_parent</item>
+    <item name="android:layout_height">0.5dip</item>
+  </style>
+
+  <style name="TitleBtn">
+    <item name="android:textSize">17.0dip</item>
+    <item name="android:textColor">@color/title_black_color</item>
+  </style>
+
+  <!-- 竖线 -->
+  <style name="ndmms_vertical_line">
+    <item name="android:background">#ccc</item>
+    <item name="android:layout_width">1px</item>
+    <item name="android:layout_height">fill_parent</item>
+  </style>
+
+  <!-- 等待对话框样式 -->
+  <style name="loading_dialog">
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowFrame">@null</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowIsFloating">true</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:background">@android:color/transparent</item>
+  </style>
 
 </resources>

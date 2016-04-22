@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f1f1f1" >
+
+    
+    <RelativeLayout
+        android:id="@+id/photo_video_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <include layout="@layout/white_title_bar" />
+    </RelativeLayout>
+
+    <View
+        style="@style/border_line"
+        android:layout_below="@+id/photo_video_top" />
+
+    <LinearLayout
+        android:id="@+id/photo_video_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/photo_video_top"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/photo_video_bottom"
+        android:layout_below="@+id/photo_video_content"
+        android:layout_marginBottom="2dp"
+        android:orientation="vertical" >
+
+        
+
+            <RadioGroup
+                android:id="@+id/imgtextsort_type"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/texts_sort"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_bar_left_btn_bg"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="文字排序"
+                    android:textColor="@color/skin_bar_blue_btn" />
+
+                <RadioButton
+                    android:id="@+id/imgs_sort"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_bar_right_btn_bg"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="文件排序"
+                    android:textColor="@color/skin_bar_blue_btn" />
+            </RadioGroup>
+       
+
+        <org.askerov.dynamicgrid.DynamicGridView
+            android:id="@+id/photos_gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="1dp"
+            android:cacheColorHint="#00000000"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:horizontalSpacing="2dp"
+            android:numColumns="2"
+            android:padding="5dp"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="2dp" />
+        
+          <org.askerov.dynamicgrid.DynamicGridView
+              android:id="@+id/photos_gridview_sorttext"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_marginTop="1dp"
+              android:cacheColorHint="#00000000"
+              android:focusable="true"
+               android:visibility="gone"
+              android:focusableInTouchMode="true"
+              android:horizontalSpacing="2dp"
+              android:numColumns="2"
+              android:padding="5dp"
+              android:scrollbarAlwaysDrawHorizontalTrack="true"
+              android:scrollbarAlwaysDrawVerticalTrack="true"
+              android:stretchMode="columnWidth"
+              android:verticalSpacing="2dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/photo_video_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:splitMotionEvents="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/operate_result_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/item_ndmms_bg"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="当前操作："
+                android:textColor="@color/gray_font" />
+
+            <TextView
+                android:id="@+id/operation_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp" />
+
+            <View style="@style/ndmms_vertical_line" />
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/dark_font" />
+
+            <View style="@style/ndmms_vertical_line" />
+
+            <TextView
+                android:id="@+id/finished"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="@color/dark_font" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/operate_item_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+          
+            android:background="@drawable/item_ndmms_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tuya"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="涂鸦"
+                android:textColor="@color/dark_font" />
+
+            <View style="@style/ndmms_vertical_line" />
+
+            <TextView
+                android:id="@+id/sort"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="排序"
+                android:textColor="@color/dark_font" />
+
+            <View style="@style/ndmms_vertical_line" />
+  <TextView
+                android:id="@+id/sortall"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="排序2"
+                android:textColor="@color/dark_font" />
+
+            <View style="@style/ndmms_vertical_line" />
+            <TextView
+                android:id="@+id/copy"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="复制"
+                android:textColor="@color/dark_font" />
+
+            <View style="@style/ndmms_vertical_line" />
+
+            <TextView
+                android:id="@+id/remark"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1.2"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="修改/重拍"
+                android:textColor="@color/dark_font" />
+
+            <View style="@style/ndmms_vertical_line" />
+
+            <TextView
+                android:id="@+id/delect"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="@color/dark_font" />
+        </LinearLayout>
+
+        <View style="@style/border_line" />
+
+        <LinearLayout
+            android:id="@+id/operate_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+           
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/addtext"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="文字"
+                android:textColor="@color/dark_font" />
+
+            <View
+                android:id="@+id/addtext_title"
+                style="@style/ndmms_vertical_line" />
+
+            <TextView
+                android:id="@+id/photo"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="拍照"
+                android:textColor="@color/dark_font" />
+
+            <View
+                android:id="@+id/photo_video_title"
+                style="@style/ndmms_vertical_line" />
+
+            <TextView
+                android:id="@+id/video"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="视频"
+                android:textColor="@color/dark_font" />
+            
+            <View
+                android:id="@+id/custom_operation_title"
+                style="@style/ndmms_vertical_line"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/custom_operation"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/ndmms_textbtn_bg"
+                android:gravity="center"
+                android:text="自定义"
+                android:visibility="gone"
+                android:textColor="@color/dark_font" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

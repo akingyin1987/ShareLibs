@@ -1,0 +1,30 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee" >
+
+    <uk.co.senab.photoview.PhotoView
+        android:id="@+id/imgtext_item_img"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <TextView
+        android:id="@+id/imgtext_item_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/imgtext_item_matrix"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#60000000"
+        android:gravity="top"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+</FrameLayout>
