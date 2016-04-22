@@ -26,6 +26,7 @@ public class CameraDialogUtil {
   public   static    void   showCameraSetting(final SharedPreferences  sharedPreferences,
       final Context  context, final CameraApiCallback<String>  cb){
     final Dialog dialog =  new Dialog(context);
+    dialog.setTitle("相机设置");
     dialog.setContentView(R.layout.camera_setting_custom);
     final CheckBox   custom_guideline = (CheckBox) dialog.findViewById(R.id.custom_guideline);
     final CheckBox   custom_lock_screen = (CheckBox)dialog.findViewById(R.id.custom_lock_screen);
@@ -50,14 +51,14 @@ public class CameraDialogUtil {
          if(!TextUtils.isEmpty(leftstr)){
            customleft = Integer.parseInt(leftstr);
          }
-         if(left<0 || left>100 || top<0 || top>100){
+         if(customleft<0 || customleft>100 || customtop<0 || customtop>100){
            Toast.makeText(context,"数据输入错误，应在0-100",Toast.LENGTH_SHORT).show();
            return;
          }
          sharedPreferences.edit().putInt(CameraPreferences.KEY_GUIDE,custom_guideline.isChecked()?1:0)
              .putInt(CameraPreferences.KEY_SCREEN,custom_lock_screen.isChecked()?1:0)
-             .putInt(CameraPreferences.KEY_GUIDE_LEFT,left)
-             .putInt(CameraPreferences.KEY_GUIDE_TOP,top).apply();
+             .putInt(CameraPreferences.KEY_GUIDE_LEFT,customleft)
+             .putInt(CameraPreferences.KEY_GUIDE_TOP,customtop).apply();
 
            dialog.dismiss();
            if(null != cb){

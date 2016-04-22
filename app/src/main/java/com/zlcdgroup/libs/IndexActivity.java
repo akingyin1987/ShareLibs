@@ -26,7 +26,23 @@ public class IndexActivity  extends AppCompatActivity {
       @Override public void onClick(View v) {
         new MaterialCamera(IndexActivity.this).saveDir(
             Environment.getExternalStorageDirectory().toString() + File.separator + "temp")
-            .start(100);
+            .startAuto(100);
+      }
+    });
+
+    findViewById(R.id.camera1_default).setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        new MaterialCamera(IndexActivity.this).saveDir(
+            Environment.getExternalStorageDirectory().toString() + File.separator + "temp")
+            .startCamera(101);
+      }
+    });
+
+    findViewById(R.id.camera2_default).setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        new MaterialCamera(IndexActivity.this).saveDir(
+            Environment.getExternalStorageDirectory().toString() + File.separator + "temp")
+            .startCaera2(102);
       }
     });
   }

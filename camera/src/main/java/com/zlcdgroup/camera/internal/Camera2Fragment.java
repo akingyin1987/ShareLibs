@@ -208,12 +208,14 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
         @Override
         public void onImageAvailable(ImageReader reader) {
+            System.out.println("onImageAvailable=="+(null == mFile));
             mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
         }
 
     };
 
     /**
+     * 一个预览相关的请求
      * {@link CaptureRequest.Builder} for the camera preview
      */
     private CaptureRequest.Builder mPreviewRequestBuilder;
@@ -249,6 +251,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
         private void process(CaptureResult result) {
             switch (mState) {
                 case STATE_PREVIEW: {
+
                     // We have nothing to do when the camera preview is working normally.
                     break;
                 }
@@ -463,24 +466,21 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 // For still image captures, we use the largest available size.
                 //选择了一个最大的分辨率
                 List<Size>  supportSizes = Arrays.asList(map.getOutputSizes(ImageFormat.JPEG));
-                for(Size  size : supportSizes){
-                    System.out.println(size.toString());
-                }
+
                 //获取最大的一个分辨率
                // Size largest = Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new CompareSizesByArea());
                 Point  besePoint = Camera2Help.findBestPreviewSizeValue(supportSizes,camera2Help.getScreenResolution());
                 Size   largest = new Size(besePoint.x,besePoint.y);
-                System.out.println(largest.getWidth()+":"+largest.getHeight());
+
+                //设置图片格式
                 mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(),
                     ImageFormat.JPEG, /*maxImages*/2);
-                mImageReader.setOnImageAvailableListener(
-                    mOnImageAvailableListener, mBackgroundHandler);
+                mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mBackgroundHandler);
 
                 // Find out if we need to swap dimension to get the preview size relative to sensor
                 // coordinate.
                 int displayRotation = activity.getWindowManager().getDefaultDisplay().getRotation();
-                int sensorOrientation =
-                    characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
+                int sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
                 boolean swappedDimensions = false;
                 switch (displayRotation) {
                     case Surface.ROTATION_0:
@@ -499,8 +499,9 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                         Log.e(TAG, "Display rotation is invalid: " + displayRotation);
                 }
 
+                //设置预览尺寸
                 Point displaySize = new Point();
-                activity.getWindowManager().getDefaultDisplay().getSize(displaySize);
+                activity.getWindowManager().getDefaultDisplay().getRealSize(displaySize);
                 int rotatedPreviewWidth = width;
                 int rotatedPreviewHeight = height;
                 int maxPreviewWidth = displaySize.x;
@@ -527,7 +528,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class),
                     rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
                     maxPreviewHeight, largest);
-
+                Log.d(TAG,"预览尺寸："+mPreviewSize.getWidth()+":"+mPreviewSize.getHeight());
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -540,6 +541,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
                 // Check if the flash is supported.
                 Boolean available = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+                //是否支持对焦
                 mFlashSupported = available == null ? false : available;
 
                 mCameraId = cameraId;
@@ -625,6 +627,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
             mPreviewRequestBuilder.addTarget(surface);
 
             // Here, we create a CameraCaptureSession for camera preview.
+            //创建与相机的对话
             mCameraDevice.createCaptureSession(Arrays.asList(surface, mImageReader.getSurface()),
                 new CameraCaptureSession.StateCallback() {
 
@@ -810,6 +813,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
         if (mFlashSupported) {
             requestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
                 CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
+
         }
     }
 
@@ -937,7 +941,10 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     @Override
     public void openCamera(SurfaceTexture surface) {
-         camera2Help = new Camera2Help(getActivity());
+         if(null == camera2Help){
+             camera2Help = new Camera2Help(getActivity());
+         }
+         setmInterface(this);
 
     }
 
@@ -964,6 +971,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
         }
     }
 
+
     @Override
     public void settingCamera(View view) {
         CameraDialogUtil.showCameraSetting(getShare(), getActivity(), new CameraApiCallback<String>() {
@@ -975,6 +983,9 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     @Override
     public void onCameraAngle(int angle) {
+          if(null == camera2Help){
+              camera2Help = new Camera2Help(getActivity());
+          }
           camera2Help.setAngle(angle);
     }
 
@@ -983,9 +994,33 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
         return hasTakePicture;
     }
 
+
     @Override
     public void onFrontLight(FrontLightMode frontLightMode) {
 
+
+        switch (frontLightMode){
+            case OFF:
+                mPreviewRequestBuilder.set(CaptureRequest.FLASH_MODE,
+                    CameraMetadata.FLASH_MODE_OFF);
+                break;
+            case ON:
+                mPreviewRequestBuilder.set(CaptureRequest.FLASH_MODE,
+                    CameraMetadata.FLASH_MODE_TORCH);
+                break;
+            case AUTO:
+                mPreviewRequestBuilder.set(CaptureRequest.FLASH_MODE,
+                    CaptureRequest.FLASH_MODE_SINGLE);
+                break;
+        }
+        try {
+            mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mCaptureCallback,
+                mBackgroundHandler);
+
+            mState = STATE_PREVIEW;
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1002,11 +1037,20 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     }
 
-    @Override public void onTakePic(String dir, String fileName, boolean sound, int land) {
-
+    @Override
+    public void onTakePic(String dir, String fileName, boolean sound, int land) {
+        try{
+            File   dirfile = new File(dir);
+            dirfile.mkdirs();
+            mFile = new File(dirfile,fileName);
+            lockFocus();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    @Override public void onZoom(int zoom) {
+    @Override
+    public void onZoom(int zoom) {
 
     }
 

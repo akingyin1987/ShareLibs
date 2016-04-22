@@ -206,16 +206,20 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     }
 
     public   void    initGuide(int  guide,int  top,int  left){
+
         if(guide == 0){
+            camera_guideline.setVisibility(View.GONE);
             camera_layout.setVisibility(View.GONE);
             camera_movetop.setVisibility(View.GONE);
-            camera_guideline.setImageResource(R.drawable.camera_guideline);
+
         }else if(guide == 1){
+            camera_guideline.setVisibility(View.VISIBLE);
             camera_layout.setVisibility(View.VISIBLE);
             camera_movetop.setVisibility(View.VISIBLE);
             camera_guideline.setImageResource(R.drawable.camera_guideline_red);
             try{
                 int  cameraheight = Math.max(textureView.getWidth(), textureView.getHeight()) * left/100;
+
                 if(cameraheight>0){
                     RelativeLayout.LayoutParams topLayoutParams = new RelativeLayout.LayoutParams(camera_moveleft.getLayoutParams());
                     topLayoutParams.topMargin = cameraheight;
@@ -224,6 +228,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                     camera_moveleft.setVisibility(View.GONE);
                 }
                 int   camerawidth = Math.min(textureView.getWidth(), textureView.getHeight()) * (100-top)/100;
+
                 if(camerawidth>0){
                     RelativeLayout.LayoutParams topLayoutParams = new RelativeLayout.LayoutParams(camera_movetop.getLayoutParams());
                     topLayoutParams.leftMargin = camerawidth;
@@ -235,6 +240,12 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 e.printStackTrace();
             }
 
+        }else if(guide == 2){
+            //界面隐长
+            camera_guideline.setVisibility(View.VISIBLE);
+            camera_guideline.setImageResource(R.drawable.camera_guideline);
+            camera_layout.setVisibility(View.GONE);
+            camera_movetop.setVisibility(View.GONE);
         }
     }
 
@@ -376,18 +387,20 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             settingCamera(view);
         }else if(view.getId() == R.id.camera_guideline){
             SharedPreferences  sharedPreferences = getShare();
-            int  guide = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE,0);
-            System.out.println("guide=="+guide);
-            guide = guide==0?1:0;
-            camera_guideline.setImageResource(guide==0?R.drawable.camera_guideline:R.drawable.camera_guideline_red);
-            if(guide==0){
+            int  guide = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE,2);
+
+            guide = guide==2?1:2;
+
+            camera_guideline.setImageResource(guide==2?R.drawable.camera_guideline:R.drawable.camera_guideline_red);
+            if(guide==2){
                 camera_movetop.setVisibility(View.GONE);
                 camera_layout.setVisibility(View.GONE);
             }else{
                 camera_layout.setVisibility(View.VISIBLE);
                 camera_movetop.setVisibility(View.VISIBLE);
             }
-            sharedPreferences.edit().putInt(CameraPreferences.KEY_GUIDE,guide);
+
+            sharedPreferences.edit().putInt(CameraPreferences.KEY_GUIDE,guide).apply();
         }else if(view.getId() == R.id.camera_screen){
             SharedPreferences  sharedPreferences = getShare();
             int  screen  = sharedPreferences.getInt(CameraPreferences.KEY_SCREEN,0);
@@ -414,7 +427,12 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-
+        int  guide,top,left;
+        SharedPreferences  sharedPreferences = getShare();
+        guide = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE,0);
+        top = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_TOP,0);
+        left = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_LEFT,0);
+        initGuide(guide,top,left);
     }
 
     @Override

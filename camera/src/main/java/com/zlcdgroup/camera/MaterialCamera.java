@@ -69,14 +69,30 @@ public class MaterialCamera {
 
 
     public Intent getIntent() {
-        System.out.println(mSaveDir+":"+mSaveName);
+
         Intent intent = new Intent(mContext, CameraUtil.hasCamera2(mContext)?Capture2Activity.class:CaptureActivity.class)
                 .putExtra(CameraIntentKey.SAVE_DIR, mSaveDir)
                 .putExtra(CameraIntentKey.SAVE_NAME,TextUtils.isEmpty(mSaveName)?UUID.randomUUID().toString().replace("-","")+".jpg":mSaveName);
         return intent;
     }
 
-    public void start(int requestCode) {
+    public void startAuto(int requestCode) {
         mContext.startActivityForResult(getIntent(), requestCode);
     }
+
+    public  void  startCamera(int  requestCode){
+        Intent intent = new Intent(mContext, CaptureActivity.class)
+            .putExtra(CameraIntentKey.SAVE_DIR, mSaveDir)
+            .putExtra(CameraIntentKey.SAVE_NAME,TextUtils.isEmpty(mSaveName)?UUID.randomUUID().toString().replace("-","")+".jpg":mSaveName);
+        mContext.startActivityForResult(intent, requestCode);
+    }
+
+    public  void  startCaera2(int requestcode){
+        Intent intent = new Intent(mContext, Capture2Activity.class)
+            .putExtra(CameraIntentKey.SAVE_DIR, mSaveDir)
+            .putExtra(CameraIntentKey.SAVE_NAME,TextUtils.isEmpty(mSaveName)?UUID.randomUUID().toString().replace("-","")+".jpg":mSaveName);
+        mContext.startActivityForResult(intent, requestcode);
+    }
+
+
 }

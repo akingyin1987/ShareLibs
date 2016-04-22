@@ -6,7 +6,17 @@
 
   <Button android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="camera1"
+      android:text="cameraAuto"
    android:id="@+id/camera_default"/>
+
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="camera1"
+      android:id="@+id/camera1_default"/>
+
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="camera2"
+      android:id="@+id/camera2_default"/>
 
 </LinearLayout>
