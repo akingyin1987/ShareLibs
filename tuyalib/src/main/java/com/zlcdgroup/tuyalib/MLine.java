@@ -39,18 +39,18 @@ public class MLine extends Shape {
 	public double heightscale = 1.0 / 3;
 
 	public MLine() {
-	};
+	}
 
 	/**
 	 * 
-	 * @param width图片宽度
-	 * @param height图片高度
+	 * @param
+	 * @param
 	 * @param angle
 	 *            箭头与直线角度
 	 * @param scale
 	 *            直线与箭头比例
-	 * @param isright
-	 *            箭头是否指向右边
+	 * @param
+	 *
 	 */
 	public MLine(int width, int height, double angle, double scale,
 			boolean isrigth) {

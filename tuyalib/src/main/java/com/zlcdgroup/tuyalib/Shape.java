@@ -40,7 +40,7 @@ public abstract  class Shape {
 	public    void   setMovePt(int  x,int y){
 		 movePt.x  = x;
 		 movePt.y   = y;
-	};
+	}
 	
 	public   int    getMoveX(){
         return  movePt.x;

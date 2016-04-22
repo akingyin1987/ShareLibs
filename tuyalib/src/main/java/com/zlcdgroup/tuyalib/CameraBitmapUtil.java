@@ -172,7 +172,7 @@ public class CameraBitmapUtil {
      * 
      * @param mBitmap
      * @param rotat
-     * @param rect
+     * @param
      * @param path
      * @param img
      * @return

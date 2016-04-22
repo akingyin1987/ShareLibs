@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TuYaConfig {
 
-	private static List<Shape> arrowiconList = new ArrayList<Shape>();;
+	private static List<Shape> arrowiconList = new ArrayList<Shape>();
 
 	private static List<Shape> lineiconList = new ArrayList<Shape>();
 

@@ -7,15 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.zlcdgroup.rushfee.R;
-import com.zlcdgroup.tuya.TuyaView.TuyaMovePostion;
-
-
-
-import com.zlcdgroup.util.DialogCallback;
-import com.zlcdgroup.util.DialogUtil;
-import com.zlcdgroup.util.FileUtils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -44,6 +35,10 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
 
+import com.zlcdgroup.util.TuyaDialogCallback;
+import com.zlcdgroup.util.TuyaDialogUtil;
+import com.zlcdgroup.util.TuyaFileUtils;
+
 /**
  * 涂鸦简单处理（1、将当前获取的图片涂鸦后进行保存，分辨率前后不会发生改变。 2、对于当前图片分辨率比当前手机分辨率稍大的做了适合的缩小处理。
  * 3、只针对比较适合的图片，未对图片进行压缩 4、旋转图片会水清当前涂鸦信息） 参数：picName图片名
@@ -54,7 +49,7 @@ import android.widget.Toast;
  * @author king
  * 
  */
-public class TuYaActivity extends Activity implements OnClickListener, OnLongClickListener, TuyaMovePostion {
+public class TuYaActivity extends Activity implements OnClickListener, OnLongClickListener {
 
 	// 图片名
 	public static final String KEY_PIC_NAME = "picName";
@@ -153,7 +148,6 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 
 			tuyaliLayout.addView(tuyaView);
 			tuyaView.setSrc(src);
-			tuyaView.setTuyaMoveListion(this);
 
 		} catch (Error e) {
 			e.printStackTrace();
@@ -346,22 +340,22 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 						break;
 						
 					case 9:
-						DialogUtil.SelectColor(TuYaActivity.this, new DialogCallback() {
-							
+						TuyaDialogUtil.SelectColor(TuYaActivity.this, new TuyaDialogCallback() {
+
 							@Override
 							public void success(Object obj) {
-								
-								if(null != tuyaView){
+
+								if (null != tuyaView) {
 									try {
-										Integer   color = Integer.parseInt(obj.toString());
-										System.out.println("color="+color);
-										if(color == 0){
+										Integer color = Integer.parseInt(obj.toString());
+										System.out.println("color=" + color);
+										if (color == 0) {
 											tuyaView.setTuYaColor(TuYaColor.NULL);
-										}else if(color == 1){
+										} else if (color == 1) {
 											tuyaView.setTuYaColor(TuYaColor.Red);
-										}else if(color == 2){
+										} else if (color == 2) {
 											tuyaView.setTuYaColor(TuYaColor.Black);
-										}else if(color == 3){
+										} else if (color == 3) {
 											tuyaView.setTuYaColor(TuYaColor.Green);
 										}
 									} catch (Exception e) {
@@ -369,7 +363,7 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 										// TODO: handle exception
 									}
 								}
-								
+
 							}
 						});
 						break;
@@ -404,9 +398,9 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 				    	file.mkdirs();
 				    }
 				    String   name = UUID.randomUUID().toString()+".jpg";
-				    FileUtils.CopySingleFileTo(OriginalPath, tuyatemp , name);
-				    
-					FileUtils.CopySingleFileToDel(tuyatemp+File.separator+name, directoryPath, picName);
+				    TuyaFileUtils.CopySingleFileTo(OriginalPath, tuyatemp, name);
+
+					TuyaFileUtils.CopySingleFileToDel(tuyatemp+File.separator+name, directoryPath, picName);
 					File  temp  = new  File(tuyatemp+File.separator+name);
 					if(temp.exists()){
 						temp.delete();
@@ -480,9 +474,7 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 					out.flush();
 					out.close();
 				} catch (IOException e) {
-
 				}
-
 			}
 			System.gc();
 		}
@@ -652,10 +644,8 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 
 	}
 
-	@Override
 	public void MoveCurrorPostion(int pos) {
 		postion = pos;
-
 	}
 
 }

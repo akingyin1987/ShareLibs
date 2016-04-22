@@ -40,7 +40,7 @@ public class Line extends Shape {
 	}
 
 	public Line() {
-	};
+	}
 
 	public Line(int width, int height, double angle) {
         this.width  =  width;
