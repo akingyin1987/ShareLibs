@@ -152,7 +152,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     protected VolumeMode       volumeMode;
     protected  SensorManager  mManager;
     protected  Sensor   mSensor;
-    private  void   initCameraConfig(){
+    protected   void   initCameraConfig(){
         mManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensor = mManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         SharedPreferences     sharedPreferences = getShare();
@@ -377,6 +377,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         }else if(view.getId() == R.id.camera_guideline){
             SharedPreferences  sharedPreferences = getShare();
             int  guide = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE,0);
+            System.out.println("guide=="+guide);
             guide = guide==0?1:0;
             camera_guideline.setImageResource(guide==0?R.drawable.camera_guideline:R.drawable.camera_guideline_red);
             if(guide==0){
@@ -408,11 +409,12 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
         openCamera(surface);
+
     }
 
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-            System.out.println("onSurfaceTextureSizeChanged");
+
     }
 
     @Override

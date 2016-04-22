@@ -19,6 +19,7 @@ import com.zlcdgroup.camera.FrontLightMode;
 import com.zlcdgroup.camera.MathUtils;
 import com.zlcdgroup.camera.VolumeMode;
 
+import com.zlcdgroup.camera.util.CameraDialogUtil;
 import java.io.File;
 import java.io.IOException;
 
@@ -128,26 +129,20 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     }
 
 
-    public   Point   getScreen(){
-       WindowManager   windowManager =  getActivity().getWindowManager();
-        Point   point = new Point();
-        windowManager.getDefaultDisplay().getRealSize(point);
-        System.out.println(point.x+":"+point.y);
-        return  point;
-    }
+
 
     @Override
     public void openCamera(SurfaceTexture  surfaceTexture) {
 
         try {
             mCameraManager.openCamera(surfaceTexture);
-            getScreen();
+
             mCameraManager.setFrontLightMode(frontLightMode,null);
             mCameraManager.startCameraPreview();
             Point screan = mCameraManager.getScreenResolution();
 
             Point   camera = mCameraManager.getCameraResolution();
-            System.out.println("bese=="+camera.x+":"+camera.y);
+
             Point   best = MathUtils.findBestViewSize(screan, camera);
             if(null != best){
                 ViewGroup.LayoutParams layoutParams = textureView.getLayoutParams();
@@ -187,7 +182,11 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
 
     @Override
     public void settingCamera(View view) {
-
+        CameraDialogUtil.showCameraSetting(getShare(), getActivity(), new CameraApiCallback<String>() {
+            @Override public void call(String s) {
+                initCameraConfig();
+            }
+        });
     }
 
     @Override
@@ -216,7 +215,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
          mCameraManager.setLandscape(land);
          mCameraManager.setImageName(fileName);
          mCameraManager.setPath(dir);
-        System.out.println(dir+":"+fileName);
+
          mCameraManager.tackPic(0);
     }
 

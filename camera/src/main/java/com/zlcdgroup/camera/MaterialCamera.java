@@ -70,7 +70,7 @@ public class MaterialCamera {
 
     public Intent getIntent() {
         System.out.println(mSaveDir+":"+mSaveName);
-        Intent intent = new Intent(mContext, CaptureActivity.class)
+        Intent intent = new Intent(mContext, CameraUtil.hasCamera2(mContext)?Capture2Activity.class:CaptureActivity.class)
                 .putExtra(CameraIntentKey.SAVE_DIR, mSaveDir)
                 .putExtra(CameraIntentKey.SAVE_NAME,TextUtils.isEmpty(mSaveName)?UUID.randomUUID().toString().replace("-","")+".jpg":mSaveName);
         return intent;

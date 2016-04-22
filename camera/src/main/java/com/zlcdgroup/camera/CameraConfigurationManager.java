@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.hardware.Camera;
 
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
@@ -50,8 +51,13 @@ CameraConfigurationManager(Context context) {
     Display display = manager.getDefaultDisplay();
 
     Point theScreenResolution = new Point();
-    display.getRealSize(theScreenResolution);
-  //  display.getSize(theScreenResolution);
+    if(Build.VERSION.SDK_INT <17){
+      display.getSize(theScreenResolution);
+    }else{
+      display.getRealSize(theScreenResolution);
+    }
+
+
     screenResolution = theScreenResolution;
   }
 

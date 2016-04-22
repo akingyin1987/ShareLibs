@@ -1,6 +1,7 @@
 package com.zlcdgroup.camera.internal;
 
 
+import android.graphics.SurfaceTexture;
 import com.zlcdgroup.camera.FrontLightMode;
 import com.zlcdgroup.camera.VolumeMode;
 
@@ -20,6 +21,8 @@ public interface BaseCaptureInterface {
     void   onTakePic(String  dir,String  fileName,boolean  sound,int  land);//拍照
 
     void   onZoom(int   zoom);
+
+
 
 
 
