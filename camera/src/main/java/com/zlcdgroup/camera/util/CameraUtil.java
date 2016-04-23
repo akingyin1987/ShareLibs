@@ -48,7 +48,10 @@ public class CameraUtil {
             saveName =  UUID.randomUUID().toString().replace("-","");
         }
          File dir = new File(saveDir);
-        dir.mkdirs();
+         dir.mkdirs();
+         if(saveName.endsWith(".jpg")){
+             return new File(dir, saveName );
+         }
         return new File(dir, saveName + extension);
     }
 

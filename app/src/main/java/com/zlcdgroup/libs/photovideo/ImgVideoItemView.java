@@ -3,23 +3,14 @@ package com.zlcdgroup.libs.photovideo;
 
 
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.zlcdgroup.libs.R;
-
-
 public class ImgVideoItemView {
 
-
-	
-     
-    
 
     public   TextView  txt,img_text;
     

@@ -372,6 +372,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             //拍照确认
             try {
                 File  file = getOutputMediaFile();
+                System.out.println(file.exists());
                 if(file.exists()){
                     Activity act = getActivity();
                     if (act != null) {
@@ -380,7 +381,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                     }
                 }
             }catch (Exception e){
-
+                e.printStackTrace();
             }
 
         }else if(view.getId() == R.id.camera_setting){

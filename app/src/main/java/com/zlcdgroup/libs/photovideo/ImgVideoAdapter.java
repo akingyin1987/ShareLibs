@@ -72,6 +72,7 @@ public class ImgVideoAdapter extends BaseDynamicGridAdapter<BaseImgTextItem> {
 			itemVideoItemView.img = (ImageView)convertView.findViewById(R.id.img);
 			itemVideoItemView.txt = (TextView)convertView.findViewById(R.id.txt);
 			itemVideoItemView.video_img = (ImageView)convertView.findViewById(R.id.video_img);
+			itemVideoItemView.img_text = (TextView)convertView.findViewById(R.id.img_text);
 			itemVideoItemView.img_layout = (LinearLayout)convertView.findViewById(R.id.img_layout);
 			convertView.setTag(itemVideoItemView);
 		}else{

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zlcdgroup.stickerlib.R;
 import com.zlcdgroup.stickerlib.utils.CommonUtils;
 
 

@@ -5,7 +5,19 @@
         android:allowBackup="true"
 
         android:supportsRtl="true">
+        <activity
+            android:name=".StickerMainActivity"
 
+            android:screenOrientation="portrait"
+            android:theme="@style/Sticker_AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".DisplayActivity"
+            android:label="@string/title_activity_display"
+            android:screenOrientation="portrait"
+            android:theme="@style/Sticker_AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

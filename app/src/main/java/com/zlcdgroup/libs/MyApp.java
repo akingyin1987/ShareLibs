@@ -5,6 +5,7 @@ import android.app.Application;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.zlcdgroup.libs.db.ImageTextBean;
+import com.zlcdgroup.libs.photovideo.vo.TempBaseVo;
 
 /**
  * Created by Administrator on 2016/4/23.
@@ -15,7 +16,8 @@ public class MyApp  extends Application {
     public void onCreate() {
         super.onCreate();
         Configuration  configuration =  new  Configuration.Builder(this)
-                        .addModelClass(ImageTextBean.class).create();
+                        .addModelClass(ImageTextBean.class)
+                        .addModelClass(TempBaseVo.class).create();
         ActiveAndroid.initialize(configuration,true);
     }
 

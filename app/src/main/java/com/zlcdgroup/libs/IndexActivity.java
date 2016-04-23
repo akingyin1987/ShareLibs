@@ -1,5 +1,6 @@
 package com.zlcdgroup.libs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -43,6 +44,13 @@ public class IndexActivity  extends AppCompatActivity {
         new MaterialCamera(IndexActivity.this).saveDir(
             Environment.getExternalStorageDirectory().toString() + File.separator + "temp")
             .startCaera2(102);
+      }
+    });
+    findViewById(R.id.imagelist).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent  intent = new Intent(IndexActivity.this,MyImageTextActivity.class);
+        startActivity(intent);
       }
     });
   }

@@ -85,7 +85,7 @@
 
     <!-- 左边按钮，不带返回箭头 -->
 
-    <ImageView
+    <TextView
         android:id="@+id/ivTitleBtnLeftButton"
         
         android:layout_width="wrap_content"

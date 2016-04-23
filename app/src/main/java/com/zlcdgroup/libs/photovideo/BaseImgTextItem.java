@@ -157,7 +157,7 @@ public abstract class BaseImgTextItem extends Model implements Serializable {
 		}
 
 
-	public   BaseImgTextItem  Copy(){
+	public   TempBaseVo  Copy(){
 		TempBaseVo imageTextsVo = new TempBaseVo();
 		imageTextsVo.copyName = TextUtils.isEmpty(copyName) ? FileUtil.getFileName(localPath) : copyName;
 		imageTextsVo.sort = sort;

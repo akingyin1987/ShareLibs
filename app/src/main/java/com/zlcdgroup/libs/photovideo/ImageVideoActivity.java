@@ -294,7 +294,7 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 			modelSort = ModelSort.DOWN;
 			// 图文制作
 			ivTitleBtnLeft.setVisibility(View.GONE);
-			ivTitleBtnLeftButton = (TextView)findViewById(R.id.ivTitleBtnLeftButton);
+			ivTitleBtnLeftButton = (TextView) findViewById(R.id.ivTitleBtnLeftButton);
 			ivTitleBtnLeftButton.setVisibility(View.VISIBLE);
 			
 			ivTitleBtnLeftButton.setText("向下增加");
@@ -773,7 +773,8 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 				try {
 					Temp.tempData.clear();
 					for (BaseImgTextItem item : copyMap.values()) {
-						 BaseImgTextItem imageText = item.Copy();
+						System.out.println("null=="+(null == item));
+						TempBaseVo  imageText = item.Copy();
 						if (item.style == 2) {
 							String fileName = Temp.getUUID() + ".jpg";
 							imageText.localPath = Temp.TEMP_ROOT + File.separator + fileName;

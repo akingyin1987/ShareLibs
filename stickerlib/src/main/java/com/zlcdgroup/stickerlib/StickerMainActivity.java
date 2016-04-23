@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 
@@ -20,6 +22,7 @@ import com.zlcdgroup.stickerlib.view.BubbleInputDialog;
 import com.zlcdgroup.stickerlib.view.BubbleTextView;
 import com.zlcdgroup.stickerlib.view.StickerView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class StickerMainActivity extends AppCompatActivity {
@@ -38,11 +41,19 @@ public class StickerMainActivity extends AppCompatActivity {
 
     private RelativeLayout mContentRootView;
 
+    private ImageView   image_content;
+
     private FloatingActionsMenu mMultipleActions;
 
     private View mAddSticker;
 
     private View mAddBubble;
+
+    public   static    final   String  KEY_FILENAME="key_filename";
+    public   static    final   String  KEY_FILEDIR="key_filedir";
+
+    public   String   fileName;
+    public   String   dir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +62,8 @@ public class StickerMainActivity extends AppCompatActivity {
         mContentRootView = (RelativeLayout) findViewById(R.id.rl_content_root);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        fileName = getIntent().getStringExtra(KEY_FILENAME);
+        dir = getIntent().getStringExtra(KEY_FILEDIR);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -61,6 +73,7 @@ public class StickerMainActivity extends AppCompatActivity {
 //        });
         mMultipleActions = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         mAddSticker = findViewById(R.id.action_add_sticker);
+        image_content = (ImageView)findViewById(R.id.image_content);
         mAddBubble = findViewById(R.id.action_add_bubble);
         mAddSticker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +97,12 @@ public class StickerMainActivity extends AppCompatActivity {
                 ((BubbleTextView) bubbleTextView).setText(str);
             }
         });
+        try{
+            File file = new File(dir,fileName);
+            image_content.setImageURI(Uri.fromFile(file));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
