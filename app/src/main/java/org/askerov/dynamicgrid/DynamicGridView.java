@@ -21,9 +21,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 
+import com.zlcdgroup.libs.R;
+
 import java.util.*;
 
-import com.zlcdgroup.rushfee.R;
 
 
 

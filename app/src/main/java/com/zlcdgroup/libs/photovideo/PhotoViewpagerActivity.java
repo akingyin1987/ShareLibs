@@ -11,13 +11,11 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.zlcdgroup.base.model.BaseImgTextItem;
-import com.zlcdgroup.db.ImageTextVo;
-import com.zlcdgroup.db.ImageTextsVo;
 
 
+import com.zlcdgroup.libs.R;
+import com.zlcdgroup.libs.photovideo.vo.ImageTextsVo;
 
-import com.zlcdgroup.rushfee.R;
 
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -49,7 +47,7 @@ public class PhotoViewpagerActivity extends Activity {
 
     public static final String TAG = "PhotoViewpagerActivity";
 
-    private List<ImageTextVo> list;
+    private List<BaseImgTextItem> list;
 
     public HackyViewPager viewPager;
 
@@ -85,7 +83,7 @@ public class PhotoViewpagerActivity extends Activity {
         main = (ViewGroup) inflater.inflate(R.layout.activity_view_imgtext, null);
         group = (ViewGroup) main.findViewById(R.id.viewGroup_page);
         currentPos = getIntent().getIntExtra("pos", 0);
-        ImageTextsVo   imageTextsVo = (ImageTextsVo) getIntent().getSerializableExtra("imgeList");
+        ImageTextsVo imageTextsVo = (ImageTextsVo) getIntent().getSerializableExtra("imgeList");
         list = imageTextsVo.getImgs();
         Log.i(TAG, "list size = " + list.size());
         viewPager = (HackyViewPager) main.findViewById(R.id.imgtext_viewpager_view);

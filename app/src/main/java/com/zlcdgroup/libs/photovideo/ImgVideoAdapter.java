@@ -11,12 +11,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.zlcdgroup.base.model.BaseImgTextItem;
-import com.zlcdgroup.util.CameraBitmapUtil;
-
+import com.zlcdgroup.libs.R;
+import com.zlcdgroup.libs.utils.CameraBitmapUtil;
 
 
 public class ImgVideoAdapter extends BaseDynamicGridAdapter<BaseImgTextItem> {
@@ -28,7 +31,7 @@ public class ImgVideoAdapter extends BaseDynamicGridAdapter<BaseImgTextItem> {
 		
 	}
 
-	public  static Map<Long, Bitmap> cache   = new LinkedHashMap<Long, Bitmap>();;
+	public  static Map<Long, Bitmap> cache   = new LinkedHashMap<Long, Bitmap>();
 	
 	//移出某一个
 	public void  remove(long  key){
@@ -63,9 +66,16 @@ public class ImgVideoAdapter extends BaseDynamicGridAdapter<BaseImgTextItem> {
 		BaseImgTextItem   imgTextItem = getItem(position);
 		ImgVideoItemView   itemVideoItemView = null;
 		if(null == convertView){
-			itemVideoItemView = com.zlcdgroup.photovideo.ImgVideoItemView_.build(getContext());
+			itemVideoItemView = new ImgVideoItemView();
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.image_video_item,null);
+			itemVideoItemView.copy_img =(ImageView) convertView.findViewById(R.id.copy_img);
+			itemVideoItemView.img = (ImageView)convertView.findViewById(R.id.img);
+			itemVideoItemView.txt = (TextView)convertView.findViewById(R.id.txt);
+			itemVideoItemView.video_img = (ImageView)convertView.findViewById(R.id.video_img);
+			itemVideoItemView.img_layout = (LinearLayout)convertView.findViewById(R.id.img_layout);
+			convertView.setTag(itemVideoItemView);
 		}else{
-			itemVideoItemView = (ImgVideoItemView) convertView;
+			itemVideoItemView = (ImgVideoItemView) convertView.getTag();
 		}
 		if(imgTextItem.style == 1){
 			itemVideoItemView.bind(imgTextItem, null);
@@ -91,7 +101,7 @@ public class ImgVideoAdapter extends BaseDynamicGridAdapter<BaseImgTextItem> {
 			}
 			itemVideoItemView.bind(imgTextItem, bitmap);
 		}
-		return itemVideoItemView;
+		return convertView;
 	}
 	
 	//设置涂鸦被选中

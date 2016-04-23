@@ -2,17 +2,6 @@ package com.zlcdgroup.libs.photovideo;
 
 
 
-import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.ViewById;
-
-import com.zlcdgroup.base.model.BaseImgTextItem;
-
-
-
-
-
-
-import com.zlcdgroup.rushfee.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -22,32 +11,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-@EViewGroup(R.layout.image_video_item)
-public class ImgVideoItemView extends FrameLayout{
+import com.zlcdgroup.libs.R;
 
-	public ImgVideoItemView(Context context) {
-		super(context);
-	    
-		// TODO Auto-generated constructor stub
-	}
+
+public class ImgVideoItemView {
+
+
 	
      
     
-    @ViewById
+
     public   TextView  txt,img_text;
     
-    @ViewById
+
     public   LinearLayout  img_layout;
     
-    @ViewById
+
     public   ImageView img,video_img,copy_img;
 
     
    
     
     public   void   bind(BaseImgTextItem  imgTextVo,Bitmap   bitmap){
-        
-
         if(imgTextVo.style == 1){
             txt.setVisibility(View.VISIBLE);
             img_layout.setVisibility(View.GONE);
