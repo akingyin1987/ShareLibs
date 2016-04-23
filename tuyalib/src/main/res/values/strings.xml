@@ -1,3 +1,10 @@
 <resources>
     <string name="tuya_app_name">TuyaLib</string>
+
+    <string-array name="color_values">
+        <item >默认</item>
+        <item >红</item>
+        <item >黑</item>
+        <item >绿</item>
+    </string-array>
 </resources>

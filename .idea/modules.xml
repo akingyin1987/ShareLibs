@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/ShareLibs.iml" filepath="$PROJECT_DIR$/ShareLibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/camera/camera.iml" filepath="$PROJECT_DIR$/camera/camera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stickerlib/stickerlib.iml" filepath="$PROJECT_DIR$/stickerlib/stickerlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tuyalib/tuyalib.iml" filepath="$PROJECT_DIR$/tuyalib/tuyalib.iml" />
     </modules>
   </component>
 </project>

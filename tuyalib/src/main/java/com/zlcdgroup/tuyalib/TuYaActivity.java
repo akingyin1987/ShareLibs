@@ -49,7 +49,7 @@ import com.zlcdgroup.util.TuyaFileUtils;
  * @author king
  * 
  */
-public class TuYaActivity extends Activity implements OnClickListener, OnLongClickListener {
+public class TuYaActivity extends Activity implements OnClickListener, OnLongClickListener,TuyaView.TuyaMovePostion {
 
 	// 图片名
 	public static final String KEY_PIC_NAME = "picName";
@@ -145,7 +145,7 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 			tuyaView = new TuyaView(this, null, dm);
 			tuyaView.setCurrentShapeType(ShapeType.Arrow);
 			tuyaliLayout.removeAllViews();
-
+			tuyaView.setTuyaMoveListion(this);
 			tuyaliLayout.addView(tuyaView);
 			tuyaView.setSrc(src);
 

@@ -6,13 +6,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 
-
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.zlcdgroup.stickerlib.utils.FileUtils;
 import com.zlcdgroup.stickerlib.view.BubbleInputDialog;
 import com.zlcdgroup.stickerlib.view.BubbleTextView;
