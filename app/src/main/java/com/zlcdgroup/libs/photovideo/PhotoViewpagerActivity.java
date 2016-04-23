@@ -219,13 +219,13 @@ public class PhotoViewpagerActivity extends Activity {
                  holder.photoView = (PhotoView) view.findViewById(R.id.imgtext_item_img);
          
                  view.setTag(holder);
-             	
+                 System.out.println(img.localPath);
                  if (!TextUtils.isEmpty(img.localPath) ) {
                      if (holder.photoView.getVisibility() == View.GONE) {
                          holder.photoView.setVisibility(View.VISIBLE);
                          holder.text.setVisibility(View.GONE);
                      }
-                     
+
                      if (!TextUtils.isEmpty(img.localPath)) {
      					
      					try {

@@ -2,6 +2,8 @@ package com.zlcdgroup.camera;
 
 import android.app.Fragment;
 import android.support.annotation.NonNull;
+import android.view.KeyEvent;
+
 import com.zlcdgroup.camera.internal.BaseCaptureActivity;
 import com.zlcdgroup.camera.internal.Camera2Fragment;
 
@@ -17,5 +19,17 @@ public class Capture2Activity  extends BaseCaptureActivity{
 
   @NonNull @Override public Fragment getFragment() {
     return Camera2Fragment.newInstance();
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    return super.onKeyDown(keyCode, event);
+
+  }
+
+
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
   }
 }

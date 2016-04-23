@@ -1086,4 +1086,9 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
         super.onSurfaceTextureSizeChanged(surface, width, height);
         configureTransform(width, height);
     }
+
+    @Override
+    public void startCamera() {
+
+    }
 }

@@ -919,7 +919,7 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 			ImageTextsVo imag = new ImageTextsVo();
 			List<BaseImgTextItem> res = new ArrayList<BaseImgTextItem>();
 			for (int i = 0; i < adapter.getCount(); i++) {
-				BaseImgTextItem imagetext = (BaseImgTextItem) adapter.getItem(i);
+				BaseImgTextItem imagetext = adapter.getItem(i);
 				res.add(imagetext);
 			}
 			imag.setImgs(res);

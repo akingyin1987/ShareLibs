@@ -115,7 +115,7 @@ public abstract class BaseCaptureActivity extends Activity {
     }
 
     @Override
-    public final void onBackPressed() {
+    public  void onBackPressed() {
         Fragment frag = getFragmentManager().findFragmentById(R.id.camera_content);
         if (frag != null) {
             if (frag instanceof BaseCameraFragment) {

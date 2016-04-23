@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -245,4 +246,13 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     public boolean hasTakePicture() {
         return hasTakePicture;
     }
+
+    @Override
+    public void startCamera() {
+        hasTakePicture = false;
+        reStartShowView();
+        mCameraManager.startPreview();
+    }
+
+
 }

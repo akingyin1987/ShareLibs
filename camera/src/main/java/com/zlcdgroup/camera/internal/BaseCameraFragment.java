@@ -293,6 +293,8 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     public abstract void closeCamera();
 
+    public abstract  void  startCamera();
+
     public abstract void settingCamera(View  view);
 
     public abstract void  onCameraAngle(int  angle);
@@ -363,11 +365,24 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             mInterface.onVolume(volumeMode);
         }else if(view.getId() == R.id.cancel_camera){
             //取消拍照
-            Activity act = getActivity();
-            if (act != null) {
-                act.setResult(RESULT_CANCELED, new Intent().putExtra(MaterialCamera.ERROR_EXTRA, "手动取消"));
-                act.finish();
+            try{
+                File  file = getOutputMediaFile();
+                if(file.exists())
+                file.delete();
+            }catch (Exception e){
+                e.printStackTrace();
             }
+            if(hasTakePicture()){
+
+                startCamera();
+            }else{
+                Activity act = getActivity();
+                if (act != null) {
+                    act.setResult(RESULT_CANCELED, new Intent().putExtra(MaterialCamera.ERROR_EXTRA, "手动取消"));
+                    act.finish();
+                }
+            }
+
         }else if(view.getId() == R.id.config_camera){
             //拍照确认
             try {
@@ -516,7 +531,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         }
     };
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public  boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_DOWN:
@@ -567,7 +582,18 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         tack_camera.setVisibility(View.VISIBLE);
         config_camera.setVisibility(View.INVISIBLE);
         cancel_camera.setVisibility(View.INVISIBLE);
+        viewfinder_view.setVisibility(View.GONE);
     }
 
+
+    public void onBackPressed() {
+       try{
+           File  file = getOutputMediaFile();
+           if(file.exists())
+           file.delete();
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+    }
 
 }
