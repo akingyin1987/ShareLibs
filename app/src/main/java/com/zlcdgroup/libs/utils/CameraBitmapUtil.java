@@ -339,7 +339,7 @@ public class CameraBitmapUtil {
                 // 创建新的图片
                 mbitmap = Bitmap.createBitmap(mbitmap, 0, 0, mbitmap.getWidth(), mbitmap.getHeight(), matrix, true);
             } else {
-                mbitmap = mbitmap.copy(Bitmap.Config.RGB_565, true);
+                mbitmap = mbitmap.copy(Bitmap.Config.ARGB_8888, true);
             }
 
             if (mbitmap.getWidth() - NormHigth > MaxpOffset || mbitmap.getHeight() - NormHigth > MaxpOffset) {
@@ -362,11 +362,11 @@ public class CameraBitmapUtil {
             TextPaint paint = new TextPaint();
             paint.setTextSize(20f);
             paint.setColor(Color.RED);
-            canvas.drawText(getNowDate(), mbitmap.getWidth() - 190, 30f, paint);
+            canvas.drawText(getNowDate(), mbitmap.getWidth() - 190, mbitmap.getHeight()-30f, paint);
             canvas.save();
 
             FileOutputStream fos = new FileOutputStream(path);
-            mbitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+            mbitmap.compress(Bitmap.CompressFormat.JPEG, quality, fos);
             fos.flush();
             fos.close();
         } catch (Exception e) {
