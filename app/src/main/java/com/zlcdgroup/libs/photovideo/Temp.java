@@ -13,6 +13,8 @@ import java.util.UUID;
  */
 public class Temp {
 
+    public   static   boolean  DEBUG = true;
+
     public  static   int  DURATION_LIMIT = 20;
 
     public  static   int SIZE_LIMIT = 20 *1024;

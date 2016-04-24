@@ -102,15 +102,19 @@ public class StickerView extends ImageView {
         init();
     }
 
-    public StickerView(Context context) {
+    public StickerView(Context context ,int  maxwidth,int maxheight) {
         super(context);
         stickerId = 0;
+        this.mScreenwidth = maxwidth;
+        this.mScreenHeight= maxheight;
         init();
     }
 
-    public StickerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public StickerView(Context context, AttributeSet attrs, int defStyleAttr,int  maxwidth,int maxheight) {
         super(context, attrs, defStyleAttr);
         stickerId = 0;
+        this.mScreenwidth = maxwidth;
+        this.mScreenHeight= maxheight;
         init();
     }
 
@@ -130,9 +134,9 @@ public class StickerView extends ImageView {
         localPaint.setDither(true);
         localPaint.setStyle(Paint.Style.STROKE);
         localPaint.setStrokeWidth(2.0f);
-        dm = getResources().getDisplayMetrics();
-        mScreenwidth = dm.widthPixels;
-        mScreenHeight = dm.heightPixels;
+//        dm = getResources().getDisplayMetrics();
+//        mScreenwidth = dm.widthPixels;
+//        mScreenHeight = dm.heightPixels;
 
     }
 
@@ -215,10 +219,10 @@ public class StickerView extends ImageView {
                 canvas.drawBitmap(topBitmap, null, dst_top, null);
 
 
-                canvas.drawBitmap(resizeBitmap,null,dst_c_bottom,null);
-                canvas.drawBitmap(resizeBitmap,null,dst_c_top,null);
-                canvas.drawBitmap(resizeBitmap,null,dst_c_right,null);
-                canvas.drawBitmap(resizeBitmap,null,dst_c_left,null);
+//                canvas.drawBitmap(resizeBitmap,null,dst_c_bottom,null);
+//                canvas.drawBitmap(resizeBitmap,null,dst_c_top,null);
+//                canvas.drawBitmap(resizeBitmap,null,dst_c_right,null);
+//                canvas.drawBitmap(resizeBitmap,null,dst_c_left,null);
             }
 
             canvas.restore();

@@ -7,7 +7,7 @@
         android:supportsRtl="true">
         <activity
             android:name=".StickerMainActivity"
-
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:screenOrientation="portrait"
             android:theme="@style/Sticker_AppTheme.NoActionBar">
 

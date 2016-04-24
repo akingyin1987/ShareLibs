@@ -43,15 +43,15 @@ public class FileUtils {
      * @param bm
      * @return
      */
-    public static String saveBitmapToLocal(Bitmap bm, Context context) {
-        String path = null;
+    public static String saveBitmapToLocal(Bitmap bm,String  path) {
+
         try {
-            File file = FileUtils.getInstance(context).createTempFile("IMG_", ".jpg");
+            File file = new File(path);
             FileOutputStream fos = new FileOutputStream(file);
             bm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
-            path = file.getAbsolutePath();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;

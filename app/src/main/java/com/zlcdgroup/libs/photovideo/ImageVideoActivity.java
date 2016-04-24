@@ -48,6 +48,7 @@ import com.zlcdgroup.libs.photovideo.vo.TempBaseVo;
 import com.zlcdgroup.libs.utils.CameraBitmapUtil;
 import com.zlcdgroup.libs.utils.DialogCallback;
 import com.zlcdgroup.libs.utils.FileUtil;
+import com.zlcdgroup.stickerlib.StickerMainActivity;
 import com.zlcdgroup.tuyalib.TuYaActivity;
 
 
@@ -1027,12 +1028,17 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 	public void Tuya(String imgpath,String  original) {
 
 		String directory = getImageDirectory();
-
-
 		String pictureName = Temp.getUUID() + "tuya" + ".jpg";
-
-		
 		localPath = directory + File.separator + pictureName;
+		int  type = new Random().nextInt(1);
+		if(Temp.DEBUG){
+			Intent  debugintent = new Intent(this, StickerMainActivity.class);
+			debugintent.putExtra(StickerMainActivity.KEY_SAVE_FILEDIR,directory);
+			debugintent.putExtra(StickerMainActivity.KEY_SAVE_FILENAME,pictureName);
+			debugintent.putExtra(StickerMainActivity.KEY_PATH,imgpath);
+			startActivityForResult(debugintent,REQUEST_CODE_TUYA);
+			return;
+		}
 		Intent intent = new Intent(this, TuYaActivity.class);
 		intent.putExtra(TuYaActivity.KEY_PIC_DIRECTORYPATH, FileUtil.getFolderName(imgpath));
 		intent.putExtra(TuYaActivity.KEY_PIC_NAME, FileUtil.getFileName(imgpath));

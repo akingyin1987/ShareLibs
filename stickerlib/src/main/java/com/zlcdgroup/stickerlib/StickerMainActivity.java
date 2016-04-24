@@ -1,7 +1,9 @@
 package com.zlcdgroup.stickerlib;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
@@ -49,11 +51,17 @@ public class StickerMainActivity extends AppCompatActivity {
 
     private View mAddBubble;
 
-    public   static    final   String  KEY_FILENAME="key_filename";
-    public   static    final   String  KEY_FILEDIR="key_filedir";
+    public   static    final   String  KEY_SAVE_FILENAME="saveReName";
+    public   static    final   String  KEY_SAVE_FILEDIR="directoryPath";
+    public   static    final   String  KEY_PATH="key_path";
+
 
     public   String   fileName;
     public   String   dir;
+    public   String   path;
+
+    public   int  maxwidth;
+    public   int  maxheight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +70,9 @@ public class StickerMainActivity extends AppCompatActivity {
         mContentRootView = (RelativeLayout) findViewById(R.id.rl_content_root);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        fileName = getIntent().getStringExtra(KEY_FILENAME);
-        dir = getIntent().getStringExtra(KEY_FILEDIR);
+        fileName = getIntent().getStringExtra(KEY_SAVE_FILENAME);
+        dir = getIntent().getStringExtra(KEY_SAVE_FILEDIR);
+        path = getIntent().getStringExtra(KEY_PATH);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -98,7 +107,19 @@ public class StickerMainActivity extends AppCompatActivity {
             }
         });
         try{
-            File file = new File(dir,fileName);
+
+            File file = new File(path);
+            if(file.exists()){
+                Bitmap src = BitmapFactory.decodeFile(file.getAbsolutePath());
+                maxheight = src.getHeight();
+                maxwidth  = src.getWidth();
+                if (src.getWidth() > src.getHeight()) {
+
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                } else {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+            }
             image_content.setImageURI(Uri.fromFile(file));
         }catch (Exception e){
             e.printStackTrace();
@@ -138,7 +159,7 @@ public class StickerMainActivity extends AppCompatActivity {
 
     //添加表情
     private void addStickerView() {
-        final StickerView stickerView = new StickerView(this);
+        final StickerView stickerView = new StickerView(this,maxwidth,maxheight);
         stickerView.setImageResource(R.mipmap.ic_cat);
         stickerView.setOperationListener(new StickerView.OperationListener() {
             @Override
@@ -250,15 +271,19 @@ public class StickerMainActivity extends AppCompatActivity {
 
     private void generateBitmap() {
 
-        Bitmap bitmap = Bitmap.createBitmap(mContentRootView.getWidth(),
-                mContentRootView.getHeight()
+        Bitmap bitmap = Bitmap.createBitmap(image_content.getWidth(),
+                image_content.getHeight()
                 , Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        mContentRootView.draw(canvas);
-
-        String iamgePath = FileUtils.saveBitmapToLocal(bitmap, this);
+        image_content.draw(canvas);
+        FileUtils.saveBitmapToLocal(bitmap, dir+File.separator+fileName);
+        Intent   data =  new Intent();
+        data.putExtra(KEY_SAVE_FILEDIR,dir);
+        data.putExtra(KEY_SAVE_FILENAME,fileName);
+        setResult(RESULT_OK,data);
+         System.out.println(dir+File.separator+fileName);
         Intent intent = new Intent(this, DisplayActivity.class);
-        intent.putExtra("image", iamgePath);
+        intent.putExtra("image", dir+File.separator+fileName);
         startActivity(intent);
     }
 
