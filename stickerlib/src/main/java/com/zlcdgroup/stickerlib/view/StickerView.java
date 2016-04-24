@@ -93,6 +93,8 @@ public class StickerView extends ImageView {
 
     private DisplayMetrics dm;
 
+    private  int[]  borders;
+
     //水平镜像
     private boolean isHorizonMirror = false;
 
@@ -102,11 +104,12 @@ public class StickerView extends ImageView {
         init();
     }
 
-    public StickerView(Context context ,int  maxwidth,int maxheight) {
+    public StickerView(Context context ,int  maxwidth,int maxheight,int[] borders) {
         super(context);
         stickerId = 0;
         this.mScreenwidth = maxwidth;
         this.mScreenHeight= maxheight;
+        this.borders = borders;
         init();
     }
 
@@ -143,8 +146,6 @@ public class StickerView extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         if (mBitmap != null) {
-
-
             float[] arrayOfFloat = new float[9];
             matrix.getValues(arrayOfFloat);
             float f1 = 0.0F * arrayOfFloat[0] + 0.0F * arrayOfFloat[1] + arrayOfFloat[2];
@@ -308,6 +309,13 @@ public class StickerView extends ImageView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = MotionEventCompat.getActionMasked(event);
+        if(event.getRawX()<borders[0] || event.getRawX()>borders[2]){
+           return    super.onTouchEvent(event);
+        }
+        if(event.getRawY()<borders[1] || event.getRawY()>borders[3]){
+            return    super.onTouchEvent(event);
+        }
+
         boolean handled = true;
         switch (action) {
             case MotionEvent.ACTION_DOWN:
@@ -568,10 +576,25 @@ public class StickerView extends ImageView {
      * @return
      */
     private boolean isInButton(MotionEvent event, Rect rect) {
+        int x = (int) event.getX() - borders[0];
+        int y = (int) event.getY() - borders[1];
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+        if (x > borders[2]) {
+            x = borders[2];
+        }
+        if (y > borders[3]) {
+            y = borders[3];
+        }
         int left = rect.left;
         int right = rect.right;
         int top = rect.top;
         int bottom = rect.bottom;
+      //  return x >= left && x <= right && y >= top && y <= bottom;
         return event.getX(0) >= left && event.getX(0) <= right && event.getY(0) >= top && event.getY(0) <= bottom;
     }
 

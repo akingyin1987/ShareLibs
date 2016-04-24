@@ -11,9 +11,11 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -63,6 +65,11 @@ public class StickerMainActivity extends AppCompatActivity {
     public   int  maxwidth;
     public   int  maxheight;
 
+    public   int  px,py;
+    public   int  endx,endy;
+
+    public   int[]  borders = new int[4];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,20 +114,48 @@ public class StickerMainActivity extends AppCompatActivity {
             }
         });
         try{
-
+            DisplayMetrics dm = getResources().getDisplayMetrics();
             File file = new File(path);
             if(file.exists()){
                 Bitmap src = BitmapFactory.decodeFile(file.getAbsolutePath());
                 maxheight = src.getHeight();
                 maxwidth  = src.getWidth();
+                ViewGroup.LayoutParams lp =  mContentRootView.getLayoutParams();
+                lp.width = src.getWidth();
+                lp.height =src.getHeight();
+                mContentRootView.setLayoutParams(lp);
                 if (src.getWidth() > src.getHeight()) {
+                    py = 0;
+                    if (dm.widthPixels > dm.heightPixels) {
+                        px = (dm.widthPixels - src.getWidth()) / 2;
+                    } else {
+                        px = (dm.heightPixels - src.getWidth()) / 2;
+                    }
 
+                    endy = src.getHeight();
+                    endx = src.getWidth();
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 } else {
+                    endx = src.getWidth();
+                    endy = src.getHeight();
+                    px = (dm.widthPixels - src.getWidth()) / 2;
+                    py = (dm.heightPixels - src.getHeight() - 50) / 2;
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
             }
+            if (py < 0) {
+                py = 0;
+            }
+            if (px < 0) {
+                px = 0;
+            }
+            borders[0]=px;
+            borders[1] = py;
+            borders[2] = endx+px;
+            borders[3] = endy+py;
+            System.out.println(px+":"+py+":"+endx+":"+endy);
             image_content.setImageURI(Uri.fromFile(file));
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -159,7 +194,7 @@ public class StickerMainActivity extends AppCompatActivity {
 
     //添加表情
     private void addStickerView() {
-        final StickerView stickerView = new StickerView(this,maxwidth,maxheight);
+        final StickerView stickerView = new StickerView(this,maxwidth,maxheight,borders);
         stickerView.setImageResource(R.mipmap.ic_cat);
         stickerView.setOperationListener(new StickerView.OperationListener() {
             @Override
@@ -189,6 +224,7 @@ public class StickerMainActivity extends AppCompatActivity {
             }
         });
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        lp.addRule(RelativeLayout.CENTER_IN_PARENT);
         mContentRootView.addView(stickerView, lp);
         mViews.add(stickerView);
         setCurrentEdit(stickerView);
@@ -271,17 +307,15 @@ public class StickerMainActivity extends AppCompatActivity {
 
     private void generateBitmap() {
 
-        Bitmap bitmap = Bitmap.createBitmap(image_content.getWidth(),
-                image_content.getHeight()
-                , Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(image_content.getWidth(), image_content.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        image_content.draw(canvas);
+        mContentRootView.draw(canvas);
         FileUtils.saveBitmapToLocal(bitmap, dir+File.separator+fileName);
         Intent   data =  new Intent();
         data.putExtra(KEY_SAVE_FILEDIR,dir);
         data.putExtra(KEY_SAVE_FILENAME,fileName);
         setResult(RESULT_OK,data);
-         System.out.println(dir+File.separator+fileName);
+         System.out.println(dir + File.separator + fileName);
         Intent intent = new Intent(this, DisplayActivity.class);
         intent.putExtra("image", dir+File.separator+fileName);
         startActivity(intent);
