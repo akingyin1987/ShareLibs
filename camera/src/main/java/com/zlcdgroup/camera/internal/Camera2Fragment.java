@@ -456,6 +456,8 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                     //排除自拍摄像头
                     continue;
                 }
+                LOG(this,"getAvailableCaptureRequestKeys="+Arrays.toString(characteristics.getAvailableCaptureRequestKeys().toArray()));
+                LOG(this,"getAvailableCaptureResultKeys="+Arrays.toString(characteristics.getAvailableCaptureResultKeys().toArray()));
                // 支持的STREAM CONFIGURATION
                 StreamConfigurationMap map = characteristics.get(
                     CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
@@ -998,8 +1000,9 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     @Override
     public void onFrontLight(FrontLightMode frontLightMode) {
 
+
         mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
-            CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
+            CaptureRequest.CONTROL_AE_MODE_ON);
         switch (frontLightMode){
             case OFF:
 
