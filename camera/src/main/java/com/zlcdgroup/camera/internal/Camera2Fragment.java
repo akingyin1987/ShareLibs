@@ -119,6 +119,8 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
      */
     private static final int STATE_PICTURE_TAKEN = 4;
 
+    private static final int STATE_HAND_FOCUS=5;//手动对焦
+
     /**
      * Max preview width that is guaranteed by Camera2 API
      */
@@ -249,10 +251,18 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
         = new CameraCaptureSession.CaptureCallback() {
 
         private void process(CaptureResult result) {
+
             switch (mState) {
                 case STATE_PREVIEW: {
 
                     // We have nothing to do when the camera preview is working normally.
+                    break;
+                }
+                case STATE_HAND_FOCUS:{
+                    Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
+                    if(null != afState && afState == CaptureRequest.CONTROL_AF_STATE_ACTIVE_SCAN){
+                        unlockFocus();
+                    }
                     break;
                 }
                 case STATE_WAITING_LOCK: {
@@ -733,6 +743,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
      */
     private void runPrecaptureSequence() {
         try {
+            System.out.println("trigger runPrecaptureSequence");
             // This is how to tell the camera to trigger.
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER,
                 CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START);
@@ -1005,7 +1016,6 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
             CaptureRequest.CONTROL_AE_MODE_ON);
         switch (frontLightMode){
             case OFF:
-
                 mPreviewRequestBuilder.set(CaptureRequest.FLASH_MODE,
                     CameraMetadata.FLASH_MODE_OFF);
                 break;
@@ -1036,12 +1046,16 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     @Override
     public void onAutoFocus() {
         mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
-            CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+            CaptureRequest.CONTROL_AE_MODE_ON);
+        mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
+            CameraMetadata.CONTROL_AF_TRIGGER_START);
+        // Tell #mCaptureCallback to wait for the lock.
+        mState = STATE_HAND_FOCUS;
         try {
             mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mCaptureCallback,
                 mBackgroundHandler);
 
-            mState = STATE_PREVIEW;
+
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -1049,16 +1063,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     @Override
     public void onCancelFocus() {
-        mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
-            CaptureRequest.CONTROL_AF_MODE_OFF);
-        try {
-            mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mCaptureCallback,
-                mBackgroundHandler);
-
-            mState = STATE_PREVIEW;
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }
+      unlockFocus();
     }
 
     @Override

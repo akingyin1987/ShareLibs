@@ -157,6 +157,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         mSensor = mManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         SharedPreferences     sharedPreferences = getShare();
         int   frontlight = sharedPreferences.getInt(CameraPreferences.KEY_FRONT_LIGHT_MODE, 0);
+        System.out.println("frontlight="+frontlight);
         initFrontlight(frontlight);
         int  volume = sharedPreferences.getInt(CameraPreferences.KEY_VOLUME,0);
         initVoluem(volume);
@@ -347,13 +348,13 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         if (view.getId() == R.id.flash_model) {
             //闪光灯
             SharedPreferences  sharedPreferences = getShare();
-            int   frontlight  = sharedPreferences.getInt(CameraPreferences.KEY_AUTO_FOCUS,0);
+            int   frontlight  = sharedPreferences.getInt(CameraPreferences.KEY_FRONT_LIGHT_MODE,0);
             frontlight++;
             if(frontlight==3){
                 frontlight=0;
             }
             initFrontlight(frontlight);
-            sharedPreferences.edit().putInt(CameraPreferences.KEY_AUTO_FOCUS,frontlight).apply();
+            sharedPreferences.edit().putInt(CameraPreferences.KEY_FRONT_LIGHT_MODE,frontlight).apply();
             mInterface.onFrontLight(frontLightMode);
         }else if(view.getId() == R.id.volume_model){
             //拍照声音
