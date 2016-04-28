@@ -1,6 +1,7 @@
 package com.zlcdgroup.camera.internal;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -159,10 +160,14 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
                     textureView.setLayoutParams(layoutParams);
                     viewfinderViewParams.width = layoutParams.width;
                     viewfinder_view.setLayoutParams(viewfinderViewParams);
-
                 }
             }
            mCameraManager.setVolueMode(volumeMode);
+            SharedPreferences sharedPreferences = getShare();
+            int  guide = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE,2);
+            int  top = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_TOP,0);
+            int  left = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_LEFT,0);
+            initGuide(guide,top,left);
         } catch (IOException e) {
             e.printStackTrace();
         }

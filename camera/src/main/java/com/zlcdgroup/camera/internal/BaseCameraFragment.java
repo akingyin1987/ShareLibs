@@ -207,7 +207,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     }
 
     public   void    initGuide(int  guide,int  top,int  left){
-
+          System.out.println(guide+":"+top+":"+left);
         if(guide == 0){
             camera_guideline.setVisibility(View.GONE);
             camera_layout.setVisibility(View.GONE);
@@ -216,12 +216,15 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         }else if(guide == 1){
             camera_guideline.setVisibility(View.VISIBLE);
             camera_layout.setVisibility(View.VISIBLE);
+            camera_moveleft.setVisibility(View.VISIBLE);
             camera_movetop.setVisibility(View.VISIBLE);
+            camera_toploayou.setVisibility(View.VISIBLE);
             camera_guideline.setImageResource(R.drawable.camera_guideline_red);
             try{
                 int  cameraheight = Math.max(textureView.getWidth(), textureView.getHeight()) * left/100;
-
+                System.out.println("cameraheight="+cameraheight);
                 if(cameraheight>0){
+
                     RelativeLayout.LayoutParams topLayoutParams = new RelativeLayout.LayoutParams(camera_moveleft.getLayoutParams());
                     topLayoutParams.topMargin = cameraheight;
                     camera_moveleft.setLayoutParams(topLayoutParams);
@@ -229,7 +232,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                     camera_moveleft.setVisibility(View.GONE);
                 }
                 int   camerawidth = Math.min(textureView.getWidth(), textureView.getHeight()) * (100-top)/100;
-
+                System.out.println("camerawidt="+camerawidth);
                 if(camerawidth>0){
                     RelativeLayout.LayoutParams topLayoutParams = new RelativeLayout.LayoutParams(camera_movetop.getLayoutParams());
                     topLayoutParams.leftMargin = camerawidth;
@@ -270,6 +273,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         if (null != mManager) {
             mManager.registerListener(this,mSensor,SensorManager.SENSOR_DELAY_UI);
         }
+
 
     }
 
@@ -388,7 +392,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             //拍照确认
             try {
                 File  file = getOutputMediaFile();
-                System.out.println(file.exists());
+
                 if(file.exists()){
                     Activity act = getActivity();
                     if (act != null) {
@@ -407,15 +411,10 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             int  guide = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE,2);
 
             guide = guide==2?1:2;
+            int  top = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_TOP,0);
+            int  left = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_LEFT,0);
 
-            camera_guideline.setImageResource(guide==2?R.drawable.camera_guideline:R.drawable.camera_guideline_red);
-            if(guide==2){
-                camera_movetop.setVisibility(View.GONE);
-                camera_layout.setVisibility(View.GONE);
-            }else{
-                camera_layout.setVisibility(View.VISIBLE);
-                camera_movetop.setVisibility(View.VISIBLE);
-            }
+            initGuide(guide,top,left);
 
             sharedPreferences.edit().putInt(CameraPreferences.KEY_GUIDE,guide).apply();
         }else if(view.getId() == R.id.camera_screen){
@@ -444,12 +443,12 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-        int  guide,top,left;
-        SharedPreferences  sharedPreferences = getShare();
-        guide = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE,0);
-        top = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_TOP,0);
-        left = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_LEFT,0);
-        initGuide(guide,top,left);
+        //int  guide,top,left;
+        //SharedPreferences  sharedPreferences = getShare();
+        //guide = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE,0);
+        //top = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_TOP,0);
+        //left = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_LEFT,0);
+        //initGuide(guide,top,left);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.zlcdgroup.camera.internal;
 
 import android.Manifest;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,6 +8,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
@@ -29,10 +29,12 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -46,6 +48,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.zlcdgroup.camera.Camera2Help;
+import com.zlcdgroup.camera.CameraPreferences;
 import com.zlcdgroup.camera.FrontLightMode;
 import com.zlcdgroup.camera.R;
 import com.zlcdgroup.camera.VolumeMode;
@@ -160,6 +163,8 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
             mCameraOpenCloseLock.release();
             mCameraDevice = cameraDevice;
             createCameraPreviewSession();
+            tackpicResult.sendEmptyMessage(3);
+
         }
 
         @Override
@@ -260,13 +265,17 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 }
                 case STATE_HAND_FOCUS:{
                     Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
-                    if(null != afState && afState == CaptureRequest.CONTROL_AF_STATE_ACTIVE_SCAN){
+                    System.out.println("afstate=="+afState);
+                    if(null != afState &&
+                        ( afState == CaptureRequest.CONTROL_AF_STATE_PASSIVE_FOCUSED
+                        || afState == CaptureRequest.CONTROL_AF_STATE_ACTIVE_SCAN)){
                         unlockFocus();
                     }
                     break;
                 }
                 case STATE_WAITING_LOCK: {
                     Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
+                    System.out.println("lock="+afState);
                     if (afState == null) {
                         captureStillPicture();
                     } else if (CaptureResult.CONTROL_AF_STATE_FOCUSED_LOCKED == afState ||
@@ -401,6 +410,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     @Override
     public void onResume() {
         super.onResume();
+        System.out.println("onResume");
         startBackgroundThread();
 
         // When the screen is turned off and turned back on, the SurfaceTexture is already
@@ -412,10 +422,13 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
             System.out.println("openCamera");
             openCamera(textureView.getWidth(), textureView.getHeight());
         }
+
+
     }
 
     @Override
     public void onPause() {
+        System.out.println("onPause");
         closeCamera();
         stopBackgroundThread();
         super.onPause();
@@ -544,11 +557,9 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    textureView.setAspectRatio(
-                        mPreviewSize.getWidth(), mPreviewSize.getHeight());
+                    textureView.setAspectRatio(mPreviewSize.getWidth(), mPreviewSize.getHeight());
                 } else {
-                    textureView.setAspectRatio(
-                        mPreviewSize.getHeight(), mPreviewSize.getWidth());
+                    textureView.setAspectRatio(mPreviewSize.getHeight(), mPreviewSize.getWidth());
                 }
 
                 // Check if the flash is supported.
@@ -622,6 +633,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     /**
      * Creates a new {@link CameraCaptureSession} for camera preview.
      */
+
     private void createCameraPreviewSession() {
         try {
             SurfaceTexture texture = textureView.getSurfaceTexture();
@@ -657,12 +669,14 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
                                 CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                             // Flash is automatically enabled when necessary.
-                            setAutoFlash(mPreviewRequestBuilder);
-
+                         //  setAutoFlash(mPreviewRequestBuilder);
+                            onFrontLight(frontLightMode);
+                            mState = STATE_HAND_FOCUS;
                             // Finally, we start displaying the camera preview.
                             mPreviewRequest = mPreviewRequestBuilder.build();
                             mCaptureSession.setRepeatingRequest(mPreviewRequest,
                                 mCaptureCallback, mBackgroundHandler);
+
                         } catch (CameraAccessException e) {
                             e.printStackTrace();
                         }
@@ -730,8 +744,11 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 CameraMetadata.CONTROL_AF_TRIGGER_START);
             // Tell #mCaptureCallback to wait for the lock.
             mState = STATE_WAITING_LOCK;
+            System.out.println("mBackgroundHandler="+(null == mBackgroundHandler));
+            System.out.println("mCaptureSession="+(null == mCaptureSession));
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                 mBackgroundHandler);
+
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -743,7 +760,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
      */
     private void runPrecaptureSequence() {
         try {
-            System.out.println("trigger runPrecaptureSequence");
+
             // This is how to tell the camera to trigger.
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER,
                 CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START);
@@ -785,11 +802,25 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
                 @Override
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
-                    @NonNull CaptureRequest request,
-                    @NonNull TotalCaptureResult result) {
+                    @NonNull CaptureRequest request, @NonNull TotalCaptureResult result) {
+                    hasTakePicture = true;
                     showToast("Saved: " + mFile);
                     Log.d(TAG, mFile.toString());
                     unlockFocus();
+
+                    try {
+                       if(mFile.exists()){
+                           tackpicResult.sendEmptyMessage(1);
+                       }else{
+                           tackpicResult.sendEmptyMessage(0);
+                       }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        tackpicResult.sendEmptyMessage(0);
+                        hasTakePicture = false;
+
+                    }
+
                 }
             };
 
@@ -809,18 +840,42 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
             // Reset the auto-focus trigger
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                 CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
-            setAutoFlash(mPreviewRequestBuilder);
+           // setAutoFlash(mPreviewRequestBuilder);
+            onFrontLight(frontLightMode);
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                 mBackgroundHandler);
             // After this, the camera will go back to the normal state of preview.
             mState = STATE_PREVIEW;
-            mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback,
-                mBackgroundHandler);
+            //mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback,
+            //    mBackgroundHandler);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
 
+    Handler    tackpicResult = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what == 1){
+                //拍照成功
+                viewfinder_view.setImageURI(Uri.fromFile(mFile));
+                tackSucShowView();
+                hasTakePicture = true;
+            }else if(msg.what == 0){
+                hasTakePicture = false;
+                reStartShowView();
+                //拍照失败
+            }else if(msg.what==3){
+                //显示网络
+                SharedPreferences  sharedPreferences = getShare();
+                int  guide = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE,2);
+                int  top = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_TOP,0);
+                int  left = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_LEFT,0);
+                initGuide(guide,top,left);
+            }
+        }
+    };
 
     private void setAutoFlash(CaptureRequest.Builder requestBuilder) {
         if (mFlashSupported) {
@@ -961,9 +1016,15 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     }
 
+
+    public   void    stopPreview(){
+
+    }
+
     @Override
     public void closeCamera() {
         try {
+            hasTakePicture = false;
             mCameraOpenCloseLock.acquire();
             if (null != mCaptureSession) {
                 mCaptureSession.close();
@@ -1010,7 +1071,6 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     @Override
     public void onFrontLight(FrontLightMode frontLightMode) {
-
 
         mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
             CaptureRequest.CONTROL_AE_MODE_ON);
@@ -1097,6 +1157,6 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     @Override
     public void startCamera() {
-
+        reStartShowView();
     }
 }

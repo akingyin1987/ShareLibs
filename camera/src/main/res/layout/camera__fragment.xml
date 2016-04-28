@@ -16,17 +16,7 @@
         android:layout_centerInParent="true" />
   </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
 
-        <com.zlcdgroup.camera.widget.TouchImageView
-            android:id="@+id/viewfinder_view"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerInParent="true"
-            android:background="@color/camera_transparent" />
-    </RelativeLayout>
 
   <RelativeLayout android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -53,62 +43,6 @@
 
         android:background="@color/camera_white"/>
   </RelativeLayout>
-    <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:id="@+id/camera_tools_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentBottom="true"
-        android:padding="10dp"
-        android:layout_marginBottom="20dp"
-       >
-
-        <ImageView
-            android:id="@+id/cancel_camera"
-            android:layout_width="wrap_content"
-            android:src="@drawable/btn_style_cancel_1"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="20dp"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:id="@+id/tack_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-
-            android:src="@drawable/btn_style_takepicture_2"
-            />
-
-           <ImageView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentRight="true"
-                      android:layout_marginRight="20dp"
-                      android:id="@+id/config_camera"
-                      android:layout_centerInParent="true"
-                      android:visibility="gone"
-                      android:src="@drawable/btn_style_save_2"/>
-
-
-    </RelativeLayout>
-      <SeekBar
-          android:id="@+id/bar"
-          style="@android:style/Widget.ProgressBar.Horizontal"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_above="@id/camera_tools_view"
-          android:layout_alignParentLeft="true"
-          android:layout_marginBottom="50dp"
-          android:layout_marginLeft="30dp"
-          android:layout_marginRight="30dp"
-          android:max="100"
-          android:visibility="gone" />
-    </RelativeLayout>
 
   <RelativeLayout
       android:layout_width="fill_parent"
@@ -163,5 +97,73 @@
 
 
   </RelativeLayout>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" >
+
+    <com.zlcdgroup.camera.widget.TouchImageView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/camera_transparent" />
+  </RelativeLayout>
+  <RelativeLayout android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/camera_tools_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+    >
+
+      <ImageView
+          android:id="@+id/cancel_camera"
+          android:layout_width="wrap_content"
+          android:src="@drawable/btn_style_cancel_1"
+          android:layout_alignParentLeft="true"
+          android:layout_marginLeft="20dp"
+          android:layout_centerInParent="true"
+          android:visibility="gone"
+          android:layout_height="wrap_content"/>
+
+      <ImageView
+          android:id="@+id/tack_camera"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+
+          android:src="@drawable/btn_style_takepicture_2"
+      />
+
+      <ImageView android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_marginRight="20dp"
+          android:id="@+id/config_camera"
+          android:layout_centerInParent="true"
+          android:visibility="gone"
+          android:src="@drawable/btn_style_save_2"/>
+
+
+    </RelativeLayout>
+    <SeekBar
+        android:id="@+id/bar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/camera_tools_view"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:max="100"
+        android:visibility="gone" />
+  </RelativeLayout>
+
 
 </FrameLayout>

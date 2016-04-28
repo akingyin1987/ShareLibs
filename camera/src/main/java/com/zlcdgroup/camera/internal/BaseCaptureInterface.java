@@ -1,7 +1,6 @@
 package com.zlcdgroup.camera.internal;
 
 
-import android.graphics.SurfaceTexture;
 import com.zlcdgroup.camera.FrontLightMode;
 import com.zlcdgroup.camera.VolumeMode;
 
