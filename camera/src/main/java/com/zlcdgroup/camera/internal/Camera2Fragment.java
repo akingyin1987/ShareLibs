@@ -740,12 +740,30 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     private void lockFocus() {
         try {
             // This is how to tell the camera to lock focus.
+           Integer  afs =   mPreviewRequestBuilder.get(CaptureRequest.CONTROL_AF_MODE);
+
+            if(null == afs || afs != CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE){
+                mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+            }
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                 CameraMetadata.CONTROL_AF_TRIGGER_START);
             // Tell #mCaptureCallback to wait for the lock.
+            switch (frontLightMode){
+                case OFF:
+                    mPreviewRequestBuilder.set(CaptureRequest.FLASH_MODE,
+                        CameraMetadata.FLASH_MODE_OFF);
+                    break;
+                case ON:
+                    mPreviewRequestBuilder.set(CaptureRequest.FLASH_MODE,
+                        CameraMetadata.FLASH_MODE_TORCH);
+                    break;
+                case AUTO:
+                    mPreviewRequestBuilder.set(CaptureRequest.FLASH_MODE,
+                        CaptureRequest.FLASH_MODE_SINGLE);
+                    break;
+            }
             mState = STATE_WAITING_LOCK;
-            System.out.println("mBackgroundHandler="+(null == mBackgroundHandler));
-            System.out.println("mCaptureSession="+(null == mCaptureSession));
+
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                 mBackgroundHandler);
 
@@ -838,6 +856,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     private void unlockFocus() {
         try {
             // Reset the auto-focus trigger
+            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                 CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
            // setAutoFlash(mPreviewRequestBuilder);
