@@ -378,7 +378,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 e.printStackTrace();
             }
             if(hasTakePicture()){
-
+                viewfinder_view.setImageURI(null);
                 startCamera();
             }else{
                 Activity act = getActivity();

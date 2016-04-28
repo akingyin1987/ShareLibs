@@ -856,7 +856,8 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     private void unlockFocus() {
         try {
             // Reset the auto-focus trigger
-            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
+                CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                 CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
            // setAutoFlash(mPreviewRequestBuilder);
@@ -876,9 +877,11 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            System.out.println("what="+msg.what);
             if(msg.what == 1){
                 //拍照成功
                 viewfinder_view.setImageURI(Uri.fromFile(mFile));
+                viewfinder_view.setVisibility(View.VISIBLE);
                 tackSucShowView();
                 hasTakePicture = true;
             }else if(msg.what == 0){
@@ -895,6 +898,8 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
             }
         }
     };
+
+
 
     private void setAutoFlash(CaptureRequest.Builder requestBuilder) {
         if (mFlashSupported) {
@@ -1151,6 +1156,9 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
             File   dirfile = new File(dir);
             dirfile.mkdirs();
             mFile = new File(dirfile,fileName);
+            if(mFile.exists()){
+                mFile.delete();
+            }
             lockFocus();
         }catch (Exception e){
             e.printStackTrace();
@@ -1176,6 +1184,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     @Override
     public void startCamera() {
+        System.out.println("取消拍照");
         reStartShowView();
     }
 }
