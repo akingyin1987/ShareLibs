@@ -8,12 +8,18 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.util.AsyncListUtil;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import com.zlcdgroup.camera.MaterialCamera;
 import java.io.File;
+import java.util.Date;
+import java.util.Random;
+import me.leolin.shortcutbadger.ShortcutBadger;
+import si.virag.fuzzydateformatter.FuzzyDateTimeFormatter;
 
 /**
  * @ Description:
@@ -28,21 +34,24 @@ public class IndexActivity  extends AppCompatActivity {
   public Button   camera2_default;
   public RadioButton   camera_tow;
   public RadioButton   tuya_one,tuya_tow;
-
+  public TextView   tag_info;
   public RadioButton   camera_system,camera_one;
 
   public RadioGroup  rg_tuya,rg_camera;
   SharedPreferences   sharedPreferences;
+  public   long   startTime ;
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_infex);
+    startTime = System.currentTimeMillis();
     sharedPreferences = getSharedPreferences("setting_info", Activity.MODE_PRIVATE);
     camera_tow = (RadioButton)findViewById(R.id.camera_tow);
     tuya_one = (RadioButton)findViewById(R.id.tuya_one);
     tuya_tow = (RadioButton)findViewById(R.id.tuya_tow);
     camera_system = (RadioButton)findViewById(R.id.camera_system);
     camera_one = (RadioButton)findViewById(R.id.camera_one);
+    tag_info =(TextView)findViewById(R.id.tag_info);
     int   tuya = sharedPreferences.getInt("tuya",0);
     if(tuya==0){
       tuya_one.setChecked(true);
@@ -122,5 +131,13 @@ public class IndexActivity  extends AppCompatActivity {
         }
       }
     });
+    tag_info.setText(FuzzyDateTimeFormatter.getTimeAgo(this,new Date(startTime)));
+    ShortcutBadger.applyCount(this,new Random().nextInt(100));
+
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    tag_info.setText(FuzzyDateTimeFormatter.getTimeAgo(this,new Date(startTime)));
   }
 }

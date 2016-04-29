@@ -12,6 +12,10 @@
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
 
             android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.zlcdgroup.tuya"/>
+
+            </intent-filter>
         </activity>
     </application>
 

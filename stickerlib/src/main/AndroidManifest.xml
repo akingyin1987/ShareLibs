@@ -10,7 +10,10 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:screenOrientation="portrait"
             android:theme="@style/Sticker_AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.zlcdgroup.sticker"/>
 
+            </intent-filter>
         </activity>
         <activity
             android:name=".DisplayActivity"

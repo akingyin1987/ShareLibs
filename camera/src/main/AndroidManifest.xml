@@ -9,11 +9,22 @@
 
     <activity android:name=".CaptureActivity"
               android:screenOrientation="portrait"
-              android:theme="@style/Theme.TranslucentNavigationBar"/>
+              android:theme="@style/Theme.TranslucentNavigationBar">
+      <intent-filter>
+        <action android:name="com.zlcdgroup.camera"/>
+
+      </intent-filter>
+        </activity>
 
     <activity android:name=".Capture2Activity"
         android:screenOrientation="portrait"
-        android:theme="@style/Theme.TranslucentNavigationBar"/>
+        android:theme="@style/Theme.TranslucentNavigationBar">
+      <intent-filter>
+        <action android:name="com.zlcdgroup.camera2"/>
+
+      </intent-filter>
+    </activity>
+
   </application>
 
 </manifest>
