@@ -7,7 +7,7 @@
   <Button android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="cameraAuto"
-   android:id="@+id/camera_default"/>
+      android:id="@+id/camera_default"/>
 
   <Button android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -23,5 +23,36 @@
       android:layout_height="wrap_content"
       android:text="imagelist"
       android:id="@+id/imagelist"/>
+
+  <RadioGroup android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:id="@+id/rg_tuya">
+    <RadioButton android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/tuya_one"
+                 android:text="tuya1"/>
+    <RadioButton android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tuya_tow"
+        android:text="tuya2"/>
+  </RadioGroup>
+  <RadioGroup android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:id="@+id/rg_camera">
+    <RadioButton android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/camera_system"
+        android:text="syscamera"/>
+    <RadioButton android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/camera_one"
+        android:text="camera1"/>
+    <RadioButton android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/camera_tow"
+        android:text="camera2"/>
+  </RadioGroup>
 
 </LinearLayout>

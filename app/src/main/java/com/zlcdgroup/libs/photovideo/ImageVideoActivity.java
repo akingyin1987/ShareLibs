@@ -1,17 +1,14 @@
 package com.zlcdgroup.libs.photovideo;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import org.askerov.dynamicgrid.DynamicGridView;
 
 import android.annotation.SuppressLint;
@@ -65,6 +62,11 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 	private TextView title_name, ivTitleBtnLeft,ivTitleBtnLeftButton;
 
 	private ImageView ivTitleBtnRightImage;
+
+	private   int   cameraType,tuyaType;
+
+	public  static  final  String   TUYA_KEY="tuya_key";
+	public  static  final  String   CAMERA_KEY="camera_key";
 	
 	
 
@@ -108,6 +110,13 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_photo_video);
+		if(null == savedInstanceState){
+			tuyaType = getIntent().getIntExtra(TUYA_KEY,0);
+			cameraType = getIntent().getIntExtra(CAMERA_KEY,0);
+		}else{
+			tuyaType = savedInstanceState.getInt(TUYA_KEY,0);
+			cameraType = savedInstanceState.getInt(CAMERA_KEY,0);
+		}
 		title_name = (TextView) findViewById(R.id.title_name);
 		ivTitleBtnLeft = (TextView) findViewById(R.id.ivTitleBtnLeft);
 		ivTitleBtnLeft.setText("返回");
@@ -224,10 +233,8 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 			    	if(textsortAdapter.getCount() >0){
 			    		textsortAdapter.remove(item);
 			    	}
-			 
-			    	System.out.println("list.size="+listsortdata.size()+":"+adapter.getCount());
 			    	adapter.add(listsortdata);
-			    	System.out.println("adapter.size="+adapter.getCount());
+
 			     }
 				
 			}
@@ -353,6 +360,13 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 		title_name.setText(getTitleName());
 		CustomView(photo_video_content);
 		customOperationView(custom_operation, custom_operation_title);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(CAMERA_KEY,cameraType);
+		outState.putInt(TUYA_KEY,tuyaType);
 	}
 
 	public  void   showToast(String message){
@@ -955,7 +969,6 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 	@SuppressLint("SimpleDateFormat")
 	public void PaiZhao() {
 
-		int cameratype = new Random().nextInt(2);
 		String directory = getImageDirectory();
 
 		File file = new File(directory);
@@ -967,12 +980,14 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 		localPath = directory + File.separator + pictureName;
 
 		Intent mIntent = null;
-		if (cameratype == 1) {
+		if (cameraType == 0) {
 			mIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			mIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(localPath)));
 			startActivityForResult(mIntent, REQUEST_CODE_SYSCAMERA);
-		} else if (cameratype == 0) {
-			new MaterialCamera(this).saveDir(directory).saveName(pictureName).startAuto(REQUEST_CODE_CUESTOMCAMERA);
+		} else if (cameraType == 1) {
+			new MaterialCamera(this).saveDir(directory).saveName(pictureName).startCamera(REQUEST_CODE_CUESTOMCAMERA);
+		}else if(cameraType == 2){
+			new MaterialCamera(this).saveDir(directory).saveName(pictureName).startCaera2(REQUEST_CODE_CUESTOMCAMERA);
 		}
 	}
 
@@ -1030,21 +1045,21 @@ public abstract class ImageVideoActivity extends Activity implements OnClickList
 		String directory = getImageDirectory();
 		String pictureName = Temp.getUUID() + "tuya" + ".jpg";
 		localPath = directory + File.separator + pictureName;
-		int  type = new Random().nextInt(1);
-		if(Temp.DEBUG){
-			Intent  debugintent = new Intent(this, StickerMainActivity.class);
-			debugintent.putExtra(StickerMainActivity.KEY_SAVE_FILEDIR,directory);
-			debugintent.putExtra(StickerMainActivity.KEY_SAVE_FILENAME,pictureName);
-			debugintent.putExtra(StickerMainActivity.KEY_PATH,imgpath);
-			startActivityForResult(debugintent,REQUEST_CODE_TUYA);
+		if(tuyaType == 0){
+			Intent intent = new Intent(this, TuYaActivity.class);
+			intent.putExtra(TuYaActivity.KEY_PIC_DIRECTORYPATH, FileUtil.getFolderName(imgpath));
+			intent.putExtra(TuYaActivity.KEY_PIC_NAME, FileUtil.getFileName(imgpath));
+			intent.putExtra(TuYaActivity.KEY_SAVE_RENAME, pictureName);
+			intent.putExtra(TuYaActivity.KEY_PIC_ORIGINAL, original);
+			startActivityForResult(intent, REQUEST_CODE_TUYA);
 			return;
 		}
-		Intent intent = new Intent(this, TuYaActivity.class);
-		intent.putExtra(TuYaActivity.KEY_PIC_DIRECTORYPATH, FileUtil.getFolderName(imgpath));
-		intent.putExtra(TuYaActivity.KEY_PIC_NAME, FileUtil.getFileName(imgpath));
-		intent.putExtra(TuYaActivity.KEY_SAVE_RENAME, pictureName);
-		intent.putExtra(TuYaActivity.KEY_PIC_ORIGINAL, original);
-		startActivityForResult(intent, REQUEST_CODE_TUYA);
+		Intent  debugintent = new Intent(this, StickerMainActivity.class);
+		debugintent.putExtra(StickerMainActivity.KEY_SAVE_FILEDIR,directory);
+		debugintent.putExtra(StickerMainActivity.KEY_SAVE_FILENAME,pictureName);
+		debugintent.putExtra(StickerMainActivity.KEY_PATH,imgpath);
+		startActivityForResult(debugintent,REQUEST_CODE_TUYA);
+
 	}
 
 	public static int currentPostion = -1;

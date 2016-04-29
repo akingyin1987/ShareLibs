@@ -167,12 +167,6 @@
         android:visibility="gone" />
   </RelativeLayout>
 
- <com.zlcdgroup.camera.widget.FocusImageView android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        FocusImageView:focus_focusing_id="@drawable/focus_focusing"
-                                        FocusImageView:focus_success_id="@drawable/focus_focused"
-                                        FocusImageView:targetApi="ICE_CREAM_SANDWICH_MR1"
-                                         FocusImageView:focus_fail_id="@drawable/focus_failed"
-                                        android:id="@+id/camera_focusview"/>
+
 
 </FrameLayout>

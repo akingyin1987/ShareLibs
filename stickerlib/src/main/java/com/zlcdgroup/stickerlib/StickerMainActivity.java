@@ -155,6 +155,7 @@ public class StickerMainActivity extends AppCompatActivity {
             borders[3] = endy+py;
             System.out.println(px+":"+py+":"+endx+":"+endy);
             image_content.setImageURI(Uri.fromFile(file));
+            System.out.println(image_content.getWidth()+":"+image_content.getHeight());
 
         }catch (Exception e){
             e.printStackTrace();
@@ -315,7 +316,7 @@ public class StickerMainActivity extends AppCompatActivity {
         data.putExtra(KEY_SAVE_FILEDIR,dir);
         data.putExtra(KEY_SAVE_FILENAME,fileName);
         setResult(RESULT_OK,data);
-         System.out.println(dir + File.separator + fileName);
+
         Intent intent = new Intent(this, DisplayActivity.class);
         intent.putExtra("image", dir+File.separator+fileName);
         startActivity(intent);

@@ -3,12 +3,15 @@ package com.zlcdgroup.libs;
 import android.app.Application;
 import android.content.Context;
 
+import android.content.SharedPreferences;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
+import com.facebook.stetho.Stetho;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.zlcdgroup.libs.db.ImageTextBean;
 import com.zlcdgroup.libs.photovideo.vo.TempBaseVo;
 
@@ -17,14 +20,20 @@ import com.zlcdgroup.libs.photovideo.vo.TempBaseVo;
  */
 public class MyApp  extends Application {
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
+
         Configuration  configuration =  new  Configuration.Builder(this)
                         .addModelClass(ImageTextBean.class)
                         .addModelClass(TempBaseVo.class).create();
         ActiveAndroid.initialize(configuration,true);
         initImageLoader(this);
+        CrashReport.initCrashReport(this,"900027987",false);
+        CrashReport.setUserId(System.currentTimeMillis()+"test");
+        Stetho.initializeWithDefaults(this);
     }
 
     @Override
