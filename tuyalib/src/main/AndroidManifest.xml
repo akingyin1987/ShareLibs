@@ -14,7 +14,8 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="com.zlcdgroup.tuya"/>
-
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="tuya/*" />
             </intent-filter>
         </activity>
     </application>
