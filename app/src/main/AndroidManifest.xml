@@ -1,6 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
-
     package="com.zlcdgroup.libs">
 
   <uses-permission android:name="android.permission.CAMERA"/>
@@ -37,6 +35,15 @@
       <activity android:name=".MyImageTextActivity"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait" />
+
+    <service android:name=".server.TestServer"
+      >
+      <intent-filter>
+        <action android:name="com.zlcdgroup.testserver"/>
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="server/*" />
+      </intent-filter>
+    </service>
   </application>
 
 </manifest>
