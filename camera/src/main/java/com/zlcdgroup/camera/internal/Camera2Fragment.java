@@ -29,11 +29,13 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 
+import android.media.MediaActionSound;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -45,6 +47,9 @@ import android.util.SparseIntArray;
 import android.view.Surface;
 
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.zlcdgroup.camera.Camera2Help;
@@ -53,6 +58,7 @@ import com.zlcdgroup.camera.FrontLightMode;
 import com.zlcdgroup.camera.R;
 import com.zlcdgroup.camera.VolumeMode;
 import com.zlcdgroup.camera.util.CameraDialogUtil;
+import com.zlcdgroup.camera.widget.AnimationImageView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -71,7 +77,8 @@ import java.util.concurrent.TimeUnit;
  * @author Aidan Follestad (afollestad)
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureInterface, ActivityCompat.OnRequestPermissionsResultCallback {
+public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureInterface, ActivityCompat.OnRequestPermissionsResultCallback,
+   CaptureResultCallback{
 
     /**
      * Conversion from screen rotation to JPEG orientation.
@@ -80,10 +87,20 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
 
+    private AnimationImageView  mFocusImage;
+
+    /**
+     * Focus的Scale动画
+     */
+    private ScaleAnimation mScaleFocusAnimation;
+
+    private CameraCharacteristics mCameraCharacteristics;
 
     private  boolean  hasTakePicture = false;
 
     private Camera2Help    camera2Help;
+
+    public static final int FOCUS_DISAPPEAR = 100;
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -100,7 +117,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     /**
      * Camera state: Showing camera preview.
      */
-    private static final int STATE_PREVIEW = 0;
+    public static final int STATE_PREVIEW = 0;
 
     /**
      * Camera state: Waiting for the focus to be locked.
@@ -151,6 +168,73 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     private Size mPreviewSize;
 
     private String mCameraId;
+
+    private   MediaActionSound  mMediaActionSound;//拍照声音
+
+
+    /**
+     * 用来focus的显示框框之类的
+     */
+    private PreviewSessionCallback mPreviewSessionCallback;
+    /**
+     * 初始化声音
+     */
+    private void initShutter() {
+        mMediaActionSound = new MediaActionSound();
+        mMediaActionSound.load(MediaActionSound.SHUTTER_CLICK);
+    }
+
+    /**
+     * 初始化动画效果
+     */
+    private void initAnimation() {
+
+        mScaleFocusAnimation = new ScaleAnimation(2.0f, 1.0f, 2.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        mScaleFocusAnimation.setDuration(200);
+
+    }
+    /**
+     * 这样做是为了获得mFocusImage的高度和宽度
+     */
+    private void initFocusImage() {
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        mFocusImage.setLayoutParams(layoutParams);
+        mFocusImage.initFocus();
+    }
+    private   Handler   mMainHandler = new  Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case FOCUS_DISAPPEAR:
+                    if (msg.obj == null) {
+                        mFocusImage.stopFocus();
+                        break;
+                    }
+                    Integer valueTimes = (Integer) msg.obj;
+                    if (mFocusImage.mTimes == valueTimes.intValue()) {
+                        mFocusImage.stopFocus();
+                    }
+                    break;
+            }
+        }
+    };
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initAnimation();
+        mFocusImage = (AnimationImageView) view.findViewById(R.id.img_focus);
+        mFocusImage.setVisibility(View.INVISIBLE);
+        mFocusImage.setmMainHandler(mMainHandler);
+        mFocusImage.setmAnimation(mScaleFocusAnimation);
+        initFocusImage();
+        mPreviewSessionCallback = new PreviewSessionCallback(mFocusImage,mMainHandler,textureView);
+        mPreviewSessionCallback.setCaptureResultCallback(this);
+        mPreviewSessionCallback.setmStatus(mState);
+
+    }
 
     /**
      * {@link CameraDevice.StateCallback} is called when {@link CameraDevice} changes its state.
@@ -235,7 +319,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     /**
      * The current state of camera state for taking pictures.
      *
-     * @see #mCaptureCallback
+     * @see
      */
     private int mState = STATE_PREVIEW;
 
@@ -249,86 +333,91 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
      */
     private boolean mFlashSupported;
 
-    /**
-     * A {@link CameraCaptureSession.CaptureCallback} that handles events related to JPEG capture.
-     */
-    private CameraCaptureSession.CaptureCallback mCaptureCallback
-        = new CameraCaptureSession.CaptureCallback() {
+    ///**
+    // * A {@link CameraCaptureSession.CaptureCallback} that handles events related to JPEG capture.
+    // */
+    //private CameraCaptureSession.CaptureCallback mCaptureCallback = new CameraCaptureSession.CaptureCallback() {
+    //
+    //
+    //
+    //    @Override
+    //    public void onCaptureProgressed(@NonNull CameraCaptureSession session,
+    //        @NonNull CaptureRequest request,
+    //        @NonNull CaptureResult partialResult) {
+    //        process(partialResult);
+    //    }
+    //
+    //    @Override
+    //    public void onCaptureCompleted(@NonNull CameraCaptureSession session,
+    //        @NonNull CaptureRequest request,
+    //        @NonNull TotalCaptureResult result) {
+    //        process(result);
+    //    }
+    //
+    //};
 
-        private void process(CaptureResult result) {
 
-            switch (mState) {
-                case STATE_PREVIEW: {
+    private void process(CaptureResult result) {
 
-                    // We have nothing to do when the camera preview is working normally.
-                    break;
-                }
-                case STATE_HAND_FOCUS:{
-                    Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
-                    System.out.println("afstate=="+afState);
-                    if(null != afState &&
-                        ( afState == CaptureRequest.CONTROL_AF_STATE_PASSIVE_FOCUSED
+        switch (mState) {
+            case STATE_PREVIEW: {
+
+                // We have nothing to do when the camera preview is working normally.
+                break;
+            }
+            case STATE_HAND_FOCUS:{
+                Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
+                System.out.println("afstate=="+afState);
+                if(null != afState &&
+                    ( afState == CaptureRequest.CONTROL_AF_STATE_PASSIVE_FOCUSED
                         || afState == CaptureRequest.CONTROL_AF_STATE_ACTIVE_SCAN)){
-                        unlockFocus();
-                    }
-                    break;
+                    unlockFocus();
                 }
-                case STATE_WAITING_LOCK: {
-                    Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
-                    System.out.println("lock="+afState);
-                    if (afState == null) {
-                        captureStillPicture();
-                    } else if (CaptureResult.CONTROL_AF_STATE_FOCUSED_LOCKED == afState ||
-                        CaptureResult.CONTROL_AF_STATE_NOT_FOCUSED_LOCKED == afState) {
-                        // CONTROL_AE_STATE can be null on some devices
-                        Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
-                        if (aeState == null ||
-                            aeState == CaptureResult.CONTROL_AE_STATE_CONVERGED) {
-                            mState = STATE_PICTURE_TAKEN;
-                            captureStillPicture();
-                        } else {
-                            runPrecaptureSequence();
-                        }
-                    }
-                    break;
-                }
-                case STATE_WAITING_PRECAPTURE: {
+                break;
+            }
+            case STATE_WAITING_LOCK: {
+                Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
+
+                if (afState == null) {
+                    captureStillPicture();
+                } else if (CaptureResult.CONTROL_AF_STATE_FOCUSED_LOCKED == afState ||
+                    CaptureResult.CONTROL_AF_STATE_NOT_FOCUSED_LOCKED == afState) {
                     // CONTROL_AE_STATE can be null on some devices
                     Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
                     if (aeState == null ||
-                        aeState == CaptureResult.CONTROL_AE_STATE_PRECAPTURE ||
-                        aeState == CaptureRequest.CONTROL_AE_STATE_FLASH_REQUIRED) {
-                        mState = STATE_WAITING_NON_PRECAPTURE;
-                    }
-                    break;
-                }
-                case STATE_WAITING_NON_PRECAPTURE: {
-                    // CONTROL_AE_STATE can be null on some devices
-                    Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
-                    if (aeState == null || aeState != CaptureResult.CONTROL_AE_STATE_PRECAPTURE) {
+                        aeState == CaptureResult.CONTROL_AE_STATE_CONVERGED) {
                         mState = STATE_PICTURE_TAKEN;
+                        mPreviewSessionCallback.setmStatus(mState);
                         captureStillPicture();
+                    } else {
+                        runPrecaptureSequence();
                     }
-                    break;
                 }
+                break;
+            }
+            case STATE_WAITING_PRECAPTURE: {
+                // CONTROL_AE_STATE can be null on some devices
+                Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
+                if (aeState == null ||
+                    aeState == CaptureResult.CONTROL_AE_STATE_PRECAPTURE ||
+                    aeState == CaptureRequest.CONTROL_AE_STATE_FLASH_REQUIRED) {
+                    mState = STATE_WAITING_NON_PRECAPTURE;
+                    mPreviewSessionCallback.setmStatus(mState);
+                }
+                break;
+            }
+            case STATE_WAITING_NON_PRECAPTURE: {
+                // CONTROL_AE_STATE can be null on some devices
+                Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
+                if (aeState == null || aeState != CaptureResult.CONTROL_AE_STATE_PRECAPTURE) {
+                    mState = STATE_PICTURE_TAKEN;
+                    mPreviewSessionCallback.setmStatus(mState);
+                    captureStillPicture();
+                }
+                break;
             }
         }
-
-        @Override
-        public void onCaptureProgressed(@NonNull CameraCaptureSession session,
-            @NonNull CaptureRequest request,
-            @NonNull CaptureResult partialResult) {
-            process(partialResult);
-        }
-
-        @Override
-        public void onCaptureCompleted(@NonNull CameraCaptureSession session,
-            @NonNull CaptureRequest request,
-            @NonNull TotalCaptureResult result) {
-            process(result);
-        }
-
-    };
+    }
 
     /**
      * Shows a {@link Toast} on the UI thread.
@@ -410,16 +499,16 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
     @Override
     public void onResume() {
         super.onResume();
-        System.out.println("onResume");
+
         startBackgroundThread();
 
         // When the screen is turned off and turned back on, the SurfaceTexture is already
         // available, and "onSurfaceTextureAvailable" will not be called. In that case, we can open
         // a camera and start preview from here (otherwise, we wait until the surface is ready in
         // the SurfaceTextureListener).
-        System.out.println("isAvailable="+textureView.isAvailable());
+
         if (textureView.isAvailable()) {
-            System.out.println("openCamera");
+
             openCamera(textureView.getWidth(), textureView.getHeight());
         }
 
@@ -428,7 +517,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     @Override
     public void onPause() {
-        System.out.println("onPause");
+
         closeCamera();
         stopBackgroundThread();
         super.onPause();
@@ -487,7 +576,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 if (map == null) {
                     continue;
                 }
-
+                mCameraCharacteristics = characteristics;
                 // For still image captures, we use the largest available size.
                 //选择了一个最大的分辨率
                 List<Size>  supportSizes = Arrays.asList(map.getOutputSizes(ImageFormat.JPEG));
@@ -634,6 +723,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
      * Creates a new {@link CameraCaptureSession} for camera preview.
      */
 
+    Surface surface;
     private void createCameraPreviewSession() {
         try {
             SurfaceTexture texture = textureView.getSurfaceTexture();
@@ -643,7 +733,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
             texture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
 
             // This is the output Surface we need to start preview.
-            Surface surface = new Surface(texture);
+             surface = new Surface(texture);
 
             // We set up a CaptureRequest.Builder with the output Surface.
             mPreviewRequestBuilder
@@ -666,17 +756,16 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                         mCaptureSession = cameraCaptureSession;
                         try {
                             // Auto focus should be continuous for camera preview.
-                            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
-                                CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+                            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                             // Flash is automatically enabled when necessary.
                          //  setAutoFlash(mPreviewRequestBuilder);
                             onFrontLight(frontLightMode);
                             mState = STATE_HAND_FOCUS;
+                            mPreviewSessionCallback.setmStatus(mState);
                             // Finally, we start displaying the camera preview.
                             mPreviewRequest = mPreviewRequestBuilder.build();
-                            mCaptureSession.setRepeatingRequest(mPreviewRequest,
-                                mCaptureCallback, mBackgroundHandler);
-
+                            mCaptureSession.setRepeatingRequest(mPreviewRequest, mPreviewSessionCallback, mBackgroundHandler);
+                            textureView.setmMyTextureViewTouchEvent(new TextureViewTouchEvent(mCameraCharacteristics,textureView,mPreviewRequestBuilder,mCaptureSession,mBackgroundHandler,mPreviewSessionCallback));
                         } catch (CameraAccessException e) {
                             e.printStackTrace();
                         }
@@ -763,8 +852,8 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                     break;
             }
             mState = STATE_WAITING_LOCK;
-
-            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
+            mPreviewSessionCallback.setmStatus(mState);
+            mCaptureSession.capture(mPreviewRequestBuilder.build(), mPreviewSessionCallback,
                 mBackgroundHandler);
 
         } catch (CameraAccessException e) {
@@ -774,7 +863,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     /**
      * Run the precapture sequence for capturing a still image. This method should be called when
-     * we get a response in {@link #mCaptureCallback} from {@link #lockFocus()}.
+     * we get a response in {@link } from {@link #lockFocus()}.
      */
     private void runPrecaptureSequence() {
         try {
@@ -784,7 +873,8 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START);
             // Tell #mCaptureCallback to wait for the precapture sequence to be set.
             mState = STATE_WAITING_PRECAPTURE;
-            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
+            mPreviewSessionCallback.setmStatus(mState);
+            mCaptureSession.capture(mPreviewRequestBuilder.build(), mPreviewSessionCallback,
                 mBackgroundHandler);
         } catch (CameraAccessException e) {
             e.printStackTrace();
@@ -793,7 +883,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     /**
      * Capture a still picture. This method should be called when we get a response in
-     * {@link #mCaptureCallback} from both {@link #lockFocus()}.
+     * {@link #} from both {@link #lockFocus()}.
      */
     private void captureStillPicture() {
         try {
@@ -811,7 +901,7 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
             setAutoFlash(captureBuilder);
 
-            // Orientation
+            // OrientationmSeekBarTextView
             int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
 
@@ -824,6 +914,14 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                     hasTakePicture = true;
                     showToast("Saved: " + mFile);
                     Log.d(TAG, mFile.toString());
+                    tackpicResult.post(new Runnable() {
+                        @Override public void run() {
+                            if(volumeMode == VolumeMode.ON){
+                                initShutter();
+                                mMediaActionSound.play(MediaActionSound.SHUTTER_CLICK);
+                            }
+                        }
+                    });
                     unlockFocus();
 
                     try {
@@ -862,10 +960,11 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
            // setAutoFlash(mPreviewRequestBuilder);
             onFrontLight(frontLightMode);
-            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
+            mCaptureSession.capture(mPreviewRequestBuilder.build(), mPreviewSessionCallback,
                 mBackgroundHandler);
             // After this, the camera will go back to the normal state of preview.
             mState = STATE_PREVIEW;
+            mPreviewSessionCallback.setmStatus(mState);
             //mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback,
             //    mBackgroundHandler);
         } catch (CameraAccessException e) {
@@ -1113,10 +1212,11 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
                 break;
         }
         try {
-            mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mCaptureCallback,
+            mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mPreviewSessionCallback,
                 mBackgroundHandler);
 
             mState = STATE_PREVIEW;
+            mPreviewSessionCallback.setmStatus(mState);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -1124,7 +1224,9 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
 
     @Override
     public void onVolume(VolumeMode volumeMode) {
-
+       if(null == mMediaActionSound){
+           initShutter();
+       }
     }
 
     @Override
@@ -1135,8 +1237,9 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
             CameraMetadata.CONTROL_AF_TRIGGER_START);
         // Tell #mCaptureCallback to wait for the lock.
         mState = STATE_HAND_FOCUS;
+        mPreviewSessionCallback.setmStatus(mState);
         try {
-            mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mCaptureCallback,
+            mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mPreviewSessionCallback,
                 mBackgroundHandler);
 
 
@@ -1181,10 +1284,34 @@ public class Camera2Fragment extends BaseCameraFragment  implements BaseCaptureI
         super.onSurfaceTextureSizeChanged(surface, width, height);
         configureTransform(width, height);
     }
+    /**
+     * 更新预览
+     */
+    private void updatePreview() {
+        try {
+            mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), mPreviewSessionCallback, mBackgroundHandler);
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("updatePreview", "ExceptionExceptionException");
+        }
+    }
+
 
     @Override
     public void startCamera() {
         System.out.println("取消拍照");
         reStartShowView();
+    }
+
+    @Override public void onCaptureProgressed(@NonNull CameraCaptureSession session,
+        @NonNull CaptureRequest request, @NonNull CaptureResult partialResult) {
+        process(partialResult);
+    }
+
+    @Override public void onCaptureCompleted(@NonNull CameraCaptureSession session,
+        @NonNull CaptureRequest request, @NonNull TotalCaptureResult result) {
+         process(result);
     }
 }

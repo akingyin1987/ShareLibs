@@ -18,6 +18,7 @@ package com.zlcdgroup.camera.internal;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.TextureView;
 
 /**
@@ -71,6 +72,36 @@ class AutoFitTextureView extends TextureView {
                 setMeasuredDimension(height * mRatioWidth / mRatioHeight, height);
             }
         }
+    }
+
+    private MyTextureViewTouchEvent mMyTextureViewTouchEvent;
+    private FocusPositionTouchEvent mFocusPositionTouchEvent;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(null != mFocusPositionTouchEvent){
+            mFocusPositionTouchEvent.getPosition(event);
+        }
+        if(null != mMyTextureViewTouchEvent){
+            mMyTextureViewTouchEvent.onAreaTouchEvent(event);
+        }
+        return super.onTouchEvent(event);
+    }
+
+    public void setmMyTextureViewTouchEvent(MyTextureViewTouchEvent myTextureViewTouchEvent) {
+        this.mMyTextureViewTouchEvent = myTextureViewTouchEvent;
+    }
+
+    public void setmFocusPositionTouchEvent(FocusPositionTouchEvent mFocusPositionTouchEvent) {
+        this.mFocusPositionTouchEvent = mFocusPositionTouchEvent;
+    }
+
+    public interface MyTextureViewTouchEvent {
+        public boolean onAreaTouchEvent(MotionEvent event);
+    }
+
+    public interface FocusPositionTouchEvent {
+        public void getPosition(MotionEvent event);
     }
 
 }

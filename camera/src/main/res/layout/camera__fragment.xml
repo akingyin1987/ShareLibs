@@ -168,5 +168,16 @@
   </RelativeLayout>
 
 
+  <RelativeLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+    <com.zlcdgroup.camera.widget.AnimationImageView
+        android:id="@+id/img_focus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/focus"
+        android:visibility="invisible"
+    />
+
+  </RelativeLayout>
 
 </FrameLayout>
