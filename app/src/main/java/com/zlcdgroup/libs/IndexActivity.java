@@ -80,7 +80,7 @@ public class IndexActivity  extends AppCompatActivity {
     });
     tv_scratch = (ScratchTextView)findViewById(R.id.tv_scratch);
 
-   // tv_scratch.setText(getAppVersionName(this));
+    tv_scratch.setText(getAppVersionName(this));
     camera2_default = (Button) findViewById(R.id.camera2_default);
     if(Build.VERSION.SDK_INT <Build.VERSION_CODES.LOLLIPOP){
       if(null != camera2_default){

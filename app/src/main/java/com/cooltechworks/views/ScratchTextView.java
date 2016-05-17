@@ -144,8 +144,9 @@ public class ScratchTextView  extends TextView{
 
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    System.out.println("onSizeChanged"+w+":"+h);
     super.onSizeChanged(w, h, oldw, oldh);
-    if(w * h * oldh * oldw ==0 ){
+    if(w * h ==0 ){
       return;
     }
     mScratchBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
