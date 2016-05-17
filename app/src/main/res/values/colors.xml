@@ -9,4 +9,8 @@
 
   <color name="dark_font">#333</color>
   <color name="gray_font">#ccc</color>
+
+
+  <color name="scratch_start_gradient">#e5e5e5</color>
+  <color name="scratch_end_gradient">#cccccc</color>
 </resources>

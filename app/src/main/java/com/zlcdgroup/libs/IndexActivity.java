@@ -1,8 +1,11 @@
 package com.zlcdgroup.libs;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,6 +17,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import com.cooltechworks.views.ScratchTextView;
 import com.zlcdgroup.camera.MaterialCamera;
 import java.io.File;
 import java.util.Date;
@@ -40,6 +44,7 @@ public class IndexActivity  extends AppCompatActivity {
   public RadioGroup  rg_tuya,rg_camera;
   SharedPreferences   sharedPreferences;
   public   long   startTime ;
+  public ScratchTextView   tv_scratch;
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -73,7 +78,9 @@ public class IndexActivity  extends AppCompatActivity {
             .startCamera(101);
       }
     });
+    tv_scratch = (ScratchTextView)findViewById(R.id.tv_scratch);
 
+   // tv_scratch.setText(getAppVersionName(this));
     camera2_default = (Button) findViewById(R.id.camera2_default);
     if(Build.VERSION.SDK_INT <Build.VERSION_CODES.LOLLIPOP){
       if(null != camera2_default){
@@ -139,5 +146,22 @@ public class IndexActivity  extends AppCompatActivity {
   @Override protected void onResume() {
     super.onResume();
     tag_info.setText(FuzzyDateTimeFormatter.getTimeAgo(this,new Date(startTime)));
+  }
+
+  public static String getAppVersionName(Context context) {
+    String versionName = "";
+    try {
+      // ---get the package info---
+      PackageManager pm = context.getPackageManager();
+      PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+      versionName = pi.versionName;
+
+      if (versionName == null || versionName.length() <= 0) {
+        return "";
+      }
+    } catch (Exception e) {
+         e.printStackTrace();
+    }
+    return versionName;
   }
 }
