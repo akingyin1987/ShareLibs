@@ -1,1 +1,1 @@
-include ':app', ':camera', ':stickerlib', 'tuyalib'
+include ':app', ':camera', ':stickerlib', 'tuyalib', ':googlecameralib'

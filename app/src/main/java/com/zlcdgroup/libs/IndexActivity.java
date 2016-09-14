@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.cooltechworks.views.ScratchTextView;
+import com.zlcdgroup.camera.GoogleCameraActivity;
 import com.zlcdgroup.camera.MaterialCamera;
 import java.io.File;
 import java.util.Date;
@@ -76,6 +77,13 @@ public class IndexActivity  extends AppCompatActivity {
         new MaterialCamera(IndexActivity.this).saveDir(
             Environment.getExternalStorageDirectory().toString() + File.separator + "temp")
             .startCamera(101);
+      }
+    });
+
+    findViewById(R.id.google_camera).setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent  intent = new Intent(IndexActivity.this, GoogleCameraActivity.class);
+        startActivity(intent);
       }
     });
     tv_scratch = (ScratchTextView)findViewById(R.id.tv_scratch);

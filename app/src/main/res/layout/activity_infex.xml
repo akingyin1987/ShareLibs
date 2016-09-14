@@ -21,6 +21,11 @@
 
   <Button android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:text="google_camera2"
+      android:id="@+id/google_camera"/>
+
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:text="imagelist"
       android:id="@+id/imagelist"/>
 

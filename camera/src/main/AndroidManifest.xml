@@ -27,6 +27,15 @@
       </intent-filter>
     </activity>
 
+    <activity android:name=".GoogleCameraActivity"
+        android:theme="@style/Theme.TranslucentNavigationBar">
+      <intent-filter>
+        <action android:name="com.zlcdgroup.googlecamera"/>
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="camera/*" />
+      </intent-filter>
+    </activity>
+
   </application>
 
 </manifest>
