@@ -1,5 +1,6 @@
 package com.zlcdgroup.camera;
 
+
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
@@ -26,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.cameraview.CameraView;
@@ -108,7 +110,7 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
     if (mCameraView != null) {
       mCameraView.addCallback(mCallback);
     }
-    FloatingActionButton takePicture = (FloatingActionButton) findViewById(R.id.take_picture);
+    ImageView takePicture = (ImageView) findViewById(R.id.take_picture);
     if (takePicture != null) {
       takePicture.setOnClickListener(mOnClickListener);
     }

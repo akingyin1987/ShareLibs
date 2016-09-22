@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import android.content.SharedPreferences;
+import android.os.Environment;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.facebook.stetho.Stetho;
@@ -12,8 +13,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.yixia.camera.VCamera;
+import com.yixia.camera.util.DeviceUtils;
 import com.zlcdgroup.libs.db.ImageTextBean;
 import com.zlcdgroup.libs.photovideo.vo.TempBaseVo;
+import java.io.File;
 
 /**
  * Created by Administrator on 2016/4/23.
@@ -25,7 +29,21 @@ public class MyApp  extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        // 设置拍摄视频缓存路径
+        File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        if (DeviceUtils.isZte()) {
+            if (dcim.exists()) {
+                VCamera.setVideoCachePath(dcim + "/Camera/VCameraDemo/");
+            } else {
+                VCamera.setVideoCachePath(dcim.getPath().replace("/sdcard/", "/sdcard-ext/") + "/Camera/VCameraDemo/");
+            }
+        } else {
+            VCamera.setVideoCachePath(dcim + "/Camera/VCameraDemo/");
+        }
+        // 开启log输出,ffmpeg输出到logcat
+        VCamera.setDebugMode(true);
+        // 初始化拍摄SDK，必须
+        VCamera.initialize(this);
         Configuration  configuration =  new  Configuration.Builder(this)
                         .addModelClass(ImageTextBean.class)
                         .addModelClass(TempBaseVo.class).create();

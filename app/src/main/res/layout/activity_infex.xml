@@ -26,6 +26,12 @@
 
   <Button android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:text="VCamera"
+      android:id="@+id/vcamera"/>
+
+
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:text="imagelist"
       android:id="@+id/imagelist"/>
 
@@ -63,7 +69,6 @@
   <TextView android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tag_info"/>
-
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
