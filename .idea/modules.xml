@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/PG_Edit_SDK/PG_Edit_SDK.iml" filepath="$PROJECT_DIR$/PG_Edit_SDK/PG_Edit_SDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShareLibs.iml" filepath="$PROJECT_DIR$/ShareLibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/Vcamera/Vcamera.iml" filepath="$PROJECT_DIR$/Vcamera/Vcamera.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
