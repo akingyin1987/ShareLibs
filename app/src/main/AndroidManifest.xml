@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
 
     package="com.zlcdgroup.libs">
 
@@ -18,11 +18,46 @@
       android:theme="@style/AppTheme"
       android:supportsRtl="true"
       android:name=".MyApp"
-      android:logo="@mipmap/ic_launcher"
+
       android:icon="@mipmap/ic_launcher"
 
      >
+    <meta-data
+        android:name="BD_APP_ID"
+        android:value="ea8d04692735bc1f"/>
 
+    <meta-data
+        android:name="BD_APP_SECRET"
+        android:value="vCGG9QZ94tcGxTjangCc_b_VuXwmfGd2"/>
+
+    <meta-data android:name="EDIT_SDK_KEY"
+      android:value="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"/>
+    <activity
+        android:name="us.pinguo.edit.sdk.PGEditActivity"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+    <!--<activity-->
+        <!--android:name=".SampleActivity"-->
+        <!--android:label="@string/app_name"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">-->
+      <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+      <!--</intent-filter>-->
+    <!--</activity>-->
+
+    <service
+        android:name="us.pinguo.bigdata.BDUpService"
+        android:process=":bdupload">
+    </service>
+
+    <receiver android:name="us.pinguo.bigdata.BDAlarmReceiver">
+      <intent-filter>
+        <action android:name="bd_alarm"/>
+      </intent-filter>
+    </receiver>
     <activity
         android:name=".IndexActivity"
         android:label="@string/app_name"
@@ -73,6 +108,24 @@
         <data android:mimeType="server/*" />
       </intent-filter>
     </service>
+
+    <activity android:name=".tusdkcamera.TuSdkCameraActivity"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="stateHidden|adjustResize" />
+
+    <!-- *******************公共分组控制器******************* -->
+    <activity
+        android:name="org.lasque.tusdk.impl.activity.TuFragmentActivity"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="stateHidden|adjustResize" />
+
+
+
+
+
   </application>
 
 </manifest>

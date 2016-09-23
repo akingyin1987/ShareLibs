@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PG_Edit_SDK/PG_Edit_SDK.iml" filepath="$PROJECT_DIR$/PG_Edit_SDK/PG_Edit_SDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShareLibs.iml" filepath="$PROJECT_DIR$/ShareLibs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TuSdk/TuSdk.iml" filepath="$PROJECT_DIR$/TuSdk/TuSdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/Vcamera/Vcamera.iml" filepath="$PROJECT_DIR$/Vcamera/Vcamera.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/camera/camera.iml" filepath="$PROJECT_DIR$/camera/camera.iml" />

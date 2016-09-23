@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/PG_Edit_SDK" />
+            <option value="$PROJECT_DIR$/TuSdk" />
             <option value="$PROJECT_DIR$/Vcamera" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/camera" />

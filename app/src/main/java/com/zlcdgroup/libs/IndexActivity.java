@@ -6,26 +6,35 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.akingyin.vcamera.ui.record.MediaRecorderActivity;
 import com.cooltechworks.views.ScratchTextView;
 import com.zlcdgroup.camera.GoogleCameraActivity;
 import com.zlcdgroup.camera.MaterialCamera;
+import com.zlcdgroup.libs.tusdkcamera.TuSdkCameraActivity;
 import java.io.File;
 import java.util.Date;
 import java.util.Random;
 import me.leolin.shortcutbadger.ShortcutBadger;
 import si.virag.fuzzydateformatter.FuzzyDateTimeFormatter;
+import us.pinguo.edit.sdk.PGEditActivity;
+import us.pinguo.edit.sdk.base.PGEditResult;
+import us.pinguo.edit.sdk.base.PGEditSDK;
 
 /**
  * @ Description:
@@ -42,7 +51,7 @@ public class IndexActivity  extends AppCompatActivity {
   public RadioButton   tuya_one,tuya_tow;
   public TextView   tag_info;
   public RadioButton   camera_system,camera_one;
-
+   String  mPicturePath;
   public RadioGroup  rg_tuya,rg_camera;
   SharedPreferences   sharedPreferences;
   public   long   startTime ;
@@ -90,6 +99,13 @@ public class IndexActivity  extends AppCompatActivity {
     findViewById(R.id.vcamera).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         Intent  intent = new Intent(IndexActivity.this, MediaRecorderActivity.class);
+        startActivity(intent);
+      }
+    });
+
+    findViewById(R.id.pg_vcamera).setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent  intent  = new Intent(IndexActivity.this, TuSdkCameraActivity.class);
         startActivity(intent);
       }
     });
@@ -157,7 +173,7 @@ public class IndexActivity  extends AppCompatActivity {
     ShortcutBadger.applyCount(this,new Random().nextInt(100));
 
   }
-
+  private static final int REQUEST_CODE_PICK_PICTURE = 100;
   @Override protected void onResume() {
     super.onResume();
     tag_info.setText(FuzzyDateTimeFormatter.getTimeAgo(this,new Date(startTime)));
@@ -178,5 +194,50 @@ public class IndexActivity  extends AppCompatActivity {
          e.printStackTrace();
     }
     return versionName;
+  }
+
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode == REQUEST_CODE_PICK_PICTURE
+        && resultCode == Activity.RESULT_OK
+        && null != data) {
+
+      Uri selectedImage = data.getData();
+      String[] filePathColumns = new String[]{MediaStore.Images.Media.DATA};
+      Cursor c = this.getContentResolver().query(selectedImage, filePathColumns, null, null, null);
+      c.moveToFirst();
+      int columnIndex = c.getColumnIndex(filePathColumns[0]);
+      mPicturePath = c.getString(columnIndex);
+      c.close();
+
+      if (null != mPicturePath) {
+
+      }
+
+      return;
+    }
+
+    if (requestCode == PGEditSDK.PG_EDIT_SDK_REQUEST_CODE
+        && resultCode == Activity.RESULT_OK) {
+
+      PGEditResult editResult = PGEditSDK.instance().handleEditResult(data);
+
+
+      Toast.makeText(this, "Photo saved to:" + editResult.getReturnPhotoPath(), Toast.LENGTH_LONG).show();
+
+    }
+
+    if (requestCode == PGEditSDK.PG_EDIT_SDK_REQUEST_CODE
+        && resultCode == PGEditSDK.PG_EDIT_SDK_RESULT_CODE_CANCEL) {
+      Toast.makeText(this, "Edit cancelled!", Toast.LENGTH_SHORT).show();
+    }
+
+    if (requestCode == PGEditSDK.PG_EDIT_SDK_REQUEST_CODE
+        && resultCode == PGEditSDK.PG_EDIT_SDK_RESULT_CODE_NOT_CHANGED) {
+      Toast.makeText(this, "Photo do not change!", Toast.LENGTH_SHORT).show();
+    }
   }
 }

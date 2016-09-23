@@ -155,9 +155,10 @@ public class ScratchTextView  extends TextView{
     Rect rect = new Rect(0, 0, mScratchBitmap.getWidth(), mScratchBitmap.getHeight());
     mDrawable.setBounds(rect);
 
-    int startGradientColor = ContextCompat.getColor(getContext(), R.color.scratch_start_gradient);
-    int endGradientColor = ContextCompat.getColor(getContext(), R.color.scratch_end_gradient);
-
+    //int startGradientColor = ContextCompat.getColor(getContext(), R.color.scratch_start_gradient);
+    //int endGradientColor = ContextCompat.getColor(getContext(), R.color.scratch_end_gradient);
+    int startGradientColor = getResources().getColor(R.color.scratch_start_gradient);
+    int endGradientColor = getResources().getColor(R.color.scratch_end_gradient);
 
     mGradientBgPaint.setShader(new LinearGradient(0, 0, 0, getHeight(), startGradientColor, endGradientColor, Shader.TileMode.MIRROR));
 

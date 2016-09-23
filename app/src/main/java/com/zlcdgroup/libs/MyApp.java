@@ -18,6 +18,7 @@ import com.yixia.camera.util.DeviceUtils;
 import com.zlcdgroup.libs.db.ImageTextBean;
 import com.zlcdgroup.libs.photovideo.vo.TempBaseVo;
 import java.io.File;
+import org.lasque.tusdk.core.TuSdk;
 
 /**
  * Created by Administrator on 2016/4/23.
@@ -52,6 +53,9 @@ public class MyApp  extends Application {
         CrashReport.initCrashReport(this,"900027987",false);
         CrashReport.setUserId(System.currentTimeMillis()+"test");
         Stetho.initializeWithDefaults(this);
+
+        TuSdk.enableDebugLog(true);
+        TuSdk.init(getApplicationContext(),"4387f9d67be3c238-01-k4rko1");
     }
 
     @Override

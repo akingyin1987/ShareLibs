@@ -46,4 +46,6 @@ dependencies {
   compile project(':stickerlib')
   compile project(':Vcamera')
   compile 'com.android.support:cardview-v7:23.3.0'
+  compile project(':PG_Edit_SDK')
+  compile project(':TuSdk')
 }
