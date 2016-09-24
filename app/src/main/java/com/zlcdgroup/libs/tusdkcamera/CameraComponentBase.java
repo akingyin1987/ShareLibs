@@ -1,6 +1,7 @@
 package com.zlcdgroup.libs.tusdkcamera;
 
 import android.support.v7.app.AppCompatActivity;
+import java.io.File;
 import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
 
 /**
@@ -23,5 +24,5 @@ public abstract class CameraComponentBase {
 
 
   /** 显示范例 */
-  public abstract void showSample(AppCompatActivity activity);
+  public abstract void showSample(AppCompatActivity activity,File  dirfile,File  saveFile);
 }

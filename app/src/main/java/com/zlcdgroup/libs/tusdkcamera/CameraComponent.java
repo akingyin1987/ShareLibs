@@ -1,16 +1,21 @@
 package com.zlcdgroup.libs.tusdkcamera;
-
 import android.support.v7.app.AppCompatActivity;
 import com.zlcdgroup.libs.R;
+import com.zlcdgroup.libs.config.AppConfig;
+import java.io.File;
+import java.util.UUID;
 import org.lasque.tusdk.core.TuSdkResult;
+import org.lasque.tusdk.core.utils.FileHelper;
 import org.lasque.tusdk.core.utils.TLog;
 import org.lasque.tusdk.core.utils.TuSdkWaterMarkOption;
+import org.lasque.tusdk.core.utils.hardware.CameraConfigs;
 import org.lasque.tusdk.core.utils.hardware.CameraHelper;
 import org.lasque.tusdk.core.utils.image.BitmapHelper;
 import org.lasque.tusdk.impl.activity.TuFragment;
 import org.lasque.tusdk.impl.components.camera.TuCameraFragment;
 import org.lasque.tusdk.impl.components.camera.TuCameraOption;
 import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
+
 
 /**
  * @ Description:
@@ -42,7 +47,12 @@ public class CameraComponent   extends  CameraComponentBase  implements
     tuCameraFragment.hubDismissRightNow();
     tuCameraFragment.dismissActivityWithAnim();
     TLog.d("onTuCameraFragmentCaptured: %s", tuSdkResult);
+     if(null != dirFile && !dirFile.isDirectory()){
+       dirFile.mkdirs();
+     }
 
+     FileHelper.copyFile(tuSdkResult.imageFile,saveFile);
+      //new StickerEditorComponent().showSample(appCompatActivity,file);
     // 默认输出为 Bitmap  -> result.image
 
     // 如果保存到临时文件 (默认不保存, 当设置为true时, TuSdkResult.imageFile, 处理完成后将自动清理原始图片)
@@ -94,7 +104,7 @@ public class CameraComponent   extends  CameraComponentBase  implements
 
     // 文字或者图片需要至少设置一个
     // 设置水印文字, 支持图文混排、图片或文字
-    option.setMarkText("");
+    option.setMarkText("2016-01-01");
 
     // 设置文字颜色 (默认:#FFFFFF)
     option.setMarkTextColor("#FFFFFF");
@@ -123,14 +133,20 @@ public class CameraComponent   extends  CameraComponentBase  implements
     return option;
   }
 
+  private   AppCompatActivity   appCompatActivity;
 
-  @Override public void showSample(AppCompatActivity activity) {
+  public   File    dirFile,saveFile;
+
+  @Override public void showSample(AppCompatActivity activity,File  dirFile,File  saveFile) {
 
 
     if (activity == null) return;
     if(null == componentHelper){
       componentHelper = new TuSdkHelperComponent(activity);
     }
+    this.dirFile = dirFile;
+    this.saveFile = saveFile;
+    this.appCompatActivity = activity;
     // 如果不支持摄像头显示警告信息
     if (CameraHelper.showAlertIfNotSupportCamera(activity)) return;
     // 组件选项配置
@@ -144,10 +160,11 @@ public class CameraComponent   extends  CameraComponentBase  implements
     // option.setRootViewLayoutId(TuCameraFragment.getLayoutId());
 
     // 保存到临时文件 (默认不保存, 当设置为true时, TuSdkResult.imageFile, 处理完成后将自动清理原始图片)
-    // option.setSaveToTemp(false);
+       option.setSaveToTemp(true);
+
 
     // 保存到系统相册 (默认不保存, 当设置为true时, TuSdkResult.sqlInfo, 处理完成后将自动清理原始图片)
-    option.setSaveToAlbum(true);
+   // option.setSaveToAlbum(false);
 
     // 保存到系统相册的相册名称
     // option.setSaveToAlbumName("TuSdk");
@@ -161,13 +178,14 @@ public class CameraComponent   extends  CameraComponentBase  implements
     // 照片输出图片长宽 (默认：全屏)
     // option.setOutputSize(new TuSdkSize(1440, 1920));
     // 闪关灯模式
-    // option.setDefaultFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+     option.setDefaultFlashMode(CameraConfigs.CameraFlash.Torch);
 
     // 是否开启滤镜支持 (默认: 关闭)
-    option.setEnableFilters(true);
+    option.setEnableFilters(false);
+
 
     // 默认是否显示滤镜视图 (默认: 不显示, 如果mEnableFilters = false, mShowFilterDefault将失效)
-    option.setShowFilterDefault(true);
+    option.setShowFilterDefault(false);
 
     // 滤镜组行视图宽度 (单位:DP)
     // option.setGroupFilterCellWidthDP(60);
@@ -206,10 +224,10 @@ public class CameraComponent   extends  CameraComponentBase  implements
     option.setEnableFiltersHistory(true);
 
     // 开启在线滤镜
-    option.setEnableOnlineFilter(true);
+    option.setEnableOnlineFilter(false);
 
     // 显示滤镜标题视图
-    option.setDisplayFiltersSubtitles(true);
+    option.setDisplayFiltersSubtitles(false);
 
     // 触摸聚焦视图ID (默认: tusdk_impl_component_camera_focus_touch_view)
     // option.setFocusTouchViewId(TuFocusTouchView.getLayoutId());

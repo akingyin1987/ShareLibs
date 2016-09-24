@@ -1,5 +1,8 @@
 <resources>
+  <style name="Theme.TranslucentNavigationBar" parent="Theme.AppCompat.Light.NoActionBar">
 
+    <item name="android:windowFullscreen">true</item>
+  </style>
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->

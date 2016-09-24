@@ -110,7 +110,7 @@
     </service>
 
     <activity android:name=".tusdkcamera.TuSdkCameraActivity"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+        android:theme="@style/Theme.TranslucentNavigationBar"
         android:configChanges="keyboardHidden|orientation|screenSize"
         android:screenOrientation="portrait"
         android:windowSoftInputMode="stateHidden|adjustResize" />
