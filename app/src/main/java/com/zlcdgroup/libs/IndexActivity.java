@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.akingyin.vcamera.ui.record.MediaRecorderActivity;
 import com.cooltechworks.views.ScratchTextView;
+import com.jaeger.library.StatusBarUtil;
 import com.zlcdgroup.camera.GoogleCameraActivity;
 import com.zlcdgroup.camera.MaterialCamera;
 import com.zlcdgroup.libs.tusdkcamera.TuSdkCameraActivity;
@@ -60,6 +61,7 @@ public class IndexActivity  extends AppCompatActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_infex);
+    StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary));
     startTime = System.currentTimeMillis();
     sharedPreferences = getSharedPreferences("setting_info", Activity.MODE_PRIVATE);
     camera_tow = (RadioButton)findViewById(R.id.camera_tow);

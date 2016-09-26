@@ -15,16 +15,20 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.yixia.camera.VCamera;
 import com.yixia.camera.util.DeviceUtils;
+import com.zlcdgroup.dao.DaoMaster;
+import com.zlcdgroup.dao.DaoSession;
 import com.zlcdgroup.libs.db.ImageTextBean;
+import com.zlcdgroup.libs.db.UpgradeHelper;
+import com.zlcdgroup.libs.db.User;
 import com.zlcdgroup.libs.photovideo.vo.TempBaseVo;
 import java.io.File;
+import org.greenrobot.greendao.database.Database;
 import org.lasque.tusdk.core.TuSdk;
 
 /**
  * Created by Administrator on 2016/4/23.
  */
 public class MyApp  extends Application {
-
 
 
     @Override
@@ -56,6 +60,20 @@ public class MyApp  extends Application {
 
         TuSdk.enableDebugLog(true);
         TuSdk.init(getApplicationContext(),"4387f9d67be3c238-01-k4rko1");
+        initDao();
+    }
+    private DaoSession  daoSession;
+
+    public static final boolean ENCRYPTED = false;
+    public   void   initDao(){
+        UpgradeHelper helper = new UpgradeHelper(this,ENCRYPTED ? "test-db-encrypted" : "test-db");
+        Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
+        daoSession = new DaoMaster(db).newSession();
+        User   user = new User();
+        user.account="test";
+        user.arg="111";
+        daoSession.getUserDao().save(user);
+        System.out.println("id="+user.getId());
     }
 
     @Override
