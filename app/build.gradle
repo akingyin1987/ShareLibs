@@ -1,8 +1,12 @@
+
+
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion '24.0.0'
+  buildToolsVersion rootProject.ext.buildToolsVersion
+  compileSdkVersion rootProject.ext.compileSdkVersion
+
 
   defaultConfig {
     applicationId "com.zlcdgroup.libs"
@@ -27,9 +31,12 @@ android {
   }
 
 
-
 }
-
+greendao {
+  schemaVersion 7
+  targetGenDir 'src/main/java'
+  daoPackage 'com.zlcdgroup.dao'
+}
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   testCompile 'junit:junit:4.12'
@@ -48,4 +55,7 @@ dependencies {
   compile 'com.android.support:cardview-v7:23.3.0'
   compile project(':PG_Edit_SDK')
   compile project(':TuSdk')
+  compile 'org.greenrobot:greendao:3.1.1'
+  compile 'com.jaeger.statusbaruitl:library:1.2.5'
+  compile 'net.zetetic:android-database-sqlcipher:3.5.1'
 }
