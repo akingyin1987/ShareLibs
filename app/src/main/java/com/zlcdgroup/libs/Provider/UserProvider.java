@@ -1,14 +1,12 @@
 package com.zlcdgroup.libs.Provider;
 
-import android.content.ContentProvider;
-import android.content.ContentValues;
+
 import android.content.UriMatcher;
-import android.database.Cursor;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import com.zlcdgroup.dao.DaoMaster;
+
 import com.zlcdgroup.dao.UserDao;
 import com.zlcdgroup.libs.BuildConfig;
 import com.zlcdgroup.libs.MyApp;
@@ -97,6 +95,7 @@ public class UserProvider  extends BaseContentProvider {
     if(null != database && database instanceof  StandardDatabase){
       return  ((StandardDatabase) database).getSQLiteDatabase();
     }
+    System.out.println("createSqLiteOpenHelper=null");
     return null;
   }
 

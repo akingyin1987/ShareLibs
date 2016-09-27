@@ -26,6 +26,8 @@ import com.zlcdgroup.libs.db.User;
 import com.zlcdgroup.libs.photovideo.vo.TempBaseVo;
 import java.io.File;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.lasque.tusdk.core.TuSdk;
@@ -77,23 +79,25 @@ public class MyApp  extends Application {
         daoSession = new DaoMaster(db).newSession();
         QueryBuilder.LOG_SQL=true;
         QueryBuilder.LOG_VALUES = true;
-        //User   user = new User();
-        //user.account="test";
-        //user.arg="111";
-        //daoSession.getUserDao().save(user);
-        //if(null != user.getId()){
-        //    Book  book = new Book();
-        //    book.setPersion(user.getId());
-        //    book.setName("book--");
-        //    daoSession.getBookDao().save(book);
-        //}
-        //QueryBuilder<Book> queryBuilder = daoSession.getBookDao().queryBuilder();
-        //
-        //queryBuilder.join(BookDao.Properties.Persion,Book.class).where(BookDao.Properties.Id.eq(1));
-        //List<Book>  books = queryBuilder.list();
-        //for(Book  book : books){
-        //    System.out.println("book--"+book.name);
-        //}
+        User   user = new User();
+        user.account="test"+new Random().nextInt(1000);
+        user.arg="111"+new Random().nextInt(1000);
+        user.setUserId(new Random().nextInt(1000));
+        user.uuid = UUID.randomUUID().toString();
+        daoSession.getUserDao().save(user);
+        if(null != user.getId()){
+            Book  book = new Book();
+            book.setPersion(user.getId());
+            book.setName("book--"+new Random().nextInt(1000));
+            daoSession.getBookDao().save(book);
+        }
+        QueryBuilder<Book> queryBuilder = daoSession.getBookDao().queryBuilder();
+
+        queryBuilder.join(BookDao.Properties.Persion,Book.class).where(BookDao.Properties.Id.eq(1));
+        List<Book>  books = queryBuilder.list();
+        for(Book  book : books){
+            System.out.println("book--"+book.name);
+        }
 
     }
     /**
