@@ -12,7 +12,14 @@
   <uses-permission android:name="android.permission.READ_LOGS" />
   <uses-feature android:name="android.hardware.camera" android:required="true"/>
   <uses-feature android:name="android.hardware.camera.autofocus"/>
+  <!-- 包括三个部分：（1）android:name，为了避免出现冲突，使用应用的Java的命名空间作为前缀 -->
 
+  <permission android:name="com.zlcdgroup.provider.READ"
+      android:label="读取权限"
+  />
+  <permission android:name="com.zlcdgroup.provider.WIRTE"
+      android:label="写取权限"
+  />
   <application
       android:allowBackup="true"
       android:theme="@style/AppTheme"
@@ -36,7 +43,13 @@
         android:name="us.pinguo.edit.sdk.PGEditActivity"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
+    <provider
+    android:authorities="com.zlcdgroup.user.provider"
+    android:name="com.zlcdgroup.libs.Provider.UserProvider"
+    android:multiprocess="true"
+    android:exported="true"
+    android:readPermission="com.zlcdgroup.provider.READ"
+    android:writePermission="com.zlcdgroup.provider.WIRTE"/>
     <!--<activity-->
         <!--android:name=".SampleActivity"-->
         <!--android:label="@string/app_name"-->

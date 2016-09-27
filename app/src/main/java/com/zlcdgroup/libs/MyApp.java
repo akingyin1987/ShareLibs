@@ -15,14 +15,19 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.yixia.camera.VCamera;
 import com.yixia.camera.util.DeviceUtils;
+import com.zlcdgroup.dao.BookDao;
 import com.zlcdgroup.dao.DaoMaster;
 import com.zlcdgroup.dao.DaoSession;
+import com.zlcdgroup.dao.UserDao;
+import com.zlcdgroup.libs.db.Book;
 import com.zlcdgroup.libs.db.ImageTextBean;
 import com.zlcdgroup.libs.db.UpgradeHelper;
 import com.zlcdgroup.libs.db.User;
 import com.zlcdgroup.libs.photovideo.vo.TempBaseVo;
 import java.io.File;
+import java.util.List;
 import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.query.QueryBuilder;
 import org.lasque.tusdk.core.TuSdk;
 
 /**
@@ -30,7 +35,8 @@ import org.lasque.tusdk.core.TuSdk;
  */
 public class MyApp  extends Application {
 
-
+    private static DaoMaster daoMaster;
+    private static DaoSession daoSession;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -52,7 +58,7 @@ public class MyApp  extends Application {
         Configuration  configuration =  new  Configuration.Builder(this)
                         .addModelClass(ImageTextBean.class)
                         .addModelClass(TempBaseVo.class).create();
-        ActiveAndroid.initialize(configuration,true);
+//        ActiveAndroid.initialize(configuration,true);
         initImageLoader(this);
         CrashReport.initCrashReport(this,"900027987",false);
         CrashReport.setUserId(System.currentTimeMillis()+"test");
@@ -62,24 +68,72 @@ public class MyApp  extends Application {
         TuSdk.init(getApplicationContext(),"4387f9d67be3c238-01-k4rko1");
         initDao();
     }
-    private DaoSession  daoSession;
+
 
     public static final boolean ENCRYPTED = false;
     public   void   initDao(){
         UpgradeHelper helper = new UpgradeHelper(this,ENCRYPTED ? "test-db-encrypted" : "test-db");
         Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
-        User   user = new User();
-        user.account="test";
-        user.arg="111";
-        daoSession.getUserDao().save(user);
-        System.out.println("id="+user.getId());
+        QueryBuilder.LOG_SQL=true;
+        QueryBuilder.LOG_VALUES = true;
+        //User   user = new User();
+        //user.account="test";
+        //user.arg="111";
+        //daoSession.getUserDao().save(user);
+        //if(null != user.getId()){
+        //    Book  book = new Book();
+        //    book.setPersion(user.getId());
+        //    book.setName("book--");
+        //    daoSession.getBookDao().save(book);
+        //}
+        //QueryBuilder<Book> queryBuilder = daoSession.getBookDao().queryBuilder();
+        //
+        //queryBuilder.join(BookDao.Properties.Persion,Book.class).where(BookDao.Properties.Id.eq(1));
+        //List<Book>  books = queryBuilder.list();
+        //for(Book  book : books){
+        //    System.out.println("book--"+book.name);
+        //}
+
+    }
+    /**
+     * 取得DaoMaster
+     *
+     * @param context
+     * @return
+     */
+    public static DaoMaster getDaoMaster(Context context)
+    {
+        if (daoMaster == null)
+        {
+            UpgradeHelper helper = new UpgradeHelper(context, "test-db", null);
+            daoMaster = new DaoMaster(helper.getWritableDatabase());
+        }
+        return daoMaster;
+    }
+    /**
+     * 取得DaoSession
+     *
+     * @param context
+     * @return
+     */
+    public static DaoSession getDaoSession(Context context)
+    {
+        if (daoSession == null)
+        {
+            if (daoMaster == null)
+            {
+                daoMaster = getDaoMaster(context);
+            }
+            daoSession = daoMaster.newSession();
+        }
+        return daoSession;
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        ActiveAndroid.dispose();
+       // ActiveAndroid.dispose();
     }
 
     public static void initImageLoader(Context context) {

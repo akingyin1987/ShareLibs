@@ -13,6 +13,7 @@ import org.greenrobot.greendao.annotation.Property;
  * @ Version V1.0
  */
 
+
 public   class Entry {
 
 
