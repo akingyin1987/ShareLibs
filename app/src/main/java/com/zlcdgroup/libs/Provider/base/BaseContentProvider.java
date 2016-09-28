@@ -47,6 +47,10 @@ public abstract class BaseContentProvider extends ContentProvider {
     public static final String QUERY_HAVING = "QUERY_HAVING";
     public static final String QUERY_LIMIT = "QUERY_LIMIT";
 
+    @Override public void shutdown() {
+        super.shutdown();
+    }
+
     public static class QueryParams {
         public String table;
         public String tablesWithJoins;
@@ -65,6 +69,7 @@ public abstract class BaseContentProvider extends ContentProvider {
 
     @Override
     public final boolean onCreate() {
+        System.out.println("onCreate---BaseContentProvider");
         if (hasDebug()) {
             // Enable logging of SQL statements as they are executed.
             try {
@@ -219,4 +224,6 @@ public abstract class BaseContentProvider extends ContentProvider {
     public static Uri limit(Uri uri, String limit) {
         return uri.buildUpon().appendQueryParameter(QUERY_LIMIT, limit).build();
     }
+
+
 }

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
+import android.widget.Toast;
 import com.zlcdgroup.dao.UserDao;
 import com.zlcdgroup.libs.BuildConfig;
 import com.zlcdgroup.libs.MyApp;
@@ -51,6 +52,7 @@ public class UserProvider  extends BaseContentProvider {
   @Override protected QueryParams getQueryParams(Uri uri, String selection, String[] projection) {
     QueryParams res = new QueryParams();
     String id = null;
+    System.out.println("uri="+uri.toString());
     int matchedId = URI_MATCHER.match(uri);
     switch (matchedId) {
       case URI_TYPE_USER:
@@ -96,6 +98,7 @@ public class UserProvider  extends BaseContentProvider {
       return  ((StandardDatabase) database).getSQLiteDatabase();
     }
     System.out.println("createSqLiteOpenHelper=null");
+    Toast.makeText(getContext(),"null",Toast.LENGTH_SHORT).show();
     return null;
   }
 

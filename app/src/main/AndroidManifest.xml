@@ -20,6 +20,9 @@
   <permission android:name="com.zlcdgroup.provider.WIRTE"
       android:label="写取权限"
   />
+
+  <permission android:name="com.zlcdgroup.provider_auth"
+              android:label="共享权限"/>
   <application
       android:allowBackup="true"
       android:theme="@style/AppTheme"
@@ -48,8 +51,11 @@
     android:name="com.zlcdgroup.libs.Provider.UserProvider"
     android:multiprocess="true"
     android:exported="true"
+
+    android:permission="com.zlcdgroup.provider_auth"
     android:readPermission="com.zlcdgroup.provider.READ"
     android:writePermission="com.zlcdgroup.provider.WIRTE"/>
+
     <!--<activity-->
         <!--android:name=".SampleActivity"-->
         <!--android:label="@string/app_name"-->
