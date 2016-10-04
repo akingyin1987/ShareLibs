@@ -13,9 +13,10 @@ import org.greenrobot.greendao.annotation.Generated;
  * @ Date 2016/9/27 10:16
  * @ Version V1.0
  */
+@Entity(nameInDb = "tb_book",generateGettersSetters = false)
 
-@Entity(nameInDb = "tb_book")
 public class Book  extends  Entry {
+
 
   @Id(autoincrement = true)
   private Long id;

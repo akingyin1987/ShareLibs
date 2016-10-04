@@ -1,6 +1,6 @@
 package com.zlcdgroup.libs.db;
 
-import org.greenrobot.greendao.annotation.Id;
+
 import org.greenrobot.greendao.annotation.Property;
 
 
@@ -16,6 +16,8 @@ import org.greenrobot.greendao.annotation.Property;
 
 public   class Entry {
 
+  @Property(nameInDb = "userId")
+  public  String    userId;
 
 
 
