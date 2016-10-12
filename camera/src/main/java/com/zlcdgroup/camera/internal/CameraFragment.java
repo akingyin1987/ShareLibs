@@ -98,7 +98,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
                     break;
                 case 0:
                     ZuoBiao zuoBiao = (ZuoBiao) msg.obj;
-                    String text = "图片大小： " + zuoBiao.getWidth() + "*" + zuoBiao.getHeight() + "\n坐标(" + zuoBiao.getLeft() + " , " + zuoBiao.getTop() + ") ; 矩形宽=" + zuoBiao.getxDes() + "; 矩形高" + zuoBiao.getyDes();
+                    String text = "角度："+zuoBiao.degree+"图片大小： " + zuoBiao.getWidth() + "*" + zuoBiao.getHeight() + "\n坐标(" + zuoBiao.getLeft() + " , " + zuoBiao.getTop() + ") ; 矩形宽=" + zuoBiao.getxDes() + "; 矩形高" + zuoBiao.getyDes();
                     tag_info.setText(text);
                     break;
 
@@ -268,10 +268,13 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
             yDes = (float) (xDes / 4.8);
             bottom1 = (top1 + yDes) / yRadio;
         }else if(degree == 0){
+            left = (float) (0.3 * screenWidth / 2);
+            right = (float) (screenWidth - left);
+            xDes = right1 - left1;
 
             right = (float) ( screenWidth / 2.0);
-            top = (float) (screenHeight / 2.0 - 50 );
-            left = (float) (screenWidth - right-50);
+            top = (float) (screenHeight / 2.0 - xDes );
+            left = (float) (screenWidth - right-xDes/4.8);
             top1 = top * yRadio;
             left1 = left * xRadio;
             right1 = right * xRadio;
@@ -279,9 +282,14 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
             yDes = (float) (xDes * 4.8);
             bottom1 = (top1 + yDes) / yRadio;
         }else if(degree == 180){
+            left = (float) (0.3 * screenWidth / 2);
+            right = (float) (screenWidth - left);
+            xDes = right1 - left1;
+
+
             left = (float) ( screenWidth / 2.0);
-            top = (float) (screenHeight / 2.0 - 50 );
-            right = (float) (screenWidth - left-50);
+            top = (float) (screenHeight / 2.0 - xDes );
+            right = (float) (screenWidth - left-xDes/4.8);
             top1 = top * yRadio;
             left1 = left * xRadio;
             right1 = right * xRadio;
@@ -304,7 +312,8 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
         //Log.i("LHT", "top " + top1 + "left " + left1 + " bottom1 " + bottom1 + " xDestance " + xDes + "  yDestance " + yDes);
         referenceline.setRect(top, left, right, bottom1);
         ZuoBiao zuoBiao = new ZuoBiao(nWidth, fileh, Math.floor(top1),Math.floor(left1),  Math.ceil(xDes), Math.ceil(yDes));
-        handler.obtainMessage(0, zuoBiao).sendToTarget();
+        zuoBiao.setDegree(degree);
+        resultHandler.obtainMessage(0, zuoBiao).sendToTarget();
     }
 
 
@@ -399,6 +408,15 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     class ZuoBiao {
         private float width, height;
         private double top, left, xDes, yDes;
+        private  int  degree;
+
+        public int getDegree() {
+            return degree;
+        }
+
+        public void setDegree(int degree) {
+            this.degree = degree;
+        }
 
         public ZuoBiao(float width, float height, double top, double left, double xDes, double yDes) {
             this.top = top;
