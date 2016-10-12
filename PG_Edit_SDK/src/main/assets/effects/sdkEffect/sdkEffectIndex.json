@@ -1,0 +1,2376 @@
+{
+  "types": [
+    {
+      "type": "Filter",
+      "packs": [
+        {
+          "items": [
+            {
+              "livePreview": 0,
+              "cpuCmd": "skin_class,0",
+              "packageKey": "C360_Selection",
+              "key": "C360_Skin_Soft",
+              "preCmd": "C360_Skin_Soft",
+              "gpuCmd": "C360_Skin_Soft",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Natural"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "自然美肤"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "自然美膚"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "自然美膚"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_Skin_Soft",
+                "icon": "filter/c360_selection/icon/eft_skin_soft.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 0
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "skin_class,5",
+              "packageKey": "C360_Selection",
+              "key": "C360_Skin_Sunshine",
+              "preCmd": "C360_Skin_Sunshine",
+              "gpuCmd": "C360_Skin_Sunshine",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Sunshine"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "暖暖阳光"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "暖暖陽光"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "暖暖陽光"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_Skin_Sunshine",
+                "icon": "filter/c360_selection/icon/eft_skin_sunshine.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 1
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "lightcolor_class,0",
+              "packageKey": "C360_Selection",
+              "key": "C360_LightColor_SweetRed",
+              "preCmd": "C360_LightColor_SweetRed",
+              "gpuCmd": "C360_LightColor_SweetRed",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Sweet"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "甜  美"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "甜  美"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "甜  美"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_LightColor_SweetRed",
+                "icon": "filter/c360_selection/icon/eft_lightcolor_sweetred.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 2
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "lightcolor_class,2",
+              "packageKey": "C360_Selection",
+              "key": "C360_LightColor_ColorBlue",
+              "preCmd": "C360_LightColor_ColorBlue",
+              "gpuCmd": "C360_LightColor_ColorBlue",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Cool"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "清  凉"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "清  涼"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "清  涼"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_LightColor_ColorBlue",
+                "icon": "filter/c360_selection/icon/eft_lightcolor_colorblue.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 3
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "enhance_class,0",
+              "packageKey": "C360_Selection",
+              "key": "C360_Enhance_Auto",
+              "preCmd": "C360_Enhance_Auto",
+              "gpuCmd": "C360_Enhance_Auto",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Improve"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "自动改善"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "自動改善"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "自動改善"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_Enhance_Auto",
+                "icon": "filter/c360_selection/icon/eft_enhance_auto.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 4
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "hdrpro_class,200,50,50,0,0",
+              "packageKey": "C360_Selection",
+              "key": "C360_HDR_Original",
+              "preCmd": "Enhance_AutoLevel|Effect=RGB2HSV|Effect=HDR_Light_L;guassFrame=<PyramidLevel>1</PyramidLevel><StandLength>80</StandLength><StandAmount>5</StandAmount>;Shadow=0.5;Highlight=0.5|Effect=HSV2RGB",
+              "gpuCmd": "Enhance_AutoLevel|Effect=RGB2HSV|Effect=HDR_Light_L;guassFrame=<PyramidLevel>1</PyramidLevel><StandLength>80</StandLength><StandAmount>5</StandAmount>;Shadow=0.5;Highlight=0.5|Effect=HSV2RGB",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Primary"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "原 色"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "原 色"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "原 色"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_HDR_Original",
+                "icon": "filter/c360_selection/icon/eft_hdr_original.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 5
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "C360_Selection",
+              "key": "C360_Retro_02",
+              "preCmd": "LightZ_Base;Temperature=0;Hue=0;Exposure=0;Contrast=0;Vibrance=0;Saturation=0;Curve=<R>69=76,176=185</R><G>122=108,194=213</G><B>0=68,76=80,190=116</B><A>0=10,75=73,136=136,177=210,255=245</A>|Effect=LightZ_HSL;Highlight=0;Shadow=0;Hue_Red=0,0,0;Hue_Orange=0,0,0;Hue_Yellow=0,-50,0;Hue_Green=0,0,0;Hue_Cyan=0,0,0;Hue_Blue=0,0,0;Hue_Purple=0,0,0;Hue_Magenta=0,0,0",
+              "gpuCmd": "LightZ_Base;Temperature=0;Hue=0;Exposure=0;Contrast=0;Vibrance=0;Saturation=0;Curve=<R>69=76,176=185</R><G>122=108,194=213</G><B>0=68,76=80,190=116</B><A>0=10,75=73,136=136,177=210,255=245</A>|Effect=LightZ_HSL;Highlight=0;Shadow=0;Hue_Red=0,0,0;Hue_Orange=0,0,0;Hue_Yellow=0,-50,0;Hue_Green=0,0,0;Hue_Cyan=0,0,0;Hue_Blue=0,0,0;Hue_Purple=0,0,0;Hue_Magenta=0,0,0",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Retro"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "复古暖黄"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "復古暖黃"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "復古暖黃"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_Retro_02",
+                "icon": "filter/c360_selection/icon/eft_retro_02.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 6
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "C360_Selection",
+              "key": "C360_Retro_08",
+              "preCmd": "LightZ_Base;Temperature=0;Hue=0;Exposure=0;Contrast=0;Vibrance=0;Saturation=-30;Curve=<R>27=7,65=48,105=115,168=175</R><G>23=12,110=112,160=175</G><B>18=14,180=190</B><A>0=43,30=45,70=69,115=110,180=188</A>|Effect=LightZ_HSL;Highlight=-40;Shadow=10;Hue_Red=10,-40,5;Hue_Orange=0,-15,0;Hue_Yellow=0,15,10;Hue_Green=10,-50,-5;Hue_Cyan=10,-50,10;Hue_Blue=-5,-30,-15;Hue_Purple=20,-50,-15;Hue_Magenta=20,-40,20",
+              "gpuCmd": "LightZ_Base;Temperature=0;Hue=0;Exposure=0;Contrast=0;Vibrance=0;Saturation=-30;Curve=<R>27=7,65=48,105=115,168=175</R><G>23=12,110=112,160=175</G><B>18=14,180=190</B><A>0=43,30=45,70=69,115=110,180=188</A>|Effect=LightZ_HSL;Highlight=-40;Shadow=10;Hue_Red=10,-40,5;Hue_Orange=0,-15,0;Hue_Yellow=0,15,10;Hue_Green=10,-50,-5;Hue_Cyan=10,-50,10;Hue_Blue=-5,-30,-15;Hue_Purple=20,-50,-15;Hue_Magenta=20,-40,20",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Faded"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "泛黄记忆"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "泛黃記憶"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "泛黃記憶"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_Retro_08",
+                "icon": "filter/c360_selection/icon/eft_retro_08.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 7
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "lomo_class,0",
+              "packageKey": "C360_Selection",
+              "key": "C360_LOMO_Cyan",
+              "preCmd": "C360_LOMO_Cyan",
+              "gpuCmd": "C360_LOMO_Cyan",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Cyan"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "青  色"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "青  色"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "青  色"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_LOMO_Cyan",
+                "icon": "filter/c360_selection/icon/eft_lomo_cyan.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 8
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "lomo_class,1",
+              "packageKey": "C360_Selection",
+              "key": "C360_LOMO_Film",
+              "preCmd": "C360_LOMO_Film",
+              "gpuCmd": "C360_LOMO_Film",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Movie"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "电  影"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "電  影"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "電  影"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_LOMO_Film",
+                "icon": "filter/c360_selection/icon/eft_lomo_film.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 9
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "lomo_class,4",
+              "packageKey": "C360_Selection",
+              "key": "C360_LOMO_Leaf",
+              "preCmd": "lomo_red;mixLevel=0.9|Effect=Android_Vignette",
+              "gpuCmd": "lomo_red;mixLevel=0.9|Effect=Android_Vignette",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Maple"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "枫  叶"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "楓  葉"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "楓  葉"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_LOMO_Leaf",
+                "icon": "filter/c360_selection/icon/eft_lomo_leaf.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 10
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "C360_Selection",
+              "key": "C360_Loft_006",
+              "preCmd": "Ph_Cnty",
+              "gpuCmd": "Ph_Cnty",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Time"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "流  年"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "流  年"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "流  年"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_Loft_006",
+                "icon": "filter/c360_selection/icon/eft_loft_006.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 11
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "C360_Selection",
+              "key": "C360_FilmFlex_005",
+              "preCmd": "Ph_Strong",
+              "gpuCmd": "Ph_Strong",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Veliva"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "Veliva"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "Veliva"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "Veliva"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_FilmFlex_005",
+                "icon": "filter/c360_selection/icon/eft_filmflex_005.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 12
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "bw_class,0",
+              "packageKey": "C360_Selection",
+              "key": "C360_BW_01",
+              "preCmd": "C360_BW_Normal",
+              "gpuCmd": "C360_BW_Normal",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Standard"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "标  准"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "標  準"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "標  準"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_BW_01",
+                "icon": "filter/c360_selection/icon/eft_bw_01.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 13
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "bw_class,3",
+              "packageKey": "C360_Selection",
+              "key": "C360_BW_Storm",
+              "preCmd": "C360_BW_Storm",
+              "gpuCmd": "C360_BW_Storm",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Storm"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "风  暴"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "風  暴"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "風  暴"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_BW_Storm",
+                "icon": "filter/c360_selection/icon/eft_bw_storm.jpg"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 14
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "C360_Selection",
+              "key": "C360_Sky_01",
+              "preCmd": "Enhance_AutoLevel|Effect=Blend_Sky_Effect;Curve0=<A>12=0,128=135,245=255</A>;ColorBalance=5,3,-1,-10,0,0,-15,3,10,1;AlphaParam=0.2,1.0,185,255",
+              "gpuCmd": "Enhance_AutoLevel|Effect=Blend_Sky_Effect;Curve0=<A>12=0,128=135,245=255</A>;ColorBalance=5,3,-1,-10,0,0,-15,3,10,1;AlphaParam=0.2,1.0,185,255",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Nagrand"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "纳格兰"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "納格蘭"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "納格蘭"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_Sky_01",
+                "icon": "filter/c360_selection/icon/eft_sky_01.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 8,
+                    "name": "sky_01.jpg"
+                  }
+                ],
+                "textureDir": "filter/c360_selection/texture/sky_01",
+                "rule": 1,
+                "effectKey": "C360_Sky_01"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 15
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "C360_Selection",
+              "key": "C360_Sky_11",
+              "preCmd": "Enhance_AutoLevel|Effect=Blend_Sky_Effect;Curve0=<A>147=93</A>;ColorBalance=12,-3,-28,24,0,-12,12,-5,-13,1;AlphaParam=0.3,0.9,157,255",
+              "gpuCmd": "Enhance_AutoLevel|Effect=Blend_Sky_Effect;Curve0=<A>147=93</A>;ColorBalance=12,-3,-28,24,0,-12,12,-5,-13,1;AlphaParam=0.3,0.9,157,255",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Utopia"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "乌托邦"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "烏托邦"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "烏托邦"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_Sky_11",
+                "icon": "filter/c360_selection/icon/eft_sky_11.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 8,
+                    "name": "sky_11.jpg"
+                  }
+                ],
+                "textureDir": "filter/c360_selection/texture/sky_11",
+                "rule": 1,
+                "effectKey": "C360_Sky_11"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 16
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "backto1839",
+              "packageKey": "C360_Selection",
+              "key": "C360_Timer_18391",
+              "preCmd": "BackTo1839",
+              "gpuCmd": "BackTo1839",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "1839"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "1839"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "1839"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "1839"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "C360_Timer_18391",
+                "icon": "filter/c360_selection/icon/eft_timer_18391.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 8,
+                    "name": "timer_18391.png"
+                  }
+                ],
+                "textureDir": "filter/c360_selection/texture/timer_18391",
+                "rule": 1,
+                "effectKey": "C360_Timer_18391"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "EffectOpacity",
+                    "cmdType": "",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "NoEffectItem",
+                    "cmd": "",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Filter"
+              },
+              "timeLevel": 1,
+              "index": 17
+            }
+          ],
+          "version": 0,
+          "index": 11,
+          "key": "C360_Selection",
+          "pkgGroupKey": "C360_Selection",
+          "select": 1,
+          "guid": "84EEFD1481E7452AA4C98A4DF156CC86",
+          "type": "Filter",
+          "displayInfo": {
+            "language": [
+              {
+                "locale": "en_US",
+                "name": "SELECTION"
+              }
+            ],
+            "type": "EffectPackage",
+            "color": "0x5695b6",
+            "icon": "filter/c360_selection/icon/eft_selection.png",
+            "foreignKey": "C360_Selection"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Lighting",
+      "packs": [
+        {
+          "items": [
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_11",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F1"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_11",
+                "icon": "lighting/lighting_halo/icon/eft_halo_11.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_11.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_11",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_11"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 0
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_12",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F2"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_12",
+                "icon": "lighting/lighting_halo/icon/eft_halo_12.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_12.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_12",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_12"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 1
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_14",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F3"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_14",
+                "icon": "lighting/lighting_halo/icon/eft_halo_14.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_14.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_14",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_14"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 2
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_15",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F4"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_15",
+                "icon": "lighting/lighting_halo/icon/eft_halo_15.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_15.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_15",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_15"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 3
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_16",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F5"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_16",
+                "icon": "lighting/lighting_halo/icon/eft_halo_16.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_16.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_16",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_16"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 4
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_17",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F6"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_17",
+                "icon": "lighting/lighting_halo/icon/eft_halo_17.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_17.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_17",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_17"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 5
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_22",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F7"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_22",
+                "icon": "lighting/lighting_halo/icon/eft_halo_22.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_22.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_22",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_22"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 6
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_50",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F8"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_50",
+                "icon": "lighting/lighting_halo/icon/eft_halo_50.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_50.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_50",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_50"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 7
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_51",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F9"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_51",
+                "icon": "lighting/lighting_halo/icon/eft_halo_51.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_51.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_51",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_51"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 8
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_52",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F10"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_52",
+                "icon": "lighting/lighting_halo/icon/eft_halo_52.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_52.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_52",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_52"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 9
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_53",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F11"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_53",
+                "icon": "lighting/lighting_halo/icon/eft_halo_53.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_53.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_53",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_53"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 10
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Lighting_Halo",
+              "key": "Lighting_Halo_54",
+              "preCmd": "Blend_Screen_Mix",
+              "gpuCmd": "Blend_Screen_Mix",
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "F12"
+                  }
+                ],
+                "type": "Effect",
+                "color": "0x8f6261",
+                "foreignKey": "Lighting_Halo_54",
+                "icon": "lighting/lighting_halo/icon/eft_halo_54.jpg"
+              },
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 7,
+                    "name": "halo_54.jpg"
+                  }
+                ],
+                "textureDir": "lighting/lighting_halo/texture/halo_54",
+                "rule": 1,
+                "effectKey": "Lighting_Halo_54"
+              },
+              "param": {
+                "items": [
+                  {
+                    "step": 1,
+                    "defaultValue": 1,
+                    "value": 1,
+                    "key": "texType",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 1,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 100,
+                    "value": 100,
+                    "key": "Opacity",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 100,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  },
+                  {
+                    "step": 1,
+                    "defaultValue": 0,
+                    "value": 0,
+                    "key": "textureAngle",
+                    "cmdType": "GPU",
+                    "noEffectValue": 0,
+                    "max": 360,
+                    "type": "FloatItem",
+                    "cmd": "Blend_Screen_Mix",
+                    "min": 0
+                  }
+                ],
+                "effectKey": "Lighting_Blend_Screen_Mix"
+              },
+              "timeLevel": 1,
+              "index": 11
+            }
+          ],
+          "version": 0,
+          "index": 0,
+          "key": "Lighting_Halo",
+          "pkgGroupKey": "Lighting_Halo",
+          "select": 1,
+          "guid": "38D739C44F1C1518BC2621A88D1DD3BF",
+          "type": "Lighting",
+          "displayInfo": {
+            "language": [
+              {
+                "locale": "en_US",
+                "name": "FLARE"
+              }
+            ],
+            "type": "EffectPackage",
+            "color": "0x8f6261",
+            "icon": "lighting/lighting_halo/icon/eft_halo.png",
+            "foreignKey": "Lighting_Halo"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Frame",
+      "packs": [
+        {
+          "items": [
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_1",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_1.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_1",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_1"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Classic"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "经典"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "經典"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "經典"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_1",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_1.jpg"
+              },
+              "timeLevel": 1,
+              "index": 0
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_2",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_2.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_2",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_2"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Curve"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "圆角"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "圓角"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "圓角"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_2",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_2.jpg"
+              },
+              "timeLevel": 1,
+              "index": 1
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_3",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_3.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_3",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_3"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Round"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "圆景"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "圓景"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "圓景"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_3",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_3.jpg"
+              },
+              "timeLevel": 1,
+              "index": 2
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_4",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_4.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_4",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_4"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Stamp"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "邮票"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "郵票"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "郵票"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_4",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_4.jpg"
+              },
+              "timeLevel": 1,
+              "index": 3
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_5",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_5.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_5",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_5"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Stitch"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "童趣"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "童趣"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "童趣"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_5",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_5.jpg"
+              },
+              "timeLevel": 1,
+              "index": 4
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_6",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_6.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_6",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_6"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Film"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "胶片"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "膠片"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "膠片"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_6",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_6.jpg"
+              },
+              "timeLevel": 1,
+              "index": 5
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_7",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_7.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_7",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_7"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Memory"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "回忆"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "回憶"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "回憶"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_7",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_7.jpg"
+              },
+              "timeLevel": 1,
+              "index": 6
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_8",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_8.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_8",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_8"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Lace"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "蕾丝"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "蕾絲"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "蕾絲"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_8",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_8.jpg"
+              },
+              "timeLevel": 1,
+              "index": 7
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_9",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_9.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_9",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_9"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Stack"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "折叠"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "折疊"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "折疊"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_9",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_9.jpg"
+              },
+              "timeLevel": 1,
+              "index": 8
+            },
+            {
+              "livePreview": 0,
+              "cpuCmd": "",
+              "packageKey": "Frame_Selection",
+              "key": "Frame_Blend_Normal_Border_10",
+              "preCmd": "Blend_Normal_Border",
+              "gpuCmd": "Blend_Normal_Border",
+              "texture": {
+                "items": [
+                  {
+                    "type": 1,
+                    "index": 5,
+                    "name": "blend_normal_border_10.png"
+                  }
+                ],
+                "textureDir": "frame/frame_selection/texture/blend_normal_border_10",
+                "rule": 1,
+                "effectKey": "Frame_Blend_Normal_Border_10"
+              },
+              "displayInfo": {
+                "language": [
+                  {
+                    "locale": "en_US",
+                    "name": "Polaroid"
+                  },
+                  {
+                    "locale": "zh_CN",
+                    "name": "拍立得"
+                  },
+                  {
+                    "locale": "zh_TW",
+                    "name": "拍立得"
+                  },
+                  {
+                    "locale": "zh_HK",
+                    "name": "拍立得"
+                  }
+                ],
+                "type": "Effect",
+                "foreignKey": "Frame_Blend_Normal_Border_10",
+                "icon": "frame/frame_selection/icon/eft_blend_normal_border_10.jpg"
+              },
+              "timeLevel": 1,
+              "index": 9
+            }
+          ],
+          "version": 0,
+          "index": 1,
+          "key": "Frame_Selection",
+          "pkgGroupKey": "Frame_Selection",
+          "select": 1,
+          "guid": "9AFD0BD4DD824D28A39571D4190D49A6",
+          "type": "Frame",
+          "displayInfo": {
+            "language": [
+              {
+                "locale": "en_US",
+                "name": "Frame"
+              }
+            ],
+            "type": "EffectPackage",
+            "color": "0x525868",
+            "foreignKey": "Frame_Selection",
+            "icon": "frame/frame_selection/icon/eft_selection.png"
+          }
+        }
+      ]
+    }
+  ],
+  "version": 0,
+  "usage": "All"
+}

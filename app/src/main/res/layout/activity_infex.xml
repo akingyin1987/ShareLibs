@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:baselineAligned="false">
 
   <Button android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -19,6 +19,20 @@
       android:text="camera2"
       android:id="@+id/camera2_default"/>
 
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="google_camera2"
+      android:id="@+id/google_camera"/>
+
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="VCamera"
+      android:id="@+id/vcamera"/>
+
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="PG_SDK_Camera"
+      android:id="@+id/pg_vcamera"/>
   <Button android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="imagelist"
@@ -58,7 +72,6 @@
   <TextView android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tag_info"/>
-
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

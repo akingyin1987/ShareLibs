@@ -1,1 +1,2 @@
-include ':app', ':camera', ':stickerlib', 'tuyalib'
+include ':app', ':camera', ':stickerlib', ':Vcamera', ':TuSdk', 'tuyalib', ':googlecameralib',
+    ':PG_Edit_SDK'

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lsq_background_default" >
+
+
+    <uk.co.senab.photoview.PhotoView
+        android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:id="@+id/camera_image"/>
+
+
+
+    <RelativeLayout
+        android:id="@+id/lsq_bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="#A000" >
+
+        <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:id="@+id/lsq_closeButton"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#0FFF"
+            android:scaleType="center"
+            android:src="@drawable/lsq_style_default_camera_button_close" />
+
+
+
+        <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:id="@+id/lsq_filterButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="center"
+            android:src="@drawable/lsq_style_default_camera_bg_filter" />
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
