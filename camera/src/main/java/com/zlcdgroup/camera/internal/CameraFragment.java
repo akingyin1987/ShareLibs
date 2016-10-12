@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +96,11 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
                     hasTakePicture = false;
                     reStartShowView();
                     break;
+                case 0:
+                    ZuoBiao zuoBiao = (ZuoBiao) msg.obj;
+                    String text = "图片大小： " + zuoBiao.getWidth() + "*" + zuoBiao.getHeight() + "\n坐标(" + zuoBiao.getLeft() + " , " + zuoBiao.getTop() + ") ; 矩形宽=" + zuoBiao.getxDes() + "; 矩形高" + zuoBiao.getyDes();
+                    tag_info.setText(text);
+                    break;
 
                 default:
                     break;
@@ -106,9 +112,15 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setmInterface(this);
+        DisplayMetrics  displayMetrics =  getResources().getDisplayMetrics();
+        screenWidth = displayMetrics.widthPixels;
+        screenHeight = displayMetrics.heightPixels;
         mCameraManager = new CameraManager(getActivity(), resultHandler);
         mCameraManager.setFrontLightMode(frontLightMode);
         mCameraManager.setErrorCallback(this);
+        left = (float) (0.3 * screenWidth / 2);
+        top = (float) (screenHeight / 2 - 50 - 0.29 * screenWidth);
+        right = (float) (screenWidth - left);
 
     }
 
@@ -168,12 +180,132 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
             int  top = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_TOP,0);
             int  left = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_LEFT,0);
             initGuide(guide,top,left);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
+
+    public   void   setReference(){
+        int width = 0, height = 0,mwidth=mCameraManager.getCameraResolution().x,mheight=mCameraManager.getCameraResolution().y;
+        left = (float) (0.3 * screenWidth / 2);
+        top = (float) (screenHeight / 2 - 50 - 0.29 * screenWidth);
+        right = (float) (screenWidth - left);
+        float top1, left1, xDes, right1, bottom1, yDes;
+        float filew = 540,fileh = 960;
+        if(Math.abs(mwidth*1.0/mheight-9.0/16) <=0.01){
+            filew = 540;
+            fileh = 960;
+        }else if(Math.abs(mheight*1.0/mwidth-9.0/16) <=0.01){
+            filew = 540;
+            fileh = 960;
+        }
+        if (mwidth < mheight) {
+            width = mwidth;
+            height = mheight;
+        } else {
+            width = mheight;
+            height = mwidth;
+        }
+        float scaleHeight = ((float) height) / fileh;
+        // Log.i("LHT", "scaleHeight " + scaleHeight);
+        float nWidth = width / scaleHeight;
+        // Log.i("LHT", "nWidth " + nWidth);
+        // Log.i("LHT", "screenWidth " + screenWidth);
+        float xRadio = nWidth / screenWidth;
+        // Log.i("LHT", "xRadio " + xRadio);
+        float yRadio = fileh / screenHeight;
+        top1 = top * yRadio;
+        left1 = left * xRadio;
+        right1 = right * xRadio;
+        xDes = right1 - left1;
+        yDes = (float) (xDes / 4.8);
+        bottom1 = (top1 + yDes) / yRadio;
+        //Log.i("LHT", "top " + top1 + "left " + left1 + " bottom1 " + bottom1 + " xDestance " + xDes + "  yDestance " + yDes);
+        referenceline.setRect(top, left, right, bottom1);
+        ZuoBiao zuoBiao = new ZuoBiao(nWidth, fileh, Math.floor(top1),Math.floor(left1),  Math.ceil(xDes), Math.ceil(yDes));
+        handler.obtainMessage(0, zuoBiao).sendToTarget();
+    }
+
+    public  void  setReference(int  degree){
+        int width = 0, height = 0,mwidth=mCameraManager.getCameraResolution().x,mheight=mCameraManager.getCameraResolution().y;
+
+        float top1=0, left1=0, xDes=0, right1=0, bottom1=0, yDes=0;
+        float filew = 540,fileh = 960;
+        if(Math.abs(mwidth*1.0/mheight-9.0/16) <=0.01){
+            filew = 540;
+            fileh = 960;
+        }else if(Math.abs(mheight*1.0/mwidth-9.0/16) <=0.01){
+            filew = 540;
+            fileh = 960;
+        }
+        if (mwidth < mheight) {
+            width = mwidth;
+            height = mheight;
+        } else {
+            width = mheight;
+            height = mwidth;
+        }
+        float scaleHeight = ((float) height) / fileh;
+        // Log.i("LHT", "scaleHeight " + scaleHeight);
+        float nWidth = width / scaleHeight;
+        // Log.i("LHT", "nWidth " + nWidth);
+        // Log.i("LHT", "screenWidth " + screenWidth);
+        float xRadio = nWidth / screenWidth;
+        // Log.i("LHT", "xRadio " + xRadio);
+        float yRadio = fileh / screenHeight;
+        if(degree == 90){
+            left = (float) (0.3 * screenWidth / 2);
+            top = (float) (screenHeight / 2 - 50 - 0.29 * screenWidth);
+            right = (float) (screenWidth - left);
+            top1 = top * yRadio;
+            left1 = left * xRadio;
+            right1 = right * xRadio;
+            xDes = right1 - left1;
+            yDes = (float) (xDes / 4.8);
+            bottom1 = (top1 + yDes) / yRadio;
+        }else if(degree == 0){
+
+            right = (float) ( screenWidth / 2.0);
+            top = (float) (screenHeight / 2.0 - 50 );
+            left = (float) (screenWidth - right-50);
+            top1 = top * yRadio;
+            left1 = left * xRadio;
+            right1 = right * xRadio;
+            xDes = right1 - left1;
+            yDes = (float) (xDes * 4.8);
+            bottom1 = (top1 + yDes) / yRadio;
+        }else if(degree == 180){
+            left = (float) ( screenWidth / 2.0);
+            top = (float) (screenHeight / 2.0 - 50 );
+            right = (float) (screenWidth - left-50);
+            top1 = top * yRadio;
+            left1 = left * xRadio;
+            right1 = right * xRadio;
+            xDes = right1 - left1;
+            yDes = (float) (xDes * 4.8);
+            bottom1 = (top1 + yDes) / yRadio;
+        }else if(degree == 270){
+            left = (float) (0.3 * screenWidth / 2);
+            top = (float) (screenHeight / 3.0*2.0);
+            right = (float) (screenWidth - left);
+            top1 = top * yRadio;
+            left1 = left * xRadio;
+            right1 = right * xRadio;
+            xDes = right1 - left1;
+            yDes = (float) (xDes / 4.8);
+            bottom1 = (top1 + yDes) / yRadio;
+        }
+
+
+        //Log.i("LHT", "top " + top1 + "left " + left1 + " bottom1 " + bottom1 + " xDestance " + xDes + "  yDestance " + yDes);
+        referenceline.setRect(top, left, right, bottom1);
+        ZuoBiao zuoBiao = new ZuoBiao(nWidth, fileh, Math.floor(top1),Math.floor(left1),  Math.ceil(xDes), Math.ceil(yDes));
+        handler.obtainMessage(0, zuoBiao).sendToTarget();
+    }
 
 
     @Override
@@ -227,6 +359,10 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
 
     @Override
     public void onCameraAngle(int angle) {
+       if(angle != mCameraManager.getResult()){
+
+           setReference(angle);
+       }
         mCameraManager.setResult(angle);
     }
 
@@ -260,4 +396,41 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     }
 
 
+    class ZuoBiao {
+        private float width, height;
+        private double top, left, xDes, yDes;
+
+        public ZuoBiao(float width, float height, double top, double left, double xDes, double yDes) {
+            this.top = top;
+            this.left = left;
+            this.xDes = xDes;
+            this.yDes = yDes;
+            this.width = width;
+            this.height = height;
+        }
+
+        public double getLeft() {
+            return left;
+        }
+
+        public double getTop() {
+            return top;
+        }
+
+        public double getxDes() {
+            return xDes;
+        }
+
+        public double getyDes() {
+            return yDes;
+        }
+
+        public float getHeight() {
+            return height;
+        }
+
+        public float getWidth() {
+            return width;
+        }
+    }
 }

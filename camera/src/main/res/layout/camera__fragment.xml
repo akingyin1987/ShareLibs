@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    xmlns:FocusImageView="http://schemas.android.com/tools"
     android:background="#000000"
 >
 
@@ -101,6 +100,14 @@
   </RelativeLayout>
   <RelativeLayout
       android:layout_width="match_parent"
+      android:layout_height="match_parent">
+    <com.zlcdgroup.camera.widget.ReferenceLine
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/referenceline"/>
+  </RelativeLayout>
+  <RelativeLayout
+      android:layout_width="match_parent"
       android:layout_height="match_parent" >
 
     <com.zlcdgroup.camera.widget.TouchImageView
@@ -166,7 +173,12 @@
         android:max="100"
         android:visibility="gone" />
   </RelativeLayout>
-
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="22222222222"
+      android:textColor="@android:color/holo_red_dark"
+      android:id="@+id/tag_info"/>
 
   <RelativeLayout android:layout_width="match_parent"
                   android:layout_height="match_parent">

@@ -37,6 +37,7 @@ import com.zlcdgroup.camera.MaterialCamera;
 import com.zlcdgroup.camera.R;
 import com.zlcdgroup.camera.VolumeMode;
 import com.zlcdgroup.camera.util.CameraUtil;
+import com.zlcdgroup.camera.widget.ReferenceLine;
 import com.zlcdgroup.camera.widget.TouchImageView;
 
 import java.io.File;
@@ -67,11 +68,17 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     protected   View  camera_moveleft,camera_movetop;
 
+    public ReferenceLine  referenceline;
+
     protected TextView mRecordDuration;
 
     private boolean mIsRecording;
     protected String mOutputUri;
     private BaseCaptureInterface mInterface;
+    public   TextView  tag_info;
+
+    public float left, right, top;
+    public float screenHeight, screenWidth;
 
     public BaseCaptureInterface getmInterface() {
         return mInterface;
@@ -99,6 +106,8 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tag_info = (TextView)view.findViewById(R.id.tag_info);
+        referenceline = (ReferenceLine)view.findViewById(R.id.referenceline);
         flash_model = (ImageView)view.findViewById(R.id.flash_model);
         volume_model = (ImageView)view.findViewById(R.id.volume_model);
         cancel_camera = (ImageView)view.findViewById(R.id.cancel_camera);
