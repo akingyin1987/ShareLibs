@@ -278,7 +278,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
             right1 = right * xRadio;
             xDes = Math.abs(right1 - left1);
             System.out.println("xdes1="+xDes/4.8);
-            right = (float) ( screenWidth / 3.0);
+            right = (float) ( screenWidth / 2.0);
             top = (float) (screenHeight / 2.0 - xDes );
             left = (float) (screenWidth - 50 - right-xDes/4.8);
 
