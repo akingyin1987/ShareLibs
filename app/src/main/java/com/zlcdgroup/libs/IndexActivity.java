@@ -15,7 +15,6 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -61,6 +60,7 @@ public class IndexActivity  extends AppCompatActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_infex);
+
     StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary));
     startTime = System.currentTimeMillis();
     sharedPreferences = getSharedPreferences("setting_info", Activity.MODE_PRIVATE);

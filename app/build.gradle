@@ -1,8 +1,11 @@
+
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion "24.0.3"
+  buildToolsVersion rootProject.ext.buildToolsVersion
+  compileSdkVersion rootProject.ext.compileSdkVersion
+
 
   defaultConfig {
     applicationId "com.zlcdgroup.libs"
@@ -25,15 +28,37 @@ android {
   lintOptions {
     abortOnError false
   }
+  sourceSets {
+    main {
+      manifest.srcFile 'src/main/AndroidManifest.xml'
+      java.srcDirs = ['src/main/java']
+      res.srcDirs = ['src/main/res']
+      jniLibs.srcDirs = ['libs']
 
+    }
 
+    // Move the tests to tests/java, tests/res, etc...
+    instrumentTest.setRoot('tests')
 
+    // Move the build types to build-types/<type>
+    // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+    // This moves them out of them default location under src/<type>/... which would
+    // conflict with src/ being used by the main source set.
+    // Adding new build types or product flavors should be accompanied
+    // by a similar customization.
+    debug.setRoot('build-types/debug')
+    release.setRoot('build-types/release')
+  }
 }
-
+greendao {
+  schemaVersion 8
+  targetGenDir 'src/main/java'
+  daoPackage 'com.zlcdgroup.dao'
+}
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   testCompile 'junit:junit:4.12'
-  compile 'com.android.support:appcompat-v7:23.3.0'
+  compile dep.appcompat
   compile 'com.github.chrisbanes:PhotoView:1.2.6'
   compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
   compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
@@ -44,5 +69,12 @@ dependencies {
   compile project(':camera')
   compile project(':tuyalib')
   compile project(':stickerlib')
+  compile project(':Vcamera')
   compile 'com.android.support:cardview-v7:23.3.0'
+  compile project(':PG_Edit_SDK')
+  compile project(':TuSdk')
+  compile 'org.greenrobot:greendao:3.2.0'
+  compile 'com.jaeger.statusbaruitl:library:1.2.5'
+  compile 'net.zetetic:android-database-sqlcipher:3.5.1'
+  compile files('libs/apk-tools.jar')
 }
