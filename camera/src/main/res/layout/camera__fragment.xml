@@ -104,6 +104,11 @@
     <com.zlcdgroup.camera.widget.ReferenceLine
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="363px"
+        android:paddingLeft="108px"
+        android:paddingRight="612px"
+        android:paddingTop="381px"
+
         android:id="@+id/referenceline"/>
   </RelativeLayout>
   <RelativeLayout

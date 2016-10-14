@@ -60,7 +60,7 @@ public class MyApp  extends Application {
         Configuration  configuration =  new  Configuration.Builder(this)
                         .addModelClass(ImageTextBean.class)
                         .addModelClass(TempBaseVo.class).create();
-//        ActiveAndroid.initialize(configuration,true);
+       ActiveAndroid.initialize(configuration,true);
         initImageLoader(this);
         CrashReport.initCrashReport(this,"900027987",false);
         CrashReport.setUserId(System.currentTimeMillis()+"test");
@@ -137,7 +137,7 @@ public class MyApp  extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-       // ActiveAndroid.dispose();
+       ActiveAndroid.dispose();
     }
 
     public static void initImageLoader(Context context) {

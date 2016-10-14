@@ -76,5 +76,5 @@ dependencies {
   compile 'org.greenrobot:greendao:3.2.0'
   compile 'com.jaeger.statusbaruitl:library:1.2.5'
   compile 'net.zetetic:android-database-sqlcipher:3.5.1'
-  compile files('libs/apk-tools.jar')
+
 }

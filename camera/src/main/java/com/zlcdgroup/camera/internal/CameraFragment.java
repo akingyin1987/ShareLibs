@@ -74,7 +74,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
                             viewfinder_view.setImageURI(Uri.parse(msg.obj.toString()));
                         }
                     }catch (Exception e){
-
+                        e.printStackTrace();
                     }
 
                     break;
@@ -180,7 +180,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
             int  top = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_TOP,0);
             int  left = sharedPreferences.getInt(CameraPreferences.KEY_GUIDE_LEFT,0);
             initGuide(guide,top,left);
-
+            setReference();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -231,6 +231,9 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     }
 
     public  void  setReference(int  degree){
+        if(null == mCameraManager || null  == mCameraManager.getCameraResolution()){
+            return;
+        }
         int width = 0, height = 0,mwidth=mCameraManager.getCameraResolution().x,mheight=mCameraManager.getCameraResolution().y;
 
         float top1=0, left1=0, xDes=0, right1=0, bottom1=0, yDes=0;
@@ -267,23 +270,31 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
             xDes = right1 - left1;
             yDes = (float) (xDes / 4.8);
             bottom1 = (top1 + yDes) / yRadio;
+            System.out.println("bottom1="+bottom1);
         }else if(degree == 0){
             left = (float) (0.3 * screenWidth / 2);
             right = (float) (screenWidth - left);
-            xDes = right1 - left1;
-
-            right = (float) ( screenWidth / 2.0);
+            left1 = left * xRadio;
+            right1 = right * xRadio;
+            xDes = Math.abs(right1 - left1);
+            System.out.println("xdes1="+xDes/4.8);
+            right = (float) ( screenWidth / 3.0);
             top = (float) (screenHeight / 2.0 - xDes );
-            left = (float) (screenWidth - right-xDes/4.8);
+            left = (float) (screenWidth - 50 - right-xDes/4.8);
+
             top1 = top * yRadio;
             left1 = left * xRadio;
             right1 = right * xRadio;
-            xDes = right1 - left1;
+            xDes = Math.abs(right1 - left1);
+            System.out.println("xdes2="+xDes);
             yDes = (float) (xDes * 4.8);
-            bottom1 = (top1 + yDes) / yRadio;
+            bottom1 = height*yRadio - top1-yDes;
+            System.out.println("bottom1="+bottom1);
         }else if(degree == 180){
             left = (float) (0.3 * screenWidth / 2);
             right = (float) (screenWidth - left);
+            left1 = left * xRadio;
+            right1 = right * xRadio;
             xDes = right1 - left1;
 
 
@@ -293,7 +304,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
             top1 = top * yRadio;
             left1 = left * xRadio;
             right1 = right * xRadio;
-            xDes = right1 - left1;
+            xDes =Math.abs(right1 - left1);
             yDes = (float) (xDes * 4.8);
             bottom1 = (top1 + yDes) / yRadio;
         }else if(degree == 270){
