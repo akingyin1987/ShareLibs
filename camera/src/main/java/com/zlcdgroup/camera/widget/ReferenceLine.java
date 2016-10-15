@@ -99,6 +99,7 @@ public class ReferenceLine extends View {
         left = left1;
         right = right1;
         bottom = bottom1;
+
         Log.i("ReferenceLine ","top= "+top+",left= "+left+",right="+right+",bottom="+bottom+"");
         postInvalidate();
 
