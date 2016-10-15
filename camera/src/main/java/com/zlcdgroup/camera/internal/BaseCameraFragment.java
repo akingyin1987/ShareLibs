@@ -37,6 +37,7 @@ import com.zlcdgroup.camera.MaterialCamera;
 import com.zlcdgroup.camera.R;
 import com.zlcdgroup.camera.VolumeMode;
 import com.zlcdgroup.camera.util.CameraUtil;
+import com.zlcdgroup.camera.widget.FocusView;
 import com.zlcdgroup.camera.widget.ReferenceLine;
 import com.zlcdgroup.camera.widget.TouchImageView;
 
@@ -65,6 +66,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     protected RelativeLayout  camera_layout,camera_toploayou;
 
+    protected FocusView    focusView;
 
     protected   View  camera_moveleft,camera_movetop;
 
@@ -106,6 +108,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        focusView = (FocusView)view.findViewById(R.id.fv_view);
         tag_info = (TextView)view.findViewById(R.id.tag_info);
         referenceline = (ReferenceLine)view.findViewById(R.id.referenceline);
         flash_model = (ImageView)view.findViewById(R.id.flash_model);

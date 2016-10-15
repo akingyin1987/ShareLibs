@@ -108,6 +108,10 @@
 
         android:id="@+id/referenceline"/>
   </RelativeLayout>
+  <com.zlcdgroup.camera.widget.FocusView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/fv_view"/>
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent" >

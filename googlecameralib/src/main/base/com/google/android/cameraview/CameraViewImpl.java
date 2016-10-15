@@ -43,6 +43,8 @@ abstract class CameraViewImpl {
 
     abstract void setFacing(int facing);
 
+
+
     abstract int getFacing();
 
     abstract Set<AspectRatio> getSupportedAspectRatios();

@@ -48,7 +48,9 @@ dependencies {
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  compile 'com.android.support:appcompat-v7:23.3.0'
+
+  compile dep.appcompat
+
   testCompile 'junit:junit:4.12'
   compile files('libs/TuSDKCore-2.5.1.jar')
   compile files('libs/TuSDKGee-1.9.0.jar')

@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.UUID;
 
 /**
  * @ Description:
@@ -46,6 +47,9 @@ import java.io.OutputStream;
  */
 public class GoogleCameraActivity extends AppCompatActivity  implements
     ActivityCompat.OnRequestPermissionsResultCallback{
+
+  public static final  String FILE_ROOT_URL = Environment.getExternalStorageDirectory().toString() + File.separator + "temp";
+
   private static final String TAG = "MainActivity";
 
   private static final int REQUEST_CAMERA_PERMISSION = 1;
@@ -110,7 +114,7 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
     if (mCameraView != null) {
       mCameraView.addCallback(mCallback);
     }
-    ImageView takePicture = (ImageView) findViewById(R.id.take_picture);
+    ImageView takePicture = (ImageView) findViewById(R.id.tack_camera);
     if (takePicture != null) {
       takePicture.setOnClickListener(mOnClickListener);
     }
@@ -228,6 +232,7 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
     @Override
     public void onCameraOpened(CameraView cameraView) {
       Log.d(TAG, "onCameraOpened");
+
     }
 
     @Override
@@ -245,8 +250,7 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
         public void run() {
           // This demo app saves the taken picture to a constant file.
           // $ adb pull /sdcard/Android/data/com.google.android.cameraview.demo/files/Pictures/picture.jpg
-          File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-              "picture.jpg");
+          File file = new File(FILE_ROOT_URL, UUID.randomUUID().toString()+".jpg");
           System.out.println("path->>>"+file.getAbsolutePath());
           OutputStream os = null;
           try {

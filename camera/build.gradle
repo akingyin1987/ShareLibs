@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion "24.0.3"
+  compileSdkVersion rootProject.ext.compileSdkVersion
+
+  buildToolsVersion rootProject.ext.buildToolsVersion
 
   defaultConfig {
     minSdkVersion 14
@@ -26,6 +27,7 @@ android {
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   testCompile 'junit:junit:4.12'
-  compile 'com.android.support:appcompat-v7:23.3.0'
+  compile dep.appcompat
+
   compile project(':googlecameralib')
 }
