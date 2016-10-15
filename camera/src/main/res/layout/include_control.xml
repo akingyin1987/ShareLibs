@@ -35,6 +35,10 @@
             android:background="@color/camera_transparent" />
     </RelativeLayout>
 
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 
     <RelativeLayout
         android:id="@+id/camera_tools_view"
@@ -76,5 +80,5 @@
 
 
     </RelativeLayout>
-
+    </RelativeLayout>
 </FrameLayout>

@@ -1,6 +1,10 @@
 package com.zlcdgroup.camera;
 
 
+import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
@@ -23,6 +27,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +36,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.cameraview.CameraView;
+import com.zlcdgroup.camera.internal.CameraIntentKey;
+import com.zlcdgroup.camera.widget.TouchImageView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -85,7 +92,7 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
     @Override
     public void onClick(View v) {
       int i = v.getId();
-      if (i == R.id.take_picture) {
+      if (i == R.id.tack_camera) {
         if (ContextCompat.checkSelfPermission(GoogleCameraActivity.this,
             Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
           if (mCameraView != null) {
@@ -106,24 +113,82 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
     }
   };
 
+  private   ImageView  cancel_camera,tack_camera,config_camera;
+
+  private TouchImageView  viewfinder_view;
+
+  public   static   String   SAVE_DIR="";
+  public   static   String   SAVE_NAME="";
+  public   boolean   tackPicOk = false;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_google_camera);
+    if(null == savedInstanceState){
+      SAVE_DIR = getIntent().getStringExtra(CameraIntentKey.SAVE_DIR);
+      SAVE_NAME = getIntent().getStringExtra(CameraIntentKey.SAVE_NAME);
+    }else{
+      SAVE_DIR = savedInstanceState.getString(CameraIntentKey.SAVE_DIR);
+      SAVE_NAME = savedInstanceState.getString(CameraIntentKey.SAVE_NAME);
+    }
+    if(TextUtils.isEmpty(SAVE_DIR)){
+      SAVE_DIR = FILE_ROOT_URL;
+    }
+    if(TextUtils.isEmpty(SAVE_NAME)){
+      SAVE_NAME = UUID.randomUUID().toString()+".jpg";
+    }
     mCameraView = (CameraView) findViewById(R.id.camera);
     if (mCameraView != null) {
       mCameraView.addCallback(mCallback);
     }
-    ImageView takePicture = (ImageView) findViewById(R.id.tack_camera);
-    if (takePicture != null) {
-      takePicture.setOnClickListener(mOnClickListener);
+    tack_camera = (ImageView) findViewById(R.id.tack_camera);
+    if (tack_camera != null) {
+      tack_camera.setOnClickListener(mOnClickListener);
     }
+    cancel_camera = (ImageView)findViewById(R.id.cancel_camera);
+    config_camera = (ImageView)findViewById(R.id.config_camera);
+    viewfinder_view = (TouchImageView)findViewById(R.id.viewfinder_view);
+    cancel_camera.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+         try {
+           viewfinder_view.setVisibility(View.GONE);
+           File  file = new File(SAVE_DIR,SAVE_NAME);
+           if(file.exists()){
+             file.delete();
+           }
+           cancel_camera.setVisibility(View.GONE);
+           tack_camera.setVisibility(View.VISIBLE);
+           config_camera.setVisibility(View.GONE);
+           mCameraView.start();
+         }catch (Exception e){
+           e.printStackTrace();
+         }
+      }
+    });
+
+    config_camera.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        tackPicOk = true;
+        Intent   intent = new Intent();
+        intent.putExtra(CameraIntentKey.SAVE_NAME,SAVE_NAME);
+        intent.putExtra(CameraIntentKey.SAVE_DIR,SAVE_DIR);
+        setResult(RESULT_OK,intent);
+        finish();
+      }
+    });
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       actionBar.setDisplayShowTitleEnabled(false);
     }
+  }
+
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putString(CameraIntentKey.SAVE_NAME,SAVE_NAME);
+    outState.putString(CameraIntentKey.SAVE_DIR,SAVE_DIR);
   }
 
   @Override
@@ -226,6 +291,26 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
     return mBackgroundHandler;
   }
 
+  private   Handler   unHandle = new Handler(){
+    @Override public void handleMessage(Message msg) {
+      super.handleMessage(msg);
+      if(msg.what == 1){
+        mCameraView.stop();
+        viewfinder_view.setVisibility(View.VISIBLE);
+        cancel_camera.setVisibility(View.VISIBLE);
+        tack_camera.setVisibility(View.GONE);
+        config_camera.setVisibility(View.VISIBLE);
+        try {
+          viewfinder_view.resetZoom();
+          viewfinder_view.setImageURI(Uri.fromFile(new File(SAVE_DIR,SAVE_NAME)));
+        }catch (Exception e){
+          e.printStackTrace();
+        }
+
+      }
+    }
+  };
+
   private CameraView.Callback mCallback
       = new CameraView.Callback() {
 
@@ -243,6 +328,10 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
     @Override
     public void onPictureTaken(CameraView cameraView, final byte[] data) {
       Log.d(TAG, "onPictureTaken " + data.length);
+      if(null == data || data.length <5*1024){
+        Toast.makeText(cameraView.getContext(),"拍照出错了",Toast.LENGTH_SHORT).show();
+        return;
+      }
       Toast.makeText(cameraView.getContext(), R.string.picture_taken, Toast.LENGTH_SHORT)
           .show();
       getBackgroundHandler().post(new Runnable() {
@@ -250,7 +339,7 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
         public void run() {
           // This demo app saves the taken picture to a constant file.
           // $ adb pull /sdcard/Android/data/com.google.android.cameraview.demo/files/Pictures/picture.jpg
-          File file = new File(FILE_ROOT_URL, UUID.randomUUID().toString()+".jpg");
+          File file = new File(SAVE_DIR, SAVE_NAME);
           System.out.println("path->>>"+file.getAbsolutePath());
           OutputStream os = null;
           try {
@@ -268,6 +357,7 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
               }
             }
           }
+          unHandle.sendEmptyMessage(1);
         }
       });
     }
@@ -326,4 +416,17 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
 
   }
 
+  @Override public void onBackPressed() {
+    try {
+      if(!tackPicOk){
+        File file = new File(SAVE_DIR,SAVE_NAME);
+        if(file.exists()){
+          file.delete();
+        }
+      }
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+    super.onBackPressed();
+  }
 }

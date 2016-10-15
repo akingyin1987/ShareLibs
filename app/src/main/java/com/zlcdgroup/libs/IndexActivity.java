@@ -26,10 +26,13 @@ import com.cooltechworks.views.ScratchTextView;
 import com.jaeger.library.StatusBarUtil;
 import com.zlcdgroup.camera.GoogleCameraActivity;
 import com.zlcdgroup.camera.MaterialCamera;
+import com.zlcdgroup.camera.internal.CameraIntentKey;
+import com.zlcdgroup.libs.config.AppConfig;
 import com.zlcdgroup.libs.tusdkcamera.TuSdkCameraActivity;
 import java.io.File;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 import me.leolin.shortcutbadger.ShortcutBadger;
 import si.virag.fuzzydateformatter.FuzzyDateTimeFormatter;
 import us.pinguo.edit.sdk.PGEditActivity;
@@ -94,7 +97,13 @@ public class IndexActivity  extends AppCompatActivity {
 
     findViewById(R.id.google_camera).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
+        File  file  =  new File(AppConfig.FILE_ROOT_URL);
+        if(!file.isDirectory()){
+          file.mkdirs();
+        }
         Intent  intent = new Intent(IndexActivity.this, GoogleCameraActivity.class);
+        intent.putExtra(CameraIntentKey.SAVE_DIR, AppConfig.FILE_ROOT_URL);
+        intent.putExtra(CameraIntentKey.SAVE_NAME, UUID.randomUUID().toString()+".jpg");
         startActivity(intent);
       }
     });
