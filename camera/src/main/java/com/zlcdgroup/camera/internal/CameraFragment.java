@@ -227,7 +227,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
         //Log.i("LHT", "top " + top1 + "left " + left1 + " bottom1 " + bottom1 + " xDestance " + xDes + "  yDestance " + yDes);
         referenceline.setRect(top, left, right, bottom1);
         ZuoBiao zuoBiao = new ZuoBiao(nWidth, fileh, Math.floor(top1),Math.floor(left1),  Math.ceil(xDes), Math.ceil(yDes));
-        handler.obtainMessage(0, zuoBiao).sendToTarget();
+        resultHandler.obtainMessage(0, zuoBiao).sendToTarget();
     }
 
     public  void  setReference(int  degree){

@@ -111,6 +111,7 @@
   <com.zlcdgroup.camera.widget.FocusView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:visibility="gone"
       android:id="@+id/fv_view"/>
   <RelativeLayout
       android:layout_width="match_parent"
@@ -182,7 +183,7 @@
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="22222222222"
+
       android:textColor="@android:color/holo_red_dark"
       android:id="@+id/tag_info"/>
 

@@ -96,28 +96,28 @@
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait" />
 
-    <activity
-        android:name="com.akingyin.vcamera.ui.record.MediaRecorderActivity"
-        android:hardwareAccelerated="true"
-        android:launchMode="singleTop"
-        android:screenOrientation="portrait"
-        android:theme="@style/CameraTheme" >
+    <!--<activity-->
+        <!--android:name="com.akingyin.vcamera.ui.record.MediaRecorderActivity"-->
+        <!--android:hardwareAccelerated="true"-->
+        <!--android:launchMode="singleTop"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/CameraTheme" >-->
 
-    </activity>
-    <activity
-        android:name="com.akingyin.vcamera.ui.record.MediaPreviewActivity"
-        android:hardwareAccelerated="true"
-        android:launchMode="singleTop"
-        android:screenOrientation="portrait"
-        android:theme="@style/CameraTheme" >
-    </activity>
-    <activity
-        android:name="com.akingyin.vcamera.ui.record.ImportVideoActivity"
-        android:hardwareAccelerated="true"
-        android:launchMode="singleTop"
-        android:screenOrientation="portrait"
-        android:theme="@style/CameraTheme" >
-    </activity>
+    <!--</activity>-->
+    <!--<activity-->
+        <!--android:name="com.akingyin.vcamera.ui.record.MediaPreviewActivity"-->
+        <!--android:hardwareAccelerated="true"-->
+        <!--android:launchMode="singleTop"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/CameraTheme" >-->
+    <!--</activity>-->
+    <!--<activity-->
+        <!--android:name="com.akingyin.vcamera.ui.record.ImportVideoActivity"-->
+        <!--android:hardwareAccelerated="true"-->
+        <!--android:launchMode="singleTop"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/CameraTheme" >-->
+    <!--</activity>-->
 
     <service android:name=".server.TestServer"
       >

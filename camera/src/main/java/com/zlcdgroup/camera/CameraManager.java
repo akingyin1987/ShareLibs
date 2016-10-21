@@ -34,6 +34,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 
+import android.widget.Toast;
 import com.zcldgroup.util.BitmapUtil;
 import java.io.File;
 import java.io.IOException;
@@ -682,17 +683,14 @@ public final class CameraManager implements AutoFocusListion {
 					if (null != data && data.length > 0) {
 
 						resultHandler.sendEmptyMessage(CameraPreferences.TACKPIC_RESULT_DATA_OK);
-
+            System.out.println("path=="+path+":::"+imageName);
+						Toast.makeText(context,"获取到数据"+data.length,Toast.LENGTH_SHORT).show();
 						Bitmap mBitmap = BitmapUtil.dataToBaseBitmap(data, path, "base_" + imageName, 90);
-
+						Toast.makeText(context,"转换图片="+(null == mBitmap),Toast.LENGTH_SHORT).show();
 						if (null != mBitmap) {
-							//Message   temp = resultHandler.obtainMessage();
-							//temp.what = CameraPreferences.TACKPIC_RESULT_TEMP;
-							//temp.obj="图片大小->"+mBitmap.getWidth()+"*"+mBitmap.getHeight();
-
-						//	resultHandler.sendMessage(temp);
 							// 旋转
 							boolean resultOk = BitmapUtil.zipImageTo960x540(mBitmap, landscape == 1 ? 0 : result, getFramingRect(mBitmap.getWidth(), mBitmap.getHeight()), time, path, imageName);
+							Toast.makeText(context,"旋转图片="+resultOk,Toast.LENGTH_SHORT).show();
 							try {
 								File file = new File(path, imageName);
 								if (file.exists()) {
@@ -705,6 +703,7 @@ public final class CameraManager implements AutoFocusListion {
 
 							} catch (Exception e) {
 								e.printStackTrace();
+
 								resultHandler.sendEmptyMessage(CameraPreferences.TACKPIC_RESULT_VIEWBASEIMG_ERROR);
 							}
 
@@ -725,6 +724,7 @@ public final class CameraManager implements AutoFocusListion {
 						// }).start();
 
 					} else {
+						Toast.makeText(context,"未获取到数据",Toast.LENGTH_SHORT).show();
 						resultHandler.sendEmptyMessage(CameraPreferences.TACKPIC_RESULT_DATA_NO);
 					}
 

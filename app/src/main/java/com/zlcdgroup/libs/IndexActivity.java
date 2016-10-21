@@ -1,5 +1,7 @@
 package com.zlcdgroup.libs;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,9 +23,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.akingyin.vcamera.ui.record.MediaRecorderActivity;
+
 import com.cooltechworks.views.ScratchTextView;
 import com.jaeger.library.StatusBarUtil;
+import com.tbruyelle.rxpermissions.RxPermissions;
 import com.zlcdgroup.camera.GoogleCameraActivity;
 import com.zlcdgroup.camera.MaterialCamera;
 import com.zlcdgroup.camera.internal.CameraIntentKey;
@@ -34,8 +37,9 @@ import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 import me.leolin.shortcutbadger.ShortcutBadger;
+import rx.functions.Action1;
 import si.virag.fuzzydateformatter.FuzzyDateTimeFormatter;
-import us.pinguo.edit.sdk.PGEditActivity;
+
 import us.pinguo.edit.sdk.base.PGEditResult;
 import us.pinguo.edit.sdk.base.PGEditSDK;
 
@@ -64,7 +68,7 @@ public class IndexActivity  extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_infex);
 
-    StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary));
+
     startTime = System.currentTimeMillis();
     sharedPreferences = getSharedPreferences("setting_info", Activity.MODE_PRIVATE);
     camera_tow = (RadioButton)findViewById(R.id.camera_tow);
@@ -81,17 +85,42 @@ public class IndexActivity  extends AppCompatActivity {
     }
     findViewById(R.id.camera_default).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        new MaterialCamera(IndexActivity.this).saveDir(
-            Environment.getExternalStorageDirectory().toString() + File.separator + "temp")
-            .startAuto(100);
+        RxPermissions.getInstance(IndexActivity.this).request(Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                         Manifest.permission.READ_EXTERNAL_STORAGE).subscribe(new Action1<Boolean>() {
+          @Override public void call(Boolean aBoolean) {
+              if(aBoolean){
+                new MaterialCamera(IndexActivity.this).saveDir(
+                    Environment.getExternalStorageDirectory().toString() + File.separator + "temp")
+                    .startAuto(100);
+              }
+          }
+        }, new Action1<Throwable>() {
+          @Override public void call(Throwable throwable) {
+
+          }
+        });
+
       }
     });
 
     findViewById(R.id.camera1_default).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        new MaterialCamera(IndexActivity.this).saveDir(
-            Environment.getExternalStorageDirectory().toString() + File.separator + "temp")
-            .startCamera(101);
+        RxPermissions.getInstance(IndexActivity.this).request(Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Action1<Boolean>() {
+          @Override public void call(Boolean aBoolean) {
+            if(aBoolean){
+              new MaterialCamera(IndexActivity.this).saveDir(
+                  Environment.getExternalStorageDirectory().toString() + File.separator + "temp")
+                  .startCamera(101);
+            }
+          }
+        }, new Action1<Throwable>() {
+          @Override public void call(Throwable throwable) {
+
+          }
+        });
+
       }
     });
 
@@ -109,8 +138,8 @@ public class IndexActivity  extends AppCompatActivity {
     });
     findViewById(R.id.vcamera).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        Intent  intent = new Intent(IndexActivity.this, MediaRecorderActivity.class);
-        startActivity(intent);
+        //Intent  intent = new Intent(IndexActivity.this, MediaRecorderActivity.class);
+        //startActivity(intent);
       }
     });
 

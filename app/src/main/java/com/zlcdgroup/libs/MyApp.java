@@ -13,12 +13,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.yixia.camera.VCamera;
-import com.yixia.camera.util.DeviceUtils;
+
 import com.zlcdgroup.dao.BookDao;
 import com.zlcdgroup.dao.DaoMaster;
 import com.zlcdgroup.dao.DaoSession;
 import com.zlcdgroup.dao.UserDao;
+import com.zlcdgroup.libs.config.AppConfig;
 import com.zlcdgroup.libs.db.Book;
 import com.zlcdgroup.libs.db.ImageTextBean;
 import com.zlcdgroup.libs.db.UpgradeHelper;
@@ -43,27 +43,31 @@ public class MyApp  extends Application {
     public void onCreate() {
         super.onCreate();
         // 设置拍摄视频缓存路径
-        File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-        if (DeviceUtils.isZte()) {
-            if (dcim.exists()) {
-                VCamera.setVideoCachePath(dcim + "/Camera/VCameraDemo/");
-            } else {
-                VCamera.setVideoCachePath(dcim.getPath().replace("/sdcard/", "/sdcard-ext/") + "/Camera/VCameraDemo/");
-            }
-        } else {
-            VCamera.setVideoCachePath(dcim + "/Camera/VCameraDemo/");
+        CrashReport.initCrashReport(this,"900027987",false);
+        CrashReport.setUserId(System.currentTimeMillis()+"test");
+        File dcim = Environment.getExternalStoragePublicDirectory(AppConfig.FILE_ROOT_URL);
+        if(!dcim.isDirectory() ){
+            dcim.mkdirs();
         }
+        //if (DeviceUtils.isZte()) {
+        //    if (dcim.exists()) {
+        //        VCamera.setVideoCachePath(dcim + "/Camera/VCameraDemo/");
+        //    } else {
+        //        VCamera.setVideoCachePath(dcim.getPath().replace("/sdcard/", "/sdcard-ext/") + "/Camera/VCameraDemo/");
+        //    }
+        //} else {
+        //    VCamera.setVideoCachePath(dcim + "/Camera/VCameraDemo/");
+        //}
         // 开启log输出,ffmpeg输出到logcat
-        VCamera.setDebugMode(true);
+      //  VCamera.setDebugMode(true);
         // 初始化拍摄SDK，必须
-        VCamera.initialize(this);
+        //VCamera.initialize(this);
         Configuration  configuration =  new  Configuration.Builder(this)
                         .addModelClass(ImageTextBean.class)
                         .addModelClass(TempBaseVo.class).create();
-       ActiveAndroid.initialize(configuration,true);
+        ActiveAndroid.initialize(configuration,true);
         initImageLoader(this);
-        CrashReport.initCrashReport(this,"900027987",false);
-        CrashReport.setUserId(System.currentTimeMillis()+"test");
+
         Stetho.initializeWithDefaults(this);
 
         TuSdk.enableDebugLog(true);
