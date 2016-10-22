@@ -31,7 +31,7 @@ public class UpgradeHelper  extends DaoMaster.OpenHelper {
    */
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    System.out.println("oldVersion"+oldVersion+":"+newVersion);
+
 
         /* i represent the version where the user is now and the class named with this number implies that is upgrading from i to i++ schema */
     for (int i = oldVersion; i < newVersion; i++) {

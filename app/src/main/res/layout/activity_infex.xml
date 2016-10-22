@@ -37,6 +37,10 @@
       android:layout_height="wrap_content"
       android:text="imagelist"
       android:id="@+id/imagelist"/>
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="AudioRecorder"
+      android:id="@+id/audioRecorder"/>
 
   <RadioGroup android:layout_width="wrap_content"
       android:layout_height="wrap_content"

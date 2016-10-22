@@ -1,6 +1,6 @@
 package com.zlcdgroup.libs;
 
-import android.*;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -24,8 +24,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
+import cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import cafe.adriel.androidaudiorecorder.model.AudioSource;
 import com.cooltechworks.views.ScratchTextView;
-import com.jaeger.library.StatusBarUtil;
+
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.zlcdgroup.camera.GoogleCameraActivity;
 import com.zlcdgroup.camera.MaterialCamera;
@@ -147,6 +151,26 @@ public class IndexActivity  extends AppCompatActivity {
       @Override public void onClick(View v) {
         Intent  intent  = new Intent(IndexActivity.this, TuSdkCameraActivity.class);
         startActivity(intent);
+      }
+    });
+
+    findViewById(R.id.audioRecorder).setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        AndroidAudioRecorder.with(IndexActivity.this)
+            // Required
+            .setFilePath(AppConfig.FILE_ROOT_URL)
+
+            .setRequestCode(100)
+
+            // Optional
+            .setSource(AudioSource.MIC)
+            .setChannel(AudioChannel.STEREO)
+            .setSampleRate(AudioSampleRate.HZ_48000)
+            .setAutoStart(true)
+            .setKeepDisplayOn(true)
+
+            // Start recording
+            .record();
       }
     });
     tv_scratch = (ScratchTextView)findViewById(R.id.tv_scratch);
