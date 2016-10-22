@@ -20,6 +20,7 @@ import com.zlcdgroup.dao.DaoSession;
 import com.zlcdgroup.dao.UserDao;
 import com.zlcdgroup.libs.config.AppConfig;
 import com.zlcdgroup.libs.db.Book;
+import com.zlcdgroup.libs.db.DbCore;
 import com.zlcdgroup.libs.db.ImageTextBean;
 import com.zlcdgroup.libs.db.UpgradeHelper;
 import com.zlcdgroup.libs.db.User;
@@ -78,11 +79,8 @@ public class MyApp  extends Application {
 
     public static final boolean ENCRYPTED = false;
     public   void   initDao(){
-        UpgradeHelper helper = new UpgradeHelper(this,ENCRYPTED ? "test-db-encrypted" : "test-db");
-        Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
-        daoSession = new DaoMaster(db).newSession();
-        QueryBuilder.LOG_SQL=true;
-        QueryBuilder.LOG_VALUES = true;
+        DbCore.init(this);
+        daoSession = DbCore.getDaoSession();
         User   user = new User();
         user.account="test"+new Random().nextInt(1000);
         user.arg="111"+new Random().nextInt(1000);
