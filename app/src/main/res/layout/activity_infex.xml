@@ -42,6 +42,11 @@
       android:text="AudioRecorder"
       android:id="@+id/audioRecorder"/>
 
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="OCR"
+      android:id="@+id/ocr"/>
+
   <RadioGroup android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"

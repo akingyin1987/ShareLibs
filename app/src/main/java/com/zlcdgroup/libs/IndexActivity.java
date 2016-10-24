@@ -35,6 +35,7 @@ import com.zlcdgroup.camera.GoogleCameraActivity;
 import com.zlcdgroup.camera.MaterialCamera;
 import com.zlcdgroup.camera.internal.CameraIntentKey;
 import com.zlcdgroup.libs.config.AppConfig;
+import com.zlcdgroup.libs.ocr.OcrActivity;
 import com.zlcdgroup.libs.tusdkcamera.TuSdkCameraActivity;
 import java.io.File;
 import java.util.Date;
@@ -146,7 +147,13 @@ public class IndexActivity  extends AppCompatActivity {
         //startActivity(intent);
       }
     });
-
+    findViewById(R.id.ocr).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent  intent = new Intent(IndexActivity.this, OcrActivity.class);
+        startActivity(intent);
+      }
+    });
     findViewById(R.id.pg_vcamera).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         Intent  intent  = new Intent(IndexActivity.this, TuSdkCameraActivity.class);

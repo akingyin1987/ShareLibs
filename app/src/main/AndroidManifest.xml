@@ -142,7 +142,9 @@
         android:windowSoftInputMode="stateHidden|adjustResize" />
 
 
-
+       <activity android:name=".ocr.OcrActivity"
+           android:launchMode="singleTop"
+           android:screenOrientation="portrait" />
 
 
   </application>

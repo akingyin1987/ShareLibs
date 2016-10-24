@@ -16,6 +16,15 @@ import android.text.TextUtils;
 
 public class FileUtil  {
 
+	public  static  boolean  isImage(File  file){
+		if(null != file && file.exists()){
+			if(file.getAbsolutePath().endsWith(".jpg")){
+				return  true;
+			}
+		}
+		return  false;
+	}
+
 	/**
 	 * 转换文件大小
 	 * 

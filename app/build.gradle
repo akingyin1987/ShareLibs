@@ -1,6 +1,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'android-apt'
 
 android {
   buildToolsVersion rootProject.ext.buildToolsVersion
@@ -81,5 +82,14 @@ dependencies {
   compile 'com.jaeger.statusbaruitl:library:1.2.5'
   compile 'net.zetetic:android-database-sqlcipher:3.5.1'
   compile 'com.github.adrielcafe:AndroidAudioRecorder:0.2.0'
+  compile 'com.jakewharton:butterknife:8.4.0'
+  apt 'com.jakewharton:butterknife-compiler:8.4.0'
+  compile 'com.squareup.okhttp3:okhttp:3.4.1'
+  compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+  compile 'com.squareup.retrofit2:retrofit:2.1.0'
+  compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+  compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+  compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+  compile 'com.google.code.gson:gson:2.7'
 
 }
