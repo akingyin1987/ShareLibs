@@ -29,6 +29,10 @@ public class RetrofitUtil {
 
     public static final String BAIDU_IMAGES_URLS = "http://image.baidu.com";
 
+    public static  final  String OCR_YUANSHI="http://120.76.220.251:4567";
+
+    public static  final  String OCR_BAIDU="http://apis.baidu.com/idl_baidu/baiduocrpay/idlocrpaid";
+
     public static <T> T createApi(Class<T> clazz) {
         if (singleton == null) {
             synchronized (RetrofitUtil.class) {

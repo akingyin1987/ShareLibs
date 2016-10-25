@@ -21,6 +21,14 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/rb_baidu"/>
 
+        <Button
+            android:text="刷新"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_refresh"
+            android:layout_weight="1" />
+
+
     </RadioGroup>
 
     <ListView
