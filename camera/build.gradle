@@ -28,6 +28,6 @@ dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   testCompile 'junit:junit:4.12'
   compile dep.appcompat
-
   compile project(':googlecameralib')
+  compile 'com.google.code.gson:gson:2.7'
 }

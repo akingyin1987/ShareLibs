@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.zlcdgroup.camera.CameraManager;
 import com.zlcdgroup.camera.CameraPreferences;
 import com.zlcdgroup.camera.FrontLightMode;
@@ -227,6 +229,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
         //Log.i("LHT", "top " + top1 + "left " + left1 + " bottom1 " + bottom1 + " xDestance " + xDes + "  yDestance " + yDes);
         referenceline.setRect(top, left, right, bottom1);
         ZuoBiao zuoBiao = new ZuoBiao(nWidth, fileh, Math.floor(top1),Math.floor(left1),  Math.ceil(xDes), Math.ceil(yDes));
+        mCameraManager.setZuoBiao(zuoBiao);
         resultHandler.obtainMessage(0, zuoBiao).sendToTarget();
     }
 
@@ -314,6 +317,7 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
         referenceline.setRect(top, left, right, bottom1);
         ZuoBiao zuoBiao = new ZuoBiao(nWidth, fileh, Math.floor(top1),Math.floor(left1),  Math.ceil(xDes), Math.ceil(yDes));
         zuoBiao.setDegree(degree);
+        mCameraManager.setZuoBiao(zuoBiao);
         resultHandler.obtainMessage(0, zuoBiao).sendToTarget();
     }
 
@@ -406,10 +410,27 @@ public class CameraFragment extends BaseCameraFragment implements BaseCaptureInt
     }
 
 
-    class ZuoBiao {
-        private float width, height;
-        private double top, left, xDes, yDes;
-        private  int  degree;
+   public class ZuoBiao {
+
+        private transient  float width;
+
+
+        private transient float   height;
+
+        @SerializedName("t")
+        private double top;
+
+       @SerializedName("l")
+        private double left;
+
+        @SerializedName("w")
+        private double xDes;
+
+        @SerializedName("h")
+        private double yDes;
+
+
+        private transient  int  degree;
 
         public int getDegree() {
             return degree;

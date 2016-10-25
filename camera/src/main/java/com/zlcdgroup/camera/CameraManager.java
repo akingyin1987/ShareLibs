@@ -27,6 +27,7 @@ import android.hardware.Camera.ErrorCallback;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
+import android.media.ExifInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -35,7 +36,14 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 import com.zcldgroup.util.BitmapUtil;
+import com.zlcdgroup.camera.internal.CameraFragment;
+import com.zlcdgroup.camera.util.ExifInterfaceUtil;
+
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -77,6 +85,16 @@ public final class CameraManager implements AutoFocusListion {
 	 * message.
 	 */
 	private final PreviewCallback previewCallback;
+
+	private CameraFragment.ZuoBiao  zuoBiao;
+
+	public CameraFragment.ZuoBiao getZuoBiao() {
+		return zuoBiao;
+	}
+
+	public void setZuoBiao(CameraFragment.ZuoBiao zuoBiao) {
+		this.zuoBiao = zuoBiao;
+	}
 
 	private Handler resultHandler;
 
@@ -683,7 +701,7 @@ public final class CameraManager implements AutoFocusListion {
 					if (null != data && data.length > 0) {
 
 						resultHandler.sendEmptyMessage(CameraPreferences.TACKPIC_RESULT_DATA_OK);
-            System.out.println("path=="+path+":::"+imageName);
+
 						Toast.makeText(context,"获取到数据"+data.length,Toast.LENGTH_SHORT).show();
 						Bitmap mBitmap = BitmapUtil.dataToBaseBitmap(data, path, "base_" + imageName, 90);
 						Toast.makeText(context,"转换图片="+(null == mBitmap),Toast.LENGTH_SHORT).show();
@@ -694,6 +712,12 @@ public final class CameraManager implements AutoFocusListion {
 							try {
 								File file = new File(path, imageName);
 								if (file.exists()) {
+									if(null != zuoBiao){
+										Gson  gson = new Gson();
+
+										ExifInterfaceUtil.saveExifinterAttr(file.getAbsolutePath(), ExifInterface.TAG_MODEL,gson.toJson(zuoBiao));
+									}
+
 									Message message = resultHandler.obtainMessage(CameraPreferences.TACKPIC_RESULT_VIEWBASEIMG_OK);
 									message.obj = file.getPath();
 									resultHandler.sendMessage(message);

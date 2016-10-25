@@ -2,6 +2,8 @@ package com.zlcdgroup.libs.ocr.api;
 
 import com.zlcdgroup.libs.ocr.OcrVo;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
@@ -25,13 +27,16 @@ public interface OcrApi {
      * @return
      */
     @FormUrlEncoded
-    @POST("/water_ssd/getDigit")
-    Observable<OcrVo>   getImageOcrByYushi(@Field("Image")String  base64img,
-                                           @Field("ClientType")String ClientType,
-                                           @Field("UserID")String UserID,
-                                           @Field("DeviceID")String DeviceID,
-                                           @Field("Datetime")String Datetime,
-                                           @Field("NumArea")String NumArea
+    @POST("water_ssd/getDigit")
+    Observable<ResponseBody>   getImageOcrByYushi(@Field("Image")String  base64img,
+                                                  @Field("ClientType")String ClientType,
+                                                  @Field("UserID")String UserID,
+                                                  @Field("DeviceID")String DeviceID,
+                                                  @Field("Datetime")String Datetime,
+                                                  @Field("NumArea")String NumArea,
+                                                  @Field("MacAddress")String MacAddress,
+                                                  @Field("Province")String  Province,
+                                                  @Field("City")String  City
                                            );
 
     /**
@@ -45,8 +50,8 @@ public interface OcrApi {
      * @return
      */
     @FormUrlEncoded
-    @POST("/idl_baidu/baiduocrpay/idlocrpaid")
-    Observable<OcrVo>  getImageOcrByBaidu(@Header("apikey")String apikey,
+    @POST("idl_baidu/baiduocrpay/idlocrpaid")
+    Observable<ResponseBody>  getImageOcrByBaidu(@Header("apikey")String apikey,
                                           @Field("fromdevice")String fromdevice,
                                           @Field("clientip")String clientip,
                                           @Field("detecttype")String detecttype,
