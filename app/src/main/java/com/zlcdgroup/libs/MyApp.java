@@ -43,6 +43,7 @@ public class MyApp  extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Stetho.initializeWithDefaults(this);
         // 设置拍摄视频缓存路径
         CrashReport.initCrashReport(this,"900027987",false);
         CrashReport.setUserId(System.currentTimeMillis()+"test");

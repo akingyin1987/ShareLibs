@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 
@@ -54,6 +55,19 @@ public class Base64Util {
             return "";
         }
         return Base64.encodeToString(data,Base64.DEFAULT);
+    }
+
+    public   static   void decoderBase64File(String base64Code,String targetPath){
+        byte[] buffer = Base64.decode(base64Code.getBytes(),Base64.DEFAULT);
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(targetPath);
+            out.write(buffer);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

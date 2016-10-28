@@ -1,5 +1,6 @@
 package com.zlcdgroup.libs.ocr.api;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -16,6 +17,7 @@ public class RetrofitUtil {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
         OkHttpClient   okHttpClient = new OkHttpClient.Builder()
+                                     .addNetworkInterceptor(new StethoInterceptor())
                                      .addInterceptor(logging).build();
         return  okHttpClient;
     }

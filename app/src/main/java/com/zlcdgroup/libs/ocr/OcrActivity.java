@@ -1,9 +1,13 @@
 package com.zlcdgroup.libs.ocr;
 
+import android.content.Context;
 import android.media.ExifInterface;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,6 +25,7 @@ import com.zlcdgroup.libs.ocr.api.RetrofitUtil;
 import com.zlcdgroup.libs.utils.Base64Util;
 import com.zlcdgroup.libs.utils.RxUtil;
 
+import java.util.UUID;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,11 +64,21 @@ public class OcrActivity extends AppCompatActivity {
     OcrAdapter adapter;
     @BindView(R.id.btn_refresh)
     Button btnRefresh;
-
+    String  imei;
+    String  mac;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
+        TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
+        imei = tm.getDeviceId();
+
+        WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        if(null != wifi){
+            WifiInfo info = wifi.getConnectionInfo();
+            mac = info.getMacAddress();
+        }
+
         ButterKnife.bind(this);
         adapter = new OcrAdapter(this);
         lvImgs.setAdapter(adapter);
@@ -101,9 +116,11 @@ public class OcrActivity extends AppCompatActivity {
                 System.out.println("attr="+NumArea);
                 if(!TextUtils.isEmpty(NumArea)){
                     Gson  gson = new Gson();
+                    System.out.println("localpath="+ocrVo.localpath);
+                    Base64Util.decoderBase64File(Base64Util.FileToBase64(ocrVo.localpath),AppConfig.FILE_ROOT_URL+File.separator+"copy_"+ UUID.randomUUID().toString()+".jpg");
                     CameraFragment.ZuoBiao  zuoBiao =gson.fromJson(NumArea, CameraFragment.ZuoBiao.class);
                     NumArea=zuoBiao.getLeft()+","+zuoBiao.getTop()+","+zuoBiao.getxDes()+","+zuoBiao.getyDes();
-                    api.getImageOcrByYushi(Base64Util.FileToBase64(ocrVo.localpath),"android","SZBD2016","123456",formatter.format(new Date()),NumArea,"0.0.0.0","省","重庆")
+                    api.getImageOcrByYushi(Base64Util.FileToBase64(ocrVo.localpath),"Android","SZBD2016",imei,formatter.format(new Date()),NumArea,mac,"重庆","重庆")
                             .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.newThread())
                             .subscribe(new Action1<ResponseBody>() {
                                 @Override
