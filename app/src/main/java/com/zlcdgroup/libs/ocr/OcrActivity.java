@@ -76,7 +76,7 @@ public class OcrActivity extends AppCompatActivity {
         WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         if(null != wifi){
             WifiInfo info = wifi.getConnectionInfo();
-            mac = info.getMacAddress().toLowerCase();
+            mac = info.getMacAddress();
         }
 
         ButterKnife.bind(this);
@@ -111,7 +111,7 @@ public class OcrActivity extends AppCompatActivity {
                     }
                 });
             }else{
-                SimpleDateFormat  formatter = new SimpleDateFormat("yyyymmdd-hhmmss-SSSS");
+                SimpleDateFormat  formatter = new SimpleDateFormat("yyyymmdd-hhmmss-ssss");
                 String  NumArea = ExifInterfaceUtil.getExifinterAttr(ocrVo.localpath, ExifInterface.TAG_MODEL);
                 System.out.println("attr="+NumArea);
                 if(!TextUtils.isEmpty(NumArea)){
@@ -119,15 +119,29 @@ public class OcrActivity extends AppCompatActivity {
                     System.out.println("localpath="+ocrVo.localpath);
                   //  Base64Util.decoderBase64File(Base64Util.FileToBase64(ocrVo.localpath),AppConfig.FILE_ROOT_URL+File.separator+"copy_"+ UUID.randomUUID().toString()+".jpg");
                     CameraFragment.ZuoBiao  zuoBiao =gson.fromJson(NumArea, CameraFragment.ZuoBiao.class);
-                    NumArea=(int)zuoBiao.getLeft()+","+(int)zuoBiao.getTop()+","+(int)zuoBiao.getxDes()+","+(int)zuoBiao.getyDes();
-                    api.getImageOcrByYushi("","Android","SZBD2016",imei,formatter.format(new Date()),NumArea,mac,"重庆","重庆")
+                    NumArea=zuoBiao.getLeft()+","+zuoBiao.getTop()+","+zuoBiao.getxDes()+","+zuoBiao.getyDes();
+                    api.getImageOcrByYushi(Base64Util.FileToBase64(ocrVo.localpath),"Android","SZBD2016",imei,formatter.format(new Date()),NumArea,mac,"","重庆")
                             .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.newThread())
-                            .subscribe(new Action1<YunShiEntity>() {
-                                @Override public void call(YunShiEntity yunShiEntity) {
-
+                            .subscribe(new Action1<ResponseBody>() {
+                                @Override
+                                public void call(ResponseBody responseBody) {
+                                    try {
+                                        System.out.println(responseBody.string());
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(responseBody.string());
+                                            String value = jsonObject.getString("Value");
+                                            String Message = jsonObject.getString("Message");
+                                            ocrVo.ocrtext = "value=" + value + ":msg=" + Message;
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }, new Action1<Throwable>() {
-                                @Override public void call(Throwable throwable) {
+                                @Override
+                                public void call(Throwable throwable) {
                                     throwable.printStackTrace();
                                 }
                             });

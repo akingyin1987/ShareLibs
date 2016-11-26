@@ -9,14 +9,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.io.InputStream;
+
 
 /**
  * Created by Administrator on 2016/10/25.
  */
 
 public class Base64Util {
+
 
 
     /**
@@ -26,10 +27,11 @@ public class Base64Util {
      */
     public static byte[] getBytesFromFile(String   imgFile) {
         File    file = new File(imgFile);
+
         if(!file.exists() || file.length()==0){
             return  null;
         }
-        System.out.println("imgfile.size="+file.length());
+        System.out.println("file.size="+file.length());
         try {
             FileInputStream   fileInputStream = new FileInputStream(file);
             ByteArrayOutputStream   outputStream = new ByteArrayOutputStream();
@@ -56,19 +58,9 @@ public class Base64Util {
         if(null == data){
             return "";
         }
+        System.out.println("size=="+data.length);
         return Base64.encodeToString(data,Base64.DEFAULT);
     }
-
-
-    public   static   String   ToUrlEncoded(String  str){
-        try {
-            return URLEncoder.encode(str,"utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return  str;
-    }
-
 
     public   static   void decoderBase64File(String base64Code,String targetPath){
         byte[] buffer = Base64.decode(base64Code.getBytes(),Base64.DEFAULT);

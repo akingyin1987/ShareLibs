@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
 
 import android.app.Activity;
 import android.content.Context;
@@ -35,10 +38,20 @@ import android.content.CursorLoader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+
+import com.zlcdgroup.tuyalib.CameraBitmapUtil;
+import com.zlcdgroup.tuyalib.Circle;
+import com.zlcdgroup.tuyalib.Shape;
 
 public class TuyaFileUtils {
     /**
@@ -450,5 +463,46 @@ public class TuyaFileUtils {
 		int filePosi = filePath.lastIndexOf(File.separator);
 		return (filePosi == -1) ? "" : filePath.substring(0, filePosi+1);
 	}
+
+    public  static  List<String>    saveTuYaFileList(Bitmap  bitmap,int  quality,float scale,  List<Shape>  shapeList, String  dir){
+        int  sw = bitmap.getWidth();int sh = bitmap.getHeight();
+        List<String>  strings = new LinkedList<>();
+
+        try {
+
+            Paint   paint = new Paint();
+            for(Shape  shape : shapeList){
+                Bitmap dis = Bitmap.createBitmap(sw, sh, Bitmap.Config.RGB_565);
+                Canvas bufferCanvas = new Canvas(dis);
+                bufferCanvas.save();
+                // canvas.translate(sh, 0);
+                // canvas.rotate(90);
+
+                bufferCanvas.drawBitmap(bitmap, 0, 0, paint);
+                bufferCanvas.restore();
+                if(shape instanceof Circle){
+
+                  ((Circle) shape).draw(bufferCanvas,null);
+                }
+                String  name = UUID.randomUUID()+".jpg";
+                FileOutputStream out = null;
+                if(scale>0){
+                  dis = CameraBitmapUtil.BitmapScale(dis, 1 / scale);
+
+                }
+                File outFile = new File(dir, name);
+                out = new FileOutputStream(outFile);
+                dis.compress(Bitmap.CompressFormat.JPEG, quality, out);
+                dis.recycle();
+                out.close();
+                System.out.println("path=="+outFile.getAbsolutePath());
+                strings.add(outFile.getAbsolutePath());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  strings;
+
+    }
 	
 }

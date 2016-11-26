@@ -280,6 +280,7 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 			popupMenu.getMenu().add(0, 8, 8, "矩形");
 			popupMenu.getMenu().add(0,9,9,"颜色");
 			popupMenu.getMenu().add(0, 10, 10, "回箭头");
+			popupMenu.getMenu().add(0,11,11,"多张图片");
 			try {
 				
 				File  file = new  File(OriginalPath);
@@ -371,7 +372,11 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 						tuyaView.setCurrentShapeType(ShapeType.TurnPainAround);
 						postion = tuyaView.shapList.size();
 						break;
+					case 11:
+						TuyaFileUtils.saveTuYaFileList(tuyaView.src,quality,scale,tuyaView.shapList,directoryPath);
+						break;
 					}
+
 					
 				
 					tuyaView.postInvalidate();
