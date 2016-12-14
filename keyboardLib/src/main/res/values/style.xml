@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="keyboard_number_style">
+        <item name="android:textSize">24sp</item>
+        <item name="android:background">@drawable/keyboard_number</item>
+        <item name="android:height">48dp</item>
+    </style>
+
+    <style name="keyboard_letters">
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/keyboark_letters</item>
+        <item name="android:height">48dp</item>
+    </style>
+</resources>

@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/camera" />
             <option value="$PROJECT_DIR$/googlecameralib" />
+            <option value="$PROJECT_DIR$/keyboardLib" />
             <option value="$PROJECT_DIR$/stickerlib" />
             <option value="$PROJECT_DIR$/tuyalib" />
           </set>

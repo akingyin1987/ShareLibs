@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="q"
+                android:id="@+id/btn_q"
+                style="@style/keyboard_number_style"
+                android:text="q"
+              />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="w"
+                style="@style/keyboard_number_style"
+                android:text="w"
+                android:id="@+id/btn_w"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="1"
+                android:id="@+id/btn_e"
+                style="@style/keyboard_number_style"
+                android:text="e"
+               />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="r"
+                android:id="@+id/btn_r"
+                style="@style/keyboard_number_style"
+                android:text="r"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="t"
+                style="@style/keyboard_number_style"
+                android:text="t"
+                android:id="@+id/btn_t"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="y"
+                style="@style/keyboard_number_style"
+                android:text="y"
+                android:id="@+id/btn_y" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="u"
+                style="@style/keyboard_number_style"
+                android:text="u"
+                android:id="@+id/btn_u"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="i"
+                style="@style/keyboard_number_style"
+                android:text="i"
+                android:id="@+id/btn_i" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="o"
+                style="@style/keyboard_number_style"
+                android:text="o"
+                android:id="@+id/btn_o" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="p"
+                style="@style/keyboard_number_style"
+                android:text="p"
+                android:id="@+id/btn_p"
+            />
+
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            >
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+
+                android:layout_weight="0.5"
+                android:tag="a"
+                android:visibility="invisible"
+                style="@style/keyboard_number_style"
+                android:text="a"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="a"
+
+                android:layout_height="48dp"
+                android:id="@+id/btn_a"
+                style="@style/keyboard_number_style"
+                android:text="a"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:tag="s"
+                style="@style/keyboard_number_style"
+                android:text="s"
+                android:id="@+id/btn_s"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:tag="d"
+                android:id="@+id/btn_d"
+                style="@style/keyboard_number_style"
+                android:text="d"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="f"
+                android:layout_height="48dp"
+                android:id="@+id/btn_f"
+                style="@style/keyboard_number_style"
+                android:text="f"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="g"
+                android:layout_height="48dp"
+                style="@style/keyboard_number_style"
+                android:text="g"
+                android:id="@+id/btn_g"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="h"
+                android:layout_height="48dp"
+                style="@style/keyboard_number_style"
+                android:text="h"
+                android:id="@+id/btn_h" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="j"
+                android:layout_height="48dp"
+                style="@style/keyboard_number_style"
+                android:text="j"
+                android:id="@+id/btn_j"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="k"
+                android:layout_height="48dp"
+                style="@style/keyboard_number_style"
+                android:text="k"
+                android:id="@+id/btn_k" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="l"
+                android:layout_height="48dp"
+                style="@style/keyboard_number_style"
+                android:text="l"
+                android:id="@+id/btn_l" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.5"
+                android:tag="a"
+
+                android:layout_height="48dp"
+                android:visibility="invisible"
+                style="@style/keyboard_number_style"
+                android:text="a"
+                />
+
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            >
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+
+                android:layout_weight="2"
+                android:id="@+id/btn_shownumber"
+                android:visibility="visible"
+                style="@style/keyboard_number_style"
+                android:text="123"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="z"
+
+                android:layout_height="match_parent"
+                android:id="@+id/btn_z"
+                style="@style/keyboard_number_style"
+                android:text="z"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:tag="x"
+                style="@style/keyboard_number_style"
+                android:text="x"
+                android:id="@+id/btn_x"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:tag="c"
+                android:id="@+id/btn_c"
+                style="@style/keyboard_number_style"
+                android:text="c"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="v"
+                android:layout_height="48dp"
+                android:id="@+id/btn_v"
+                style="@style/keyboard_number_style"
+                android:text="v"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="b"
+                android:layout_height="48dp"
+                style="@style/keyboard_number_style"
+                android:text="b"
+                android:id="@+id/btn_b"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="n"
+                android:layout_height="48dp"
+                style="@style/keyboard_number_style"
+                android:text="n"
+                android:id="@+id/btn_n" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:tag="m"
+                android:layout_height="48dp"
+                style="@style/keyboard_number_style"
+                android:text="m"
+                android:id="@+id/btn_m"/>
+            <ImageButton
+                android:id="@+id/btn_del"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2"
+                style="@style/keyboard_number_style"
+
+                android:src="@drawable/keyboard_delete_img"
+
+                android:textStyle="bold" />
+
+        </TableRow>
+
+
+
+    </TableLayout>
+</LinearLayout>

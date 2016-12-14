@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/camera/camera.iml" filepath="$PROJECT_DIR$/camera/camera.iml" />
       <module fileurl="file://$PROJECT_DIR$/googlecameralib/googlecameralib.iml" filepath="$PROJECT_DIR$/googlecameralib/googlecameralib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/keyboardLib/keyboardLib.iml" filepath="$PROJECT_DIR$/keyboardLib/keyboardLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/stickerlib/stickerlib.iml" filepath="$PROJECT_DIR$/stickerlib/stickerlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/tuyalib/tuyalib.iml" filepath="$PROJECT_DIR$/tuyalib/tuyalib.iml" />
     </modules>
