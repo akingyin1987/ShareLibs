@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import com.zlcdgroup.camera.internal.CameraIntentKey;
 import com.zlcdgroup.libs.R;
 import com.zlcdgroup.libs.config.AppConfig;
 import java.io.File;
@@ -32,8 +33,8 @@ public class TuSdkCameraActivity  extends AppCompatActivity  {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.demo_extend_camera_base_fragment);
      camera_image = (PhotoView) findViewById(R.id.camera_image);
-     dir = getIntent().getStringExtra("dir");
-     picName = getIntent().getStringExtra("picName");
+     dir = getIntent().getStringExtra(CameraIntentKey.SAVE_DIR);
+     picName = getIntent().getStringExtra(CameraIntentKey.SAVE_NAME);
      if(TextUtils.isEmpty(picName)){
        picName = UUID.randomUUID().toString()+".jpg";
      }
