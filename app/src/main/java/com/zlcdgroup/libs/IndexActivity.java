@@ -165,7 +165,7 @@ public class IndexActivity  extends AppCompatActivity {
       @Override public void onClick(View v) {
         AndroidAudioRecorder.with(IndexActivity.this)
             // Required
-            .setFilePath(AppConfig.FILE_ROOT_URL)
+            .setFilePath(AppConfig.FILE_ROOT_URL+File.separator+UUID.randomUUID().toString()+".mp4")
 
             .setRequestCode(100)
 

@@ -69,7 +69,7 @@ public class CameraView extends FrameLayout {
     public @interface Flash {
     }
 
-    final CameraViewImpl mImpl;
+    CameraViewImpl mImpl;
 
     private final CallbackBridge mCallbacks;
 
@@ -89,17 +89,14 @@ public class CameraView extends FrameLayout {
     public CameraView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         // Internal setup
-        final PreviewImpl preview;
-        if (Build.VERSION.SDK_INT >= 24 || Build.VERSION.SDK_INT < 14) {
-            preview = new SurfaceViewPreview(context, this);
-        } else {
-            preview = new TextureViewPreview(context, this);
-        }
+        final PreviewImpl preview = createPreviewImpl(context);
         mCallbacks = new CallbackBridge();
         if (Build.VERSION.SDK_INT < 21) {
             mImpl = new Camera1(mCallbacks, preview);
-        } else {
+        } else if (Build.VERSION.SDK_INT < 23) {
             mImpl = new Camera2(mCallbacks, preview, context);
+        } else {
+            mImpl = new Camera2Api23(mCallbacks, preview, context);
         }
         // Attributes
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CameraView, defStyleAttr,
@@ -122,6 +119,17 @@ public class CameraView extends FrameLayout {
                 mImpl.setDisplayOrientation(displayOrientation);
             }
         };
+    }
+
+    @NonNull
+    private PreviewImpl createPreviewImpl(Context context) {
+        PreviewImpl preview;
+        if (Build.VERSION.SDK_INT < 14) {
+            preview = new SurfaceViewPreview(context, this);
+        } else {
+            preview = new TextureViewPreview(context, this);
+        }
+        return preview;
     }
 
     @Override
@@ -221,7 +229,11 @@ public class CameraView extends FrameLayout {
      * {@link Activity#onResume()}.
      */
     public void start() {
-        mImpl.start();
+        if (!mImpl.start()) {
+            // Camera2 uses legacy hardware layer; fall back to Camera1
+            mImpl = new Camera1(mCallbacks, createPreviewImpl(getContext()));
+            mImpl.start();
+        }
     }
 
     /**

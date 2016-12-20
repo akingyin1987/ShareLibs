@@ -21,8 +21,9 @@
         android:id="@+id/camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:keepScreenOn="true"
         app:autoFocus="true"
-        app:aspectRatio="16:9"
+        app:aspectRatio="1:1"
         app:facing="back"
         app:flash="auto"
         android:adjustViewBounds="true"/>

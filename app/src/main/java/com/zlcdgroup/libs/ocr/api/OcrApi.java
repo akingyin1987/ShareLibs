@@ -1,10 +1,16 @@
 package com.zlcdgroup.libs.ocr.api;
 
+import com.zlcdgroup.libs.ocr.OcrVo;
+
+import com.zlcdgroup.libs.ocr.YunShiEntity;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -25,7 +31,7 @@ public interface OcrApi {
      */
     @FormUrlEncoded
     @POST("water_ssd/getDigit")
-    Observable<ResponseBody>   getImageOcrByYushi(@Field("Image")String  base64img,
+    Observable<YunShiEntity>   getImageOcrByYushi(@Field("Image") String  base64img,
                                                   @Field("ClientType")String ClientType,
                                                   @Field("UserID")String UserID,
                                                   @Field("DeviceID")String DeviceID,
@@ -54,4 +60,23 @@ public interface OcrApi {
                                           @Field("detecttype")String detecttype,
                                           @Field("imagetype")String imagetype,
                                           @Field("image")String image);
+
+  /**
+   * 云纠错
+   * @param filename
+   * @param UserID
+   * @param Datetime
+   * @param NumArea
+   * @param ErrorNum
+   * @param ErrorPos
+   * @return
+   */
+    @FormUrlEncoded
+    @POST("water/check")
+    Observable<OcrVo>    checkImageOcrByCloud(@Field("filename")String filename,
+                                              @Field("UserID")String UserID,
+                                              @Field("Datetime")String Datetime,
+                                              @Field("NumArea")String NumArea,
+                                              @Field("ErrorNum")String ErrorNum,
+                                              @Field("ErrorPos")String ErrorPos );
 }

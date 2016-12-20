@@ -70,18 +70,18 @@ class Camera1 extends CameraViewImpl {
     Camera1(Callback callback, PreviewImpl preview) {
         super(callback, preview);
         preview.setCallback(new PreviewImpl.Callback() {
-                @Override
-                public void onSurfaceChanged() {
-                    if (mCamera != null) {
-                        setUpPreview();
-                        adjustCameraParameters();
-                    }
+            @Override
+            public void onSurfaceChanged() {
+                if (mCamera != null) {
+                    setUpPreview();
+                    adjustCameraParameters();
                 }
-            });
+            }
+        });
     }
 
     @Override
-    void start() {
+    boolean start() {
         chooseCamera();
         openCamera();
         if (mPreview.isReady()) {
@@ -89,6 +89,7 @@ class Camera1 extends CameraViewImpl {
         }
         mShowingPreview = true;
         mCamera.startPreview();
+        return true;
     }
 
     @Override
@@ -100,12 +101,12 @@ class Camera1 extends CameraViewImpl {
         releaseCamera();
     }
 
-    @SuppressLint("NewApi") // Suppresses Camera#setPreviewTexture
+    // Suppresses Camera#setPreviewTexture
+    @SuppressLint("NewApi")
     void setUpPreview() {
         try {
             if (mPreview.getOutputClass() == SurfaceHolder.class) {
-                final boolean needsToStopPreview = mShowingPreview &&
-                        Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+                final boolean needsToStopPreview = mShowingPreview && Build.VERSION.SDK_INT < 14;
                 if (needsToStopPreview) {
                     mCamera.stopPreview();
                 }
@@ -206,13 +207,15 @@ class Camera1 extends CameraViewImpl {
     @Override
     void takePicture() {
         if (!isCameraOpened()) {
-            throw new IllegalStateException("Camera is not ready. Call start() before takePicture().");
+            throw new IllegalStateException(
+                    "Camera is not ready. Call start() before takePicture().");
         }
         if (getAutoFocus()) {
             mCamera.cancelAutoFocus();
             mCamera.autoFocus(new Camera.AutoFocusCallback() {
                 @Override
                 public void onAutoFocus(boolean success, Camera camera) {
+                    System.out.println("success=="+success);
                     takePictureInternal();
                 }
             });
@@ -222,9 +225,12 @@ class Camera1 extends CameraViewImpl {
     }
 
     void takePictureInternal() {
-        mCamera.takePicture(null, null, null, new Camera.PictureCallback() {
-            @Override
-            public void onPictureTaken(byte[] data, Camera camera) {
+        mCamera.takePicture(new Camera.ShutterCallback() {
+            @Override public void onShutter() {
+
+            }
+        }, null, null, new Camera.PictureCallback() {
+            @Override public void onPictureTaken(byte[] data, Camera camera) {
                 mCallback.onPictureTaken(data);
                 camera.startPreview();
             }
@@ -233,16 +239,20 @@ class Camera1 extends CameraViewImpl {
 
     @Override
     void setDisplayOrientation(int displayOrientation) {
+        if (mDisplayOrientation == displayOrientation) {
+            return;
+        }
         mDisplayOrientation = displayOrientation;
         if (isCameraOpened()) {
             int cameraRotation = calcCameraRotation(displayOrientation);
             mCameraParameters.setRotation(cameraRotation);
             mCamera.setParameters(mCameraParameters);
-            if (mShowingPreview) {
+            final boolean needsToStopPreview = mShowingPreview && Build.VERSION.SDK_INT < 14;
+            if (needsToStopPreview) {
                 mCamera.stopPreview();
             }
             mCamera.setDisplayOrientation(cameraRotation);
-            if (mShowingPreview) {
+            if (needsToStopPreview) {
                 mCamera.startPreview();
             }
         }
@@ -299,9 +309,10 @@ class Camera1 extends CameraViewImpl {
     }
 
     void adjustCameraParameters() {
-        final SortedSet<Size> sizes = mPreviewSizes.sizes(mAspectRatio);
+        SortedSet<Size> sizes = mPreviewSizes.sizes(mAspectRatio);
         if (sizes == null) { // Not supported
             mAspectRatio = chooseAspectRatio();
+            sizes = mPreviewSizes.sizes(mAspectRatio);
         }
         Size size = chooseOptimalSize(sizes);
         final Camera.Size currentSize = mCameraParameters.getPictureSize();
@@ -395,7 +406,7 @@ class Camera1 extends CameraViewImpl {
         if (isCameraOpened()) {
             List<String> modes = mCameraParameters.getSupportedFlashModes();
             String mode = FLASH_MODES.get(flash);
-            if (modes!= null && modes.contains(mode)) {
+            if (modes != null && modes.contains(mode)) {
                 mCameraParameters.setFlashMode(mode);
                 mFlash = flash;
                 return true;

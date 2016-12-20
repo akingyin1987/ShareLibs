@@ -20,13 +20,12 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
-import android.os.Build;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+@TargetApi(14)
 class TextureViewPreview extends PreviewImpl {
 
     private final TextureView mTextureView;
@@ -64,10 +63,10 @@ class TextureViewPreview extends PreviewImpl {
         });
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+    // This method is called only from Camera2.
+    @TargetApi(15)
     @Override
     void setBufferSize(int width, int height) {
-        // This method is called only from Camera2.
         mTextureView.getSurfaceTexture().setDefaultBufferSize(width, height);
     }
 
@@ -126,8 +125,7 @@ class TextureViewPreview extends PreviewImpl {
                                     0.f, 0.f, // top right
                                     width, height, // bottom left
                                     width, 0.f, // bottom right
-                            }
-                            : // mDisplayOrientation == 270
+                            } : // mDisplayOrientation == 270
                             // Counter-clockwise
                             new float[]{
                                     width, 0.f, // top left

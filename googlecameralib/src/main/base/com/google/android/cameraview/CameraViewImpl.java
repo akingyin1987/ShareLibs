@@ -35,15 +35,16 @@ abstract class CameraViewImpl {
         return mPreview.getView();
     }
 
-    abstract void start();
+    /**
+     * @return {@code true} if the implementation was able to start the camera session.
+     */
+    abstract boolean start();
 
     abstract void stop();
 
     abstract boolean isCameraOpened();
 
     abstract void setFacing(int facing);
-
-
 
     abstract int getFacing();
 

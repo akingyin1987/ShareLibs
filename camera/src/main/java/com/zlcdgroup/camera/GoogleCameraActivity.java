@@ -97,6 +97,7 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
             Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
           if (mCameraView != null) {
             mCameraView.takePicture();
+
           }
         } else if (ActivityCompat.shouldShowRequestPermissionRationale(GoogleCameraActivity.this,
             Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -328,6 +329,7 @@ public class GoogleCameraActivity extends AppCompatActivity  implements
     @Override
     public void onPictureTaken(CameraView cameraView, final byte[] data) {
       Log.d(TAG, "onPictureTaken " + data.length);
+      mCameraView.getSupportedAspectRatios();
       if(null == data || data.length <5*1024){
         Toast.makeText(cameraView.getContext(),"拍照出错了",Toast.LENGTH_SHORT).show();
         return;

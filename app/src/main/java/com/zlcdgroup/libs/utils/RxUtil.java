@@ -29,6 +29,8 @@ public class RxUtil {
             return Observable.just(f).filter(new Func1<File, Boolean>() {
                 @Override
                 public Boolean call(File file) {
+                   // System.out.println("md5="+FileHashUtil.getFileMd5(file));
+                   // System.out.println("sha1="+FileHashUtil.getFileHash(file,FileHashUtil.SHA1));
                     return file.exists() && file.canRead() && FileUtil.isImage(file);
                 }
             });

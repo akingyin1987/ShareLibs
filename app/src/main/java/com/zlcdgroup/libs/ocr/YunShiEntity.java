@@ -1,5 +1,7 @@
 package com.zlcdgroup.libs.ocr;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/10/25.
  */
@@ -7,22 +9,22 @@ package com.zlcdgroup.libs.ocr;
 public class YunShiEntity extends  OcrVo {
 
     /**
-     * Code : 9
-     * Pos : 0,0,0,0,0,0,0,0
-     * Value : XXXXX,5
-     * ProcessTime : 0
-     * Message : 请求参数错误(MacAddress)
-     * filename :
-     * Circle : 0,0,0
+     * Code : 0
+     * Pos : 105,288,440,285,440,348,105,352
+     * Value : 6055,4
+     * ProcessTime : 334
+     * Message : ["检测成功"]
+     * filename : 20161031093945_e3a1daeec3634a268c0d96ffee1a444b.jpg
+     * Circle : -2,-2,-2
      */
 
     private String Code;
     private String Pos;
     private String Value;
     private String ProcessTime;
-    private String Message;
     private String filename;
     private String Circle;
+    private List<String> Message;
 
     public String getCode() {
         return Code;
@@ -56,14 +58,6 @@ public class YunShiEntity extends  OcrVo {
         this.ProcessTime = ProcessTime;
     }
 
-    public String getMessage() {
-        return Message;
-    }
-
-    public void setMessage(String Message) {
-        this.Message = Message;
-    }
-
     public String getFilename() {
         return filename;
     }
@@ -78,5 +72,13 @@ public class YunShiEntity extends  OcrVo {
 
     public void setCircle(String Circle) {
         this.Circle = Circle;
+    }
+
+    public List<String> getMessage() {
+        return Message;
+    }
+
+    public void setMessage(List<String> Message) {
+        this.Message = Message;
     }
 }

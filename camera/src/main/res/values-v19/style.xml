@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <style name="Theme.TranslucentNavigationBar"
-      parent="android:Theme.Holo.Light.NoActionBar.TranslucentDecor">
+  <style name="Theme.TranslucentNavigationBar" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowTranslucentStatus">false</item>
     <item name="android:windowFullscreen">true</item>
+
   </style>
 </resources>
