@@ -52,7 +52,7 @@ android {
   }
 }
 greendao {
-  schemaVersion 8
+  schemaVersion 9
   targetGenDir 'src/main/java'
   daoPackage 'com.zlcdgroup.dao'
 }
@@ -93,5 +93,6 @@ dependencies {
   compile 'com.facebook.stetho:stetho-okhttp3:1.4.1'
   compile 'com.google.code.gson:gson:2.7'
   compile 'com.github.piasy:rxandroidaudio:1.2.5'
-
+  compile 'com.daimajia.numberprogressbar:library:1.2@aar'
+  compile 'com.alibaba:fastjson:1.1.55.android'
 }

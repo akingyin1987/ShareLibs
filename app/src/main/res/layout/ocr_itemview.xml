@@ -4,16 +4,19 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:id="@+id/ocr_imgs"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-
+        android:text="222222"
+        android:gravity="center"
+        android:textColor="@color/lsq_color_red"
         android:id="@+id/ocr_txt"/>
 
 </FrameLayout>

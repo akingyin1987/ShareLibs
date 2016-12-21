@@ -70,8 +70,6 @@ public class MyApp  extends Application {
         ActiveAndroid.initialize(configuration,true);
         initImageLoader(this);
 
-        Stetho.initializeWithDefaults(this);
-
         TuSdk.enableDebugLog(true);
         TuSdk.init(getApplicationContext(),"4387f9d67be3c238-01-k4rko1");
         initDao();

@@ -1,12 +1,12 @@
 package com.zlcdgroup.libs.ocr;
 
-import java.util.List;
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2016/10/25.
  */
 
-public class YunShiEntity extends  OcrVo {
+public class YunShiEntity implements Serializable {
 
     /**
      * Code : 0
@@ -18,20 +18,19 @@ public class YunShiEntity extends  OcrVo {
      * Circle : -2,-2,-2
      */
 
-    private String Code;
+    private int Code;
     private String Pos;
     private String Value;
     private String ProcessTime;
     private String filename;
     private String Circle;
-    private List<String> Message;
 
-    public String getCode() {
+    public int getCode() {
         return Code;
     }
 
-    public void setCode(String Code) {
-        this.Code = Code;
+    public void setCode(int code) {
+        Code = code;
     }
 
     public String getPos() {
@@ -74,11 +73,5 @@ public class YunShiEntity extends  OcrVo {
         this.Circle = Circle;
     }
 
-    public List<String> getMessage() {
-        return Message;
-    }
 
-    public void setMessage(List<String> Message) {
-        this.Message = Message;
-    }
 }

@@ -1,6 +1,7 @@
 package com.zlcdgroup.libs.ocr.api;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,7 +19,10 @@ public class RetrofitUtil {
         logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
         OkHttpClient   okHttpClient = new OkHttpClient.Builder()
                                      .addNetworkInterceptor(new StethoInterceptor())
-                                     .addInterceptor(logging).build();
+                                     .addInterceptor(logging)
+                                     .connectTimeout(30, TimeUnit.SECONDS)
+                                     .readTimeout(30,TimeUnit.SECONDS)
+                                     .writeTimeout(30,TimeUnit.SECONDS).build();
         return  okHttpClient;
     }
 
@@ -43,7 +47,6 @@ public class RetrofitUtil {
                     builder.baseUrl(GIT_URL);//设置远程地址
                     builder.addConverterFactory(GsonConverterFactory.create());
                     builder.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
-
                     builder.client(getOkHttp());
                     singleton = builder.build();
                 }
