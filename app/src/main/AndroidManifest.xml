@@ -104,6 +104,11 @@
         <!--android:launchMode="singleTop"-->
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@style/CameraTheme" >-->
+      <!--<intent-filter>-->
+        <!--<action android:name="com.zlcdgroup.video"/>-->
+        <!--<category android:name="android.intent.category.DEFAULT" />-->
+        <!--<data android:mimeType="video/*" />-->
+      <!--</intent-filter>-->
 
     <!--</activity>-->
     <!--<activity-->

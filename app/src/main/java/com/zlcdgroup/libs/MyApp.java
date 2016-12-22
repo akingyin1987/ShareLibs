@@ -2,8 +2,6 @@ package com.zlcdgroup.libs;
 
 import android.app.Application;
 import android.content.Context;
-
-import android.content.SharedPreferences;
 import android.os.Environment;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
@@ -17,7 +15,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.zlcdgroup.dao.BookDao;
 import com.zlcdgroup.dao.DaoMaster;
 import com.zlcdgroup.dao.DaoSession;
-import com.zlcdgroup.dao.UserDao;
 import com.zlcdgroup.libs.config.AppConfig;
 import com.zlcdgroup.libs.db.Book;
 import com.zlcdgroup.libs.db.DbCore;
@@ -60,10 +57,11 @@ public class MyApp  extends Application {
         //} else {
         //    VCamera.setVideoCachePath(dcim + "/Camera/VCameraDemo/");
         //}
-        // 开启log输出,ffmpeg输出到logcat
-      //  VCamera.setDebugMode(true);
-        // 初始化拍摄SDK，必须
+        //// 开启log输出,ffmpeg输出到logcat
+        //VCamera.setDebugMode(true);
+        //// 初始化拍摄SDK，必须
         //VCamera.initialize(this);
+
         Configuration  configuration =  new  Configuration.Builder(this)
                         .addModelClass(ImageTextBean.class)
                         .addModelClass(TempBaseVo.class).create();

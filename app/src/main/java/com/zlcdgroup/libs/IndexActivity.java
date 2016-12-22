@@ -28,6 +28,7 @@ import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
 import cafe.adriel.androidaudiorecorder.model.AudioChannel;
 import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
 import cafe.adriel.androidaudiorecorder.model.AudioSource;
+import com.akingyin.vcamera.ui.record.MediaRecorderActivity;
 import com.cooltechworks.views.ScratchTextView;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -143,8 +144,8 @@ public class IndexActivity  extends AppCompatActivity {
     });
     findViewById(R.id.vcamera).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        //Intent  intent = new Intent(IndexActivity.this, MediaRecorderActivity.class);
-        //startActivity(intent);
+        Intent  intent = new Intent(IndexActivity.this, MediaRecorderActivity.class);
+        startActivity(intent);
       }
     });
     findViewById(R.id.ocr).setOnClickListener(new View.OnClickListener() {

@@ -198,6 +198,7 @@ public class MediaPreviewActivity extends BaseActivity
 						Intent intent = new Intent(Intent.ACTION_VIEW);
 						intent.setDataAndType(Uri.parse(mMediaObject.getOutputVideoPath()), "video/mp4");
 						startActivity(intent);
+						finish();
 					} else {
 						Toast.makeText(MediaPreviewActivity.this, R.string.record_video_transcoding_faild, Toast.LENGTH_SHORT).show();
 					}

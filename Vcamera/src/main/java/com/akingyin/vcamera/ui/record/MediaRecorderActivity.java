@@ -1,5 +1,6 @@
 package com.akingyin.vcamera.ui.record;
 
+import android.text.TextUtils;
 import com.akingyin.log.Logger;
 import com.akingyin.vcamera.R;
 import com.akingyin.vcamera.ui.BaseActivity;
@@ -58,7 +59,8 @@ import com.yixia.camera.view.CameraNdkView;
  */
 public class MediaRecorderActivity extends BaseActivity
 		implements OnErrorListener, OnClickListener, OnPreparedListener {
-
+	public static final String SAVE_DIR = "save_dir";//保存路径
+	public static final String SAVE_NAME="save_name";//保存名字
 	/** 滤镜图标 */
 	private final static int[] FILTER_ICONS = new int[] { R.drawable.filter_original, R.drawable.filter_black_white, R.drawable.filter_sharpen, R.drawable.filter_old_film, R.drawable.filter_edge, R.drawable.filter_anti_color, R.drawable.filter_radial, R.drawable.filter_8bit, R.drawable.filter_lomo };
 	/** 滤镜枚举值 */
@@ -91,13 +93,22 @@ public class MediaRecorderActivity extends BaseActivity
 	/** 是否是点击状态 */
 	private volatile boolean mPressedStatus, mReleased, mStartEncoding;
 
+	private    String     dir;
+	private    String     fileName;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);// 防止锁屏
 		mWindowWidth = DeviceUtils.getScreenWidth(this);
 		setContentView(R.layout.activity_media_recorder);
-
+    if(null == savedInstanceState){
+			dir = getIntent().getStringExtra(SAVE_DIR);
+			fileName = getIntent().getStringExtra(SAVE_NAME);
+		}else{
+			dir = savedInstanceState.getString(SAVE_DIR,"");
+			fileName = savedInstanceState.getString(SAVE_NAME,"");
+		}
 		// ~~~ 绑定控件
 		mSurfaceView = (CameraNdkView) findViewById(R.id.record_preview);
 		mProgressView = (ProgressView) findViewById(R.id.record_progress);
@@ -124,6 +135,12 @@ public class MediaRecorderActivity extends BaseActivity
 		findViewById(R.id.record_layout).getLayoutParams().height = mWindowWidth;//设置1：1预览范围
 		mProgressView.invalidate();
 		//		mDelayAnimation = AnimationUtils.loadAnimation(this, R.anim.record_delay_anim);
+	}
+
+	@Override protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString(SAVE_DIR,dir);
+		outState.putString(SAVE_NAME,fileName);
 	}
 
 	@Override
@@ -182,7 +199,10 @@ public class MediaRecorderActivity extends BaseActivity
 				NetworkUtils.isWifiAvailable(this) ? MediaRecorder.VIDEO_BITRATE_MEDIUM : MediaRecorder.VIDEO_BITRATE_NORMAL);
 		//		mMediaRecorder.setSurfaceHolder(mSurfaceView.getHolder());
 		mMediaRecorder.setSurfaceView(mSurfaceView);
-		String key = String.valueOf(System.currentTimeMillis());
+		String key = TextUtils.isEmpty(fileName)? String.valueOf(System.currentTimeMillis()):fileName.contains(".")?fileName.split(".")[0]:fileName;
+		if(!TextUtils.isEmpty(dir)){
+			VCamera.setVideoCachePath(dir);
+		}
 		mMediaObject = mMediaRecorder.setOutputDirectory(key, VCamera.getVideoCachePath() + key);
 		if (mMediaObject != null) {
 			mMediaRecorder.prepare();
@@ -427,6 +447,7 @@ public class MediaRecorderActivity extends BaseActivity
 							Intent intent = new Intent(MediaRecorderActivity.this, MediaPreviewActivity.class);
 							intent.putExtra("obj", mMediaObject.getObjectFilePath());
 							startActivity(intent);
+							finish();
 						} else {
 							Toast.makeText(MediaRecorderActivity.this, R.string.record_camera_save_faild, Toast.LENGTH_SHORT).show();
 						}

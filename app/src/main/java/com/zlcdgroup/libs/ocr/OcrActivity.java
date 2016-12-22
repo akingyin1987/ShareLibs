@@ -111,7 +111,7 @@ public class OcrActivity extends AppCompatActivity {
 
             YunShiEntity  entity = checkImageMap(0,ocrVo,imei,mac,api);
             if(null == entity){
-              System.out.println("失败----------");
+
               ocrVo.setOcrtext("检测失败");
               return  ocrVo;
             }

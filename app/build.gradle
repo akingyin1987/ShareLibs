@@ -61,6 +61,7 @@ dependencies {
   testCompile 'junit:junit:4.12'
   compile dep.appcompat
   compile dep.cardview
+  compile dep.recyclerview
   compile 'com.github.chrisbanes:PhotoView:1.2.6'
   compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
   compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
@@ -74,8 +75,6 @@ dependencies {
   compile project(':camera')
   compile project(':tuyalib')
   compile project(':stickerlib')
-
-
   compile project(':PG_Edit_SDK')
   compile project(':TuSdk')
   compile 'org.greenrobot:greendao:3.2.0'
