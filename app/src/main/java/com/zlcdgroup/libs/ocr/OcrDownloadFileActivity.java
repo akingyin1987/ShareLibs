@@ -73,11 +73,11 @@ public class OcrDownloadFileActivity extends AppCompatActivity {
     if(null != taskManager){
       taskManager.cancelTasks();
     }
-    OcrApi  api = RetrofitUtil.createApi(OcrApi.class,"http://139.129.205.241/MRMSEIZFJB/");
+    OcrApi  api = RetrofitUtil.createApi(OcrApi.class,"http://139.129.205.241/MRMSEIZFYB/");
     taskManager = new MultiTaskManager(10);
      String  userId="15080121202741817269";
-     String  imei ="A0000044D229C5";
-    String  jobid="16040514530264700091";
+     String  imei ="868508027262370";
+    String  jobid="16122122100977601146";
     VoReadingdata  readingdata = new VoReadingdata();
 
     int  total = 650;
@@ -116,7 +116,7 @@ public class OcrDownloadFileActivity extends AppCompatActivity {
     List<ReadImageBean>  readImageBeanList = dao.queryBuilder().where(ReadImageBeanDao.Properties.LocalPath.isNull()).build().list();
     filemanager = new MultiTaskManager(20);
     for(ReadImageBean  readImageBean : readImageBeanList){
-      DownImageTask  task = new DownImageTask(readImageBean,"http://139.129.205.241/MRMSEIZFJB/upload/",api);
+      DownImageTask  task = new DownImageTask(readImageBean,"http://139.129.205.241/MRMSEIZFYB/upload/",api);
       filemanager.addTask(task);
     }
     filemanager.setCallBack(new ApiTaskCallBack() {

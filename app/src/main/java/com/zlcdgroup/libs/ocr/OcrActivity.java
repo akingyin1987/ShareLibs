@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zlcdgroup.camera.internal.CameraFragment;
 import com.zlcdgroup.camera.util.ExifInterfaceUtil;
 import com.zlcdgroup.libs.R;
@@ -24,6 +25,8 @@ import com.zlcdgroup.libs.ocr.adapter.OcrAdapter;
 import com.zlcdgroup.libs.ocr.api.OcrApi;
 import com.zlcdgroup.libs.ocr.api.RetrofitUtil;
 import com.zlcdgroup.libs.utils.Base64Util;
+import com.zlcdgroup.libs.utils.ImageDecoder;
+import com.zlcdgroup.libs.utils.ImageUtils;
 import com.zlcdgroup.libs.utils.RxUtil;
 
 import java.io.File;
@@ -84,16 +87,32 @@ public class OcrActivity extends AppCompatActivity {
 
         initData();
     }
+  Subscriber<OcrVo>   subscriber = new Subscriber<OcrVo>() {
+    @Override public void onCompleted() {
+      adapter.notifyDataSetChanged();
+    }
 
+    @Override public void onError(Throwable e) {
+
+    }
+
+    @Override public void onNext(OcrVo ocrVo) {
+
+    }
+  };
     @OnClick(R.id.btn_refresh)
     public   void    onBtnRefresh(){
+      ImageLoader.getInstance().clearDiskCache();
+      ImageLoader.getInstance().clearMemoryCache();
         final OcrApi   api = RetrofitUtil.createApi(OcrApi.class,rbBaidu.isChecked()?RetrofitUtil.OCR_BAIDU: OCR_YUANSHI);
         List<OcrVo>   datas = adapter.getList();
         Observable.from(datas).map(new Func1<OcrVo, OcrVo>() {
           @Override public OcrVo call(OcrVo ocrVo) {
 
-            YunShiEntity  entity = checkImageMap(ocrVo,imei,mac,api);
+            YunShiEntity  entity = checkImageMap(0,ocrVo,imei,mac,api);
             if(null == entity){
+              System.out.println("失败----------");
+              ocrVo.setOcrtext("检测失败");
               return  ocrVo;
             }
             System.out.println("code="+entity.getCode()+":"+entity.getValue());
@@ -110,20 +129,7 @@ public class OcrActivity extends AppCompatActivity {
             return ocrVo;
           }
         }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
-          .subscribe(new Subscriber<OcrVo>() {
-              @Override public void onCompleted() {
-                  System.out.println("onCompleted");
-                  adapter.notifyDataSetChanged();
-              }
-
-              @Override public void onError(Throwable e) {
-                e.printStackTrace();
-              }
-
-              @Override public void onNext(OcrVo ocrVo) {
-                System.out.println("onNext>>");
-              }
-          });
+          .subscribe(subscriber);
         //for(int i=0;i<adapter.getCount();i++){
         //    final OcrVo  ocrVo = adapter.getItem(i);
         //    if(rbBaidu.isChecked()){
@@ -183,15 +189,23 @@ public class OcrActivity extends AppCompatActivity {
     }
 
    public SimpleDateFormat  formatter = new SimpleDateFormat("yyyymmdd-hhmmss-SSSS");
-    public YunShiEntity checkImageMap(OcrVo  ocrVo,String imei,String macAddress,OcrApi  api){
+    public YunShiEntity checkImageMap(int  degree,OcrVo  ocrVo,String imei,String macAddress,OcrApi  api){
+      if(degree>0){
+        ImageUtils.rotateBitmap(degree,ocrVo.localpath);
+      }
         String  image = Base64Util.FileToBase64(ocrVo.localpath);
 
       try {
-        return   api.getImageOcrMapByYushi(image,"Android","QCZLCD",imei,formatter.format(new Date()),macAddress,"重庆","重庆","[0,0]").execute().body();
+        YunShiEntity  yunShiEntity =  api.getImageOcrMapByYushi(image,"Android","QCZLCD",imei,formatter.format(new Date()),macAddress,"重庆","重庆","[0,0]").execute().body();
+        System.out.println("code="+yunShiEntity.getCode()+":"+degree);
+        if(yunShiEntity.getCode() == 0 || degree == 270){
+          return  yunShiEntity;
+        }
+
       } catch (IOException e) {
         e.printStackTrace();
       }
-      return  null;
+      return   checkImageMap(degree+90,ocrVo,imei,macAddress,api);
     }
 
     public   void    checkImage(OcrVo   ocrVo,YunShiEntity  yunShiEntity){
@@ -217,6 +231,8 @@ public class OcrActivity extends AppCompatActivity {
             });
     }
     public void initData() {
+      ImageLoader.getInstance().clearDiskCache();
+      ImageLoader.getInstance().clearMemoryCache();
         adapter.clear();
         File rootfile = new File(AppConfig.FILE_ROOT_URL);
         final List<OcrVo>   datas = new LinkedList<>();
@@ -259,5 +275,12 @@ public class OcrActivity extends AppCompatActivity {
   public   void   btn_download(){
     Intent  intent = new Intent(this,OcrDownloadFileActivity.class);
     startActivity(intent);
+  }
+
+  @Override protected void onDestroy() {
+    if(!subscriber.isUnsubscribed()){
+      subscriber.unsubscribe();
+    }
+    super.onDestroy();
   }
 }
