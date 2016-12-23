@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="video_beautify_title_bg">#2a2a2a</color>
+    <color name="video_beautify_title">#e2d8c2</color>
+    <color name="video_beautify_ok_title">#e2d8c2</color>
+    <color name="video_beautify_bottom_bg">#313131</color>
+    <color name="video_beautify_bottom_bg_selected">#252525</color>
+    <color name="video_beautify_theme_button">#F24AA0</color>
+    <color name="video_beautify_filter_button">#e2d8c2</color>
+    <color name="video_beautify_theme_secected_item">#e2d8c2</color>
+    <color name="video_beautify_theme_secected_bg">#1d1d1d</color>
+    <color name="video_beautify_play_time_text">#7d786d</color>
+    <color name="video_beautify_bootom">#1d1d1d</color>
+    <color name="video_beautify_dialog_bg">#00000000</color>
+    <color name="video_beautify_dialog_text">#979797</color>
+    <color name="video_beautify_video_bg">#ff000000</color>
+    <color name="video_beautify_local_music_writer">#ffffff</color>
+    <color name="video_beautify_local_music_list_item_bg">#00ffffff</color>
+    <color name="video_beautify_local_music_list_item_select_bg">#eaeced</color>
+    <color name="video_beautify_local_music_list_item_play_bg">#ee683e</color>
+    <color name="video_beautify_local_music_buttom_bg">#F24AA0</color>
+    <color name="video_beautify_local_music_list_item_name">#333333</color>
+    <color name="video_beautify_local_music_list_item_introduction">#999999</color>
+    <color name="video_beautify_local_music_list_item_playing_time">#ffffff</color>
+    <color name="video_beautify_local_music_list_item_playpro_bg">#d74993</color>
+    <color name="video_beautify_local_music_list_item_playpro_secondbg">#5ad7a9</color>
+    <color name="video_beautify_local_music_list_item_playpro_bgpro">#ffffff</color>
+    <color name="video_beautify_local_music_table_select_text">#F24AA0</color>
+    <color name="video_beautify_local_music_table_normal_text">#333333</color>
+    <color name="video_beautify_local_music_table_underlined_select">#F24AA0</color>
+    <color name="video_beautify_local_music_table_underlined_normal">#dddfe0</color>
+    <color name="video_beautify_local_music_list_line">#dddfe0</color>
+
+</resources>

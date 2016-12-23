@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/video_beautify_theme_secected_item_right"
+        android:layout_marginRight="@dimen/video_beautify_theme_secected_item_left"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/video_beautify_listview_item_selector"
+            android:padding="2dp" >
+
+            <org.easydarwin.video.beautify.view.CustomImageView
+                xmlns:view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/secected_item_image"
+                android:layout_width="@dimen/video_beautify_bootom_theme_imageview_height"
+                android:layout_height="@dimen/video_beautify_bootom_theme_imageview_width"
+                android:src="@drawable/video_beautify_no_theme_filter"
+                view:cornerRadius="15dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/video_beautify_theme_image_text_height" />
+
+        <TextView
+            android:id="@+id/secected_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="原画质"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>

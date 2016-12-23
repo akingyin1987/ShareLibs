@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- 视频美化 -->
+    <!-- title -->
+    <dimen name="video_beautify_title_height">52dp</dimen>
+    <dimen name="video_beautify_title_back_left">12dp</dimen>
+    <dimen name="video_beautify_title_back_Bottom">6dp</dimen>
+    <dimen name="video_beautify_title_back_top">6dp</dimen>
+    <dimen name="video_beautify_title_ok_right">12dp</dimen>
+    <dimen name="video_beautify_title_ok_Bottom">10dp</dimen>
+    <dimen name="video_beautify_title_ok_top">10dp</dimen>
+    <dimen name="video_beautify_title_ok_button_width">52dp</dimen>
+    <dimen name="video_beautify_title">18sp</dimen>
+    <dimen name="video_beautify_ok_title">18sp</dimen>
+    <!-- bottom -->
+    <dimen name="video_beautify_bootom">150dp</dimen>
+    <dimen name="video_beautify_bootom_theme_area">143dp</dimen>
+    <dimen name="video_beautify_bootom_theme_height">90dp</dimen>
+    <dimen name="video_beautify_bottom_dis">9dp</dimen>
+    <dimen name="video_beautify_bootom_height">53dp</dimen>
+    <dimen name="video_beautify_bootom_text">14sp</dimen>
+    <dimen name="video_beautify_bootom_image_text">4dp</dimen>
+    <dimen name="video_beautify_theme_secected_item_text">10sp</dimen>
+    <dimen name="video_beautify_theme_secected_item_right">10dp</dimen>
+    <dimen name="video_beautify_theme_image_text_height">8dp</dimen>
+    <dimen name="video_beautify_bootom_theme_imageview_height">55dp</dimen>
+    <dimen name="video_beautify_bootom_theme_imageview_width">55dp</dimen>
+    <!-- 新增 -->
+    <dimen name="video_beautify_bootom_image_topbottom">12dp</dimen>
+    <dimen name="video_beautify_bootom_image_top">5dp</dimen>
+    <dimen name="video_beautify_bootom_image_bottom">4dp</dimen>
+    <dimen name="video_beautify_bootom_button_width">22dp</dimen>
+    <!-- ProgressBar -->
+    <!-- <dimen name="video_beautify_progressbar_height">2dp</dimen> -->
+    <dimen name="video_beautify_progressbar_height">2dp</dimen>
+    <!-- Play time -->
+    <dimen name="video_beautify_play_time_start_top">4dp</dimen>
+    <dimen name="video_beautify_play_time_start_left">6dp</dimen>
+    <dimen name="video_beautify_play_time_over_right">6dp</dimen>
+    <dimen name="video_beautify_play_time_over_top">4dp</dimen>
+    <dimen name="video_beautify_play_time_text">10sp</dimen>
+    <dimen name="alert_dialog_textview_height_max">300dip</dimen>
+    <dimen name="progress_dialog_hight">111dp</dimen>
+    <dimen name="progress_dialog_width">171dp</dimen>
+    <dimen name="video_beautify_theme_secected_item_left">4dp</dimen>
+    <!-- 本地乐库 -->
+    <dimen name="video_beautify_local_music_list_item">60dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_play">48dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_name_top">12dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_name_left">12dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_name">16sp</dimen>
+    <dimen name="video_beautify_local_music_list_item_play_time_top">16dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_play_time_right">12dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_play_time_size">12sp</dimen>
+    <dimen name="video_beautify_local_music_list_item_introduction_by_name">8dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_introduction_size">12sp</dimen>
+    <dimen name="video_beautify_local_music_list_item_addbtn_top">12dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_addbtn_right">14dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_playbtn_left">12dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_playing_time">12dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_playing_size">12sp</dimen>
+    <dimen name="video_beautify_local_music_list_item_playpro_time_left">8dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_playpro_left">8dp</dimen>
+    <dimen name="video_beautify_local_music_play_edit_time_bottom_right">14dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_playpro_right">8dp</dimen>
+    <dimen name="video_beautify_local_music_list_item_playpro_height">15dp</dimen>
+    <dimen name="video_beautify_local_music_table_text_size">16sp</dimen>
+    <dimen name="video_beautify_local_music_table_underlined">4dp</dimen>
+    <dimen name="video_beautify_local_music_list_line_height">1dp</dimen>
+
+</resources>

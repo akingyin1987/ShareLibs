@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- cornerRadius -->
+    <attr name="cornerRadius" format="string" />
+    <attr name="cornerTopLeftRadius" format="reference|dimension" />
+    <attr name="cornerTopRightRadius" format="reference|dimension" />
+    <attr name="cornerBottomLeftRadius" format="reference|dimension" />
+    <attr name="cornerBottomRightRadius" format="reference|dimension" />
+    <!-- border -->
+    <attr name="border" format="string" />
+    <attr name="borderWidth" format="reference|dimension" />
+    <attr name="borderPadding" format="reference|dimension" />
+    <attr name="borderColor" format="reference|color" />
+
+    <!-- shape -->
+    <attr name="shape">
+        <enum name="none" value="0" />
+        <enum name="circle" value="1" />
+        <enum name="square" value="2" />
+    </attr>
+
+    <declare-styleable name="CustomImageView">
+        <attr name="cornerRadius" />
+        <attr name="cornerTopLeftRadius" />
+        <attr name="cornerTopRightRadius" />
+        <attr name="cornerBottomLeftRadius" />
+        <attr name="cornerBottomRightRadius" />
+        <attr name="border" />
+        <attr name="borderWidth" />
+        <attr name="borderPadding" />
+        <attr name="borderColor" />
+        <attr name="shape" />
+    </declare-styleable>
+
+</resources>

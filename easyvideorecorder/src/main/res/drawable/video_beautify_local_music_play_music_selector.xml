@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/video_beautify_local_play_music_down" android:state_pressed="true"/>
+ <!-- pressed,enable等多个属性 -->
+    <item android:drawable="@drawable/video_beautify_local_play_music_down" android:state_selected="true"/>
+    <item android:drawable="@drawable/video_beautify_local_play_music_down" android:state_focused="true"/>
+ <!-- focused -->
+    <item android:drawable="@drawable/video_beautify_local_play_music_down" android:state_hovered="true"/>
+ <!-- hovered -->
+    <item android:drawable="@drawable/video_beautify_local_play_music_normal"/>
+ <!-- default -->
+
+</selector>

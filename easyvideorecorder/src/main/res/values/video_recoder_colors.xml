@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 视频美化 -->
+    <color name="white">#ffffffff</color>
+    <color name="video_beautify_decorate_bgimage_bg">#00ffffff</color>
+    <color name="video_beautify_subtitle_pro_select">#69F24AA0</color>
+    
+    <!-- <color name="video_record_progress_bg">#33272d</color> -->
+    <color name="video_record_progress_bg">#222222</color>
+    <!-- <color name="video_record_progress_min_time">#e48ede</color> -->
+    <color name="video_record_progress_min_time">#ff0000</color>
+    <!-- <color name="video_record_progress">#F039A0</color> -->
+    <color name="video_record_progress">#4db288</color>
+    <!-- <color name="video_record_delete_progress">#AAFFFFFF</color> -->
+    <color name="video_record_delete_progress">#f15369</color>
+    <!-- <color name="video_record_tip_color1">#EFBB07</color> -->
+    <color name="video_record_tip_color1">#FFFF00</color>
+    <color name="video_record_delay_text_color">#C8FFFFFF</color>
+    <color name="video_record_next_press">#bababa</color>
+    <color name="video_record_next_enable">#434343</color>
+    <color name="video_record_guide_notice">#96000000</color>
+
+</resources>

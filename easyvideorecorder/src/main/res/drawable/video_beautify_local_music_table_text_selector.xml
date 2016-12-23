@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<selector xmlns:android="http://schemas.android.com/apk/res/android">  
+    <item android:state_pressed="true" 
+          android:color="@color/video_beautify_local_music_table_select_text" /> <!-- pressed,enable等多个属性 -->  
+    <item android:color="@color/video_beautify_local_music_table_select_text" android:state_selected="true" />
+    <item android:state_focused="true"  
+          android:color="@color/video_beautify_local_music_table_select_text" /> <!-- focused -->  
+    <item android:state_hovered="true"  
+          android:color="@color/video_beautify_local_music_table_select_text" /> <!-- hovered -->  
+    <item android:color="@color/video_beautify_local_music_table_normal_text" /> <!-- default -->  
+</selector>

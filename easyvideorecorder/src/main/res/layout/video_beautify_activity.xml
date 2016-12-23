@@ -1,0 +1,193 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#222222"
+        android:paddingLeft="10dp" >
+
+        <Button
+            android:id="@+id/video_beautify_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/video_beautify_title_back_button" />
+
+        <Button
+            android:id="@+id/video_beautify_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="#222222"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/video_beautify_video_bg"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@+id/video_beautify_play_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:orientation="vertical" >
+
+                <jp.co.cyberagent.android.gpuimage.GPUImageView
+                    android:id="@+id/video_real_time_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/video_beautify_play"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/video_player_play_icon"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <!-- 消音按钮 -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/video_beautify_silencer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/video_beautify_silencer_normal" />
+            </RelativeLayout>
+        </FrameLayout>
+        <!-- 播放区域                 end -->
+    </LinearLayout>
+
+    <!-- 底部  start -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/video_beautify_menu_filter"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:background="#00ffffff"
+                    android:text="滤镜"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/video_beautify_menu_theme"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:background="#000000"
+                    android:text="MV"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/video_beautify_menu_music"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/video_beautify_local_music" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="0dp"
+            android:background="#5c5c5c" >
+
+            <View
+                android:id="@+id/btnIndexer"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:background="#51ff8a" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/video_beautify_theme_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <org.easydarwin.video.beautify.view.HorizontalListView
+                android:id="@+id/themelistview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <org.easydarwin.video.beautify.view.HorizontalListView
+                android:id="@+id/filterlistview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <org.easydarwin.video.beautify.view.HorizontalListView
+                android:id="@+id/musiclistview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 底部  end -->
+
+</LinearLayout>

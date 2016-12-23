@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/toplayout"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/video_beautify_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/video_beautify_local_nusic_back_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/video_beautify_local_music_title_text"
+            android:textColor="@color/video_beautify_local_music_table_normal_text"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/local_music_add_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/video_beautify_local_music_list_item_addbtn_right"
+            android:background="@color/video_beautify_local_music_list_item_bg"
+            android:src="@drawable/video_beautify_local_add_music_down" />
+        <!-- android:src="@drawable/video_beautify_local_music_add_music_selector" /> -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/video_beautify_title" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llayout"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_below="@+id/toplayout"
+        android:orientation="vertical" >
+
+        <!-- <include layout="@layout/beside_main_top_title" /> -->
+
+        <include layout="@layout/video_beautify_local_music_table_content" />
+    </LinearLayout>
+
+    <org.easydarwin.video.beautify.view.LocalMusicScrollLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/llayout"
+        android:layout_marginBottom="@dimen/video_beautify_local_music_list_item_play" >
+
+        <!-- 本地音乐界面 -->
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" >
+
+            <include layout="@layout/video_beautify_local_music_list" />
+        </FrameLayout>
+        <!-- 历史音乐界面 -->
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" >
+
+            <include layout="@layout/video_beautify_local_music_hostory_list" />
+        </FrameLayout>
+    </org.easydarwin.video.beautify.view.LocalMusicScrollLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/video_beautify_local_music_list_item_play"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <include layout="@layout/video_beautify_local_music_play_edit" />
+    </LinearLayout>
+
+</RelativeLayout>

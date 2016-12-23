@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+
+    <string name="edit_video">视频美化</string>
+    <string name="button_share">分享视频</string>
+    <string name="menu_settings">设置</string>
+    <string name="video_beautify_msg_when_localvideo">确定返回吗？特效将消失</string>
+    <string name="video_beautify_msg_when_album">确定返回吗？生成的视频将消失</string>
+    <string name="video_beautify_msg_when_save">已保存到手机</string>
+    <string name="video_beautify_msg_when_cancel">继续编辑</string>
+    <string name="video_beautify_msg_when_sub">返回首页</string>
+    <!-- 视频美化 -->
+    <string name="video_beautify_title">预览</string>
+    <string name="video_beautify_fabu">发布</string>
+    <string name="video_beautify_theme_button">主题</string>
+    <string name="video_beautify_filter_button">滤镜</string>
+    <string name="video_beautify_theme_secected_item">无主题</string>
+    <string name="video_beautify_music_button">配乐</string>
+    <string name="video_beautify_dub_button">配音</string>
+    <string name="video_beautify_subtitle_button">字幕</string>
+    <string name="video_beautify_decorate_button">装饰</string>
+    <string name="video_beautify_play_time_start">00:00</string>
+    <string name="video_beautify_play_time_over">00:00</string>
+    <!-- 处理进度对话框 -->
+    <string name="progress_dialog_loadingmsg">处理中\u2026\u0020</string>
+    <string name="progress_dialog_waitingmsg">切换中</string>
+    <string name="progress_dialog_loadingmsg_num">0</string>
+    <string name="progress_dialog_loadingmsg_percent">%</string>
+    <string name="video_beautify_silencer_mute">原音开启</string>
+    <string name="video_beautify_silencer_unmute">原音关闭</string>
+    <string name="video_beautify_ok_msg">确定</string>
+    <string name="video_beautify_cancel_msg">取消</string>
+    <string name="video_beautify_prompt_msg">提示</string>
+    <string name="video_beautify_msg_when_quite">确定放弃并重新拍摄吗?</string>
+    <string name="video_beautify_save_success">保存成功</string>
+    <string name="video_beautify_local_music_local_library">本地乐库</string>
+    <string name="video_beautify_local_music_title_text">我的音乐</string>
+    <string name="video_beautify_local_music_history">历史</string>
+    <string name="video_beautify_local_music_list_item_name">小苹果</string>
+    <string name="video_beautify_local_music_list_item_play_time">00:00</string>
+    <string name="video_beautify_local_music_list_item_introduction">筷子兄弟-猛龙过江 电影原声带</string>
+    <string name="video_beautify_local_music_msg_when_quite">确定放弃已编辑音乐吗?</string>
+    <string name="video_beautify_no_local_music_text">本地暂时没有歌曲</string>
+    <string name="video_beautify_no_local_music_history_text">还没有使用过本地歌曲</string>
+
+</resources>
