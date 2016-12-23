@@ -94,4 +94,5 @@ dependencies {
   compile 'com.github.piasy:rxandroidaudio:1.2.5'
   compile 'com.daimajia.numberprogressbar:library:1.2@aar'
   compile 'com.alibaba:fastjson:1.1.55.android'
+  compile project(':easyvideorecorder')
 }

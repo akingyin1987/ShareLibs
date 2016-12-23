@@ -1,5 +1,6 @@
 package org.easydarwin.video.beautify.template;
 
+import akingyin.easyvideorecorder.R;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -9,7 +10,6 @@ import jp.co.cyberagent.android.gpuimage.GPUImageTwoInputFilter;
 import jp.co.cyberagent.android.gpuimage.util.GPUImageFilterTools;
 import jp.co.cyberagent.android.gpuimage.util.GPUImageFilterTools.FilterType;
 
-import org.easydarwin.video.R;
 import org.easydarwin.video.beautify.conf.Conf;
 import org.easydarwin.video.beautify.util.ContextHolder;
 import org.easydarwin.video.beautify.util.ProjectUtils;

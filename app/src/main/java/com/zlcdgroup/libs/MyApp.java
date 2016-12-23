@@ -26,6 +26,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import org.easydarwin.video.beautify.util.ProjectUtils;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.lasque.tusdk.core.TuSdk;
@@ -67,6 +68,7 @@ public class MyApp  extends Application {
                         .addModelClass(TempBaseVo.class).create();
         ActiveAndroid.initialize(configuration,true);
         initImageLoader(this);
+        ProjectUtils.init(getApplicationContext());
 
         TuSdk.enableDebugLog(true);
         TuSdk.init(getApplicationContext(),"4387f9d67be3c238-01-k4rko1");

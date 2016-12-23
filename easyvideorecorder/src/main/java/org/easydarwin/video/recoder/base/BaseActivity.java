@@ -23,7 +23,7 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	public void setContentView(int layoutResID) {
 		super.setContentView(layoutResID);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 		init();
 	}
 

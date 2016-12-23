@@ -1,9 +1,17 @@
 package org.easydarwin.video.recoder.activity;
 
+
+
+
+import akingyin.easyvideorecorder.R;
+import akingyin.easyvideorecorder.R2;
+import butterknife.BindView;
+import butterknife.OnClick;
+import butterknife.OnTouch;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.easydarwin.video.R;
+
 import org.easydarwin.video.recoder.VideoRecoder;
 import org.easydarwin.video.recoder.base.BaseActivity;
 import org.easydarwin.video.recoder.conf.Conf;
@@ -21,7 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
-import android.hardware.Camera;
+
 import android.hardware.Camera.Area;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,9 +40,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-import butterknife.InjectView;
-import butterknife.OnClick;
-import butterknife.OnTouch;
+
+
 
 
 @SuppressWarnings("deprecation")
@@ -61,29 +68,30 @@ public class VideoRecorderActivity extends BaseActivity implements VideoRecordLi
 
 	private boolean mAllowTouchFocus = false;
 
-	@InjectView(R.id.quitBtn)
+	@BindView(R2.id.quitBtn)
 	Button quitBtn;
-	@InjectView(R.id.recorder_flashlight)
+	@BindView(R2.id.recorder_flashlight)
 	Button flashBtn;
-	@InjectView(R.id.recorder_cancel)
+	@BindView(R2.id.recorder_cancel)
 	Button cancelBtn;
-	@InjectView(R.id.recorder_next)
+	@BindView(R2.id.recorder_next)
 	Button nextBtn;
-	@InjectView(R.id.recorder_video)
+	@BindView(R2.id.recorder_video)
 	Button recorderVideoBtn;
-	@InjectView(R.id.recorder_frontcamera)
+	@BindView(R2.id.recorder_frontcamera)
 	Button switchCameraIcon;
-	@InjectView(R.id.recorder_progress)
+	@BindView(R2.id.recorder_progress)
 	VideoProgressView progressView;
-	@InjectView(R.id.recorder_surface)
+	@BindView(R2.id.recorder_surface)
 	VideoPreviewView cameraTextureView;
-	@InjectView(R.id.video_focus_view)
+	@BindView(R2.id.video_focus_view)
 	VideoFocusView focusView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video_record_activity);
+
 		initData();
 		initView();
 		initAction();
@@ -368,7 +376,7 @@ public class VideoRecorderActivity extends BaseActivity implements VideoRecordLi
 
 	// events --------------------------------------------------
 
-	@OnTouch(R.id.recorder_video)
+  @OnTouch(R2.id.recorder_video)
 	public boolean onRecorderVideoTouch(View v, MotionEvent event) {
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
@@ -390,7 +398,7 @@ public class VideoRecorderActivity extends BaseActivity implements VideoRecordLi
 		return super.onTouchEvent(event);
 	}
 
-	@OnTouch(R.id.video_focus_view)
+	@OnTouch(R2.id.video_focus_view)
 	public boolean onSquareFocusViewTouch(View v, MotionEvent event) {
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
@@ -421,28 +429,28 @@ public class VideoRecorderActivity extends BaseActivity implements VideoRecordLi
 		return true;
 	}
 
-	@OnClick(R.id.recorder_cancel)
+	@OnClick(R2.id.recorder_cancel)
 	public void onRecorderCancelBtnClick(View v) {
 		recorderManager.backspace();
 	}
 
-	@OnClick(R.id.recorder_frontcamera)
+	@OnClick(R2.id.recorder_frontcamera)
 	public void onSwitchCameraBtnClick(View v) {
 		handler.sendEmptyMessage(MSG_CHANGE_CAMERA);
 	}
 
-	@OnClick(R.id.recorder_next)
+	@OnClick(R2.id.recorder_next)
 	public void onRecorderOKBtnClick(View v) {
 		recordEnd();
 		focusView.finishGuide();
 	}
 
-	@OnClick(R.id.recorder_flashlight)
+	@OnClick(R2.id.recorder_flashlight)
 	public void onRecorderFlashlightBtnClick(View v) {
 		handler.sendEmptyMessage(MSG_CHANGE_FLASH);
 	}
 
-	@OnClick(R.id.quitBtn)
+	@OnClick(R2.id.quitBtn)
 	public void onQuitBtnClick(View v) {
 		onBackPressed();
 	}

@@ -26,7 +26,7 @@
 
   <Button android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="VCamera"
+      android:text="EasyVideo"
       android:id="@+id/vcamera"/>
 
   <Button android:layout_width="match_parent"

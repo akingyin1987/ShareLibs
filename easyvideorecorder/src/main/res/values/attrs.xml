@@ -27,7 +27,7 @@
         <attr name="cornerBottomLeftRadius" />
         <attr name="cornerBottomRightRadius" />
         <attr name="border" />
-        <attr name="borderWidth" />
+
         <attr name="borderPadding" />
         <attr name="borderColor" />
         <attr name="shape" />

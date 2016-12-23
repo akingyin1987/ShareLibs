@@ -93,9 +93,7 @@ public class CustomImageView extends ImageView {
 				cornerBottomLeftRadius = a.getDimension(attr, 0);
 			} else if (attr == R.styleable.CustomImageView_cornerBottomRightRadius) {
 				cornerBottomRightRadius = a.getDimension(attr, 0);
-			} else if (attr == R.styleable.CustomImageView_borderWidth) {
-				borderWidth = (int) a.getDimension(attr, 0);
-			} else if (attr == R.styleable.CustomImageView_borderPadding) {
+			}  else if (attr == R.styleable.CustomImageView_borderPadding) {
 				borderPadding = (int) a.getDimension(attr, 0);
 			} else if (attr == R.styleable.CustomImageView_borderColor) {
 				borderColor = a.getColor(attr, 0);
@@ -103,7 +101,9 @@ public class CustomImageView extends ImageView {
 		}
 		a.recycle();
 	}
-
+	//else if (attr == R.styleable.CustomImageView_borderWidth) {
+	//	borderWidth = (int) a.getDimension(attr, 0);
+	//}
 	/**
 	 * 计算控件的高度和宽度
 	 */

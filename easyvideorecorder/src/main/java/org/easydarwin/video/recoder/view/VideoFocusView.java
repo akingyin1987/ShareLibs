@@ -1,7 +1,8 @@
 package org.easydarwin.video.recoder.view;
 
-import org.easydarwin.video.R;
 
+
+import akingyin.easyvideorecorder.R;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -238,6 +239,6 @@ public class VideoFocusView extends RelativeLayout {
 
 	public enum GuideStep {
 		STEP1, STEP2, STEP3
-	};
+	}
 
 }

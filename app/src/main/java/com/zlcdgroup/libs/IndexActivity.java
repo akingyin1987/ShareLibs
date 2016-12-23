@@ -28,7 +28,7 @@ import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
 import cafe.adriel.androidaudiorecorder.model.AudioChannel;
 import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
 import cafe.adriel.androidaudiorecorder.model.AudioSource;
-import com.akingyin.vcamera.ui.record.MediaRecorderActivity;
+
 import com.cooltechworks.views.ScratchTextView;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -43,6 +43,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 import me.leolin.shortcutbadger.ShortcutBadger;
+import org.easydarwin.video.recoder.activity.VideoRecorderActivity;
 import rx.functions.Action1;
 import si.virag.fuzzydateformatter.FuzzyDateTimeFormatter;
 
@@ -144,7 +145,7 @@ public class IndexActivity  extends AppCompatActivity {
     });
     findViewById(R.id.vcamera).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        Intent  intent = new Intent(IndexActivity.this, MediaRecorderActivity.class);
+        Intent  intent = new Intent(IndexActivity.this, VideoRecorderActivity.class);
         startActivity(intent);
       }
     });

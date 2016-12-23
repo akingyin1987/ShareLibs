@@ -66,6 +66,7 @@ public class CameraView extends FrameLayout {
 
     /** The mode for for the camera device's flash control */
     @IntDef({FLASH_OFF, FLASH_ON, FLASH_TORCH, FLASH_AUTO, FLASH_RED_EYE})
+    @Retention(RetentionPolicy.SOURCE)
     public @interface Flash {
     }
 
@@ -109,6 +110,7 @@ public class CameraView extends FrameLayout {
         } else {
             setAspectRatio(Constants.DEFAULT_ASPECT_RATIO);
         }
+
         setAutoFocus(a.getBoolean(R.styleable.CameraView_autoFocus, true));
         setFlash(a.getInt(R.styleable.CameraView_flash, Constants.FLASH_AUTO));
         a.recycle();
