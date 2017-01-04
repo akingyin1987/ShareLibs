@@ -34,7 +34,6 @@ import com.zlcdgroup.taskManager.MultiTaskManager;
 import com.zlcdgroup.taskManager.enums.TaskManagerStatusEnum;
 import java.io.File;
 import java.util.List;
-import java.util.UUID;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -170,15 +169,14 @@ public class Ocr2Activity extends AppCompatActivity {
     }).map(new Func1<ReadImageBean, Void>() {
       @Override public Void call(ReadImageBean readImageBean) {
 
-        File   file = new File(readImageBean.result == 2?dir2:dir, UUID.randomUUID().toString().replace("-","")+".jpg");
 
-        FileUtil.CopySingleFileTo(readImageBean.localPath,file.getAbsolutePath());
+        FileUtil.CopySingleFileTo(readImageBean.localPath,readImageBean.result == 2?dir2.getAbsolutePath():dir.getAbsolutePath());
         return null;
       }
     }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
        .subscribe(new Subscriber<Void>() {
          @Override public void onCompleted() {
-
+            Toast.makeText(Ocr2Activity.this,"导出完成",Toast.LENGTH_SHORT).show();
          }
 
          @Override public void onError(Throwable e) {

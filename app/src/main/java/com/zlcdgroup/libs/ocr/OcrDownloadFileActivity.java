@@ -76,10 +76,10 @@ public class OcrDownloadFileActivity extends AppCompatActivity {
     taskManager = new MultiTaskManager(10);
      String  userId="15080121202741817269";
      String  imei ="868508027262370";
-    String  jobid="17010303212059429985";
+    String  jobid="17010303211712629613";
     VoReadingdata  readingdata = new VoReadingdata();
 
-    int  total = 338;
+    int  total = 370;
     readingdata.setRdJobId(jobid);
     int  count = total/10+1;
     System.out.println("total="+total);

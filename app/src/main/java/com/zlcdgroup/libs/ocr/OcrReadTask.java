@@ -43,7 +43,7 @@ public class OcrReadTask  extends AbsTaskRunner {
   }
 
   @Override public void onToDo() {
-    YunShiEntity   yunShiEntity =  checkImageMap(0,mReadImageBean,imei,macAddress,api);
+    YunShiEntity   yunShiEntity =  checkImageMap(1,0,mReadImageBean,imei,macAddress,api);
     if(null != yunShiEntity && yunShiEntity.getCode() == 0){
       Double  value = Double.parseDouble(yunShiEntity.getValue().split(",")[0]);
       mReadImageBean.orcReading = value.longValue();
@@ -63,7 +63,7 @@ public class OcrReadTask  extends AbsTaskRunner {
     TaskOnSuccess();
   }
   public SimpleDateFormat formatter = new SimpleDateFormat("yyyymmdd-hhmmss-SSSS");
-  public YunShiEntity checkImageMap(int  degree,ReadImageBean  ocrVo,String imei,String macAddress, OcrApi
+  public YunShiEntity checkImageMap(int count,int  degree,ReadImageBean  ocrVo,String imei,String macAddress, OcrApi
       api){
     if(TextUtils.isEmpty(ocrVo.localPath)){
       return null;
@@ -76,13 +76,24 @@ public class OcrReadTask  extends AbsTaskRunner {
     try {
       YunShiEntity  yunShiEntity =  api.getImageOcrMapByYushi(image,"Android","QCZLCD",imei,formatter.format(new Date()),macAddress,"重庆","重庆","[0,0]").execute().body();
       System.out.println("code="+yunShiEntity.getCode()+":"+degree);
-      if(yunShiEntity.getCode() == 0 || degree == 270){
+      if(yunShiEntity.getCode() == 0 || degree == 270 || count == 5){
+        if(count == 5){
+          return  yunShiEntity;
+        }
+        if(yunShiEntity.getCode() == 0){
+          Double  value = Double.parseDouble(yunShiEntity.getValue().split(",")[0]);
+          if(null != ocrVo.rdReading && ocrVo.rdReading>0){
+            if(value/ocrVo.rdReading>5 || value/ocrVo.rdReading<0.2){
+             return checkImageMap(5,180,ocrVo,imei,macAddress,api);
+            }
+          }
+        }
         return  yunShiEntity;
       }
 
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return   checkImageMap(degree+90,ocrVo,imei,macAddress,api);
+    return   checkImageMap(count+1,degree+90,ocrVo,imei,macAddress,api);
   }
 }
