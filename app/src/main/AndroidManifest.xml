@@ -159,6 +159,9 @@
            android:launchMode="singleTop"
            android:screenOrientation="portrait" />
 
+    <activity android:name=".ocr.Ocr2Activity"
+        android:launchMode="singleTop"
+        android:screenOrientation="portrait" />
 
        <activity android:name=".ocr.OcrDownloadFileActivity"
            android:launchMode="singleTop"

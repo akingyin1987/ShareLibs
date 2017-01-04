@@ -3,6 +3,7 @@ package com.zlcdgroup.libs.db;
 import java.io.Serializable;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -53,16 +54,24 @@ public class ReadImageBean  implements Serializable {
 
   public   Long    rdReading;
 
-  @Generated(hash = 2143018724)
-  public ReadImageBean(Long id, String localPath, String webPath,
-          Long rdReading) {
-      this.id = id;
-      this.localPath = localPath;
-      this.webPath = webPath;
-      this.rdReading = rdReading;
-  }
+  @Property(nameInDb = "ocrReading")
+  public   Long    orcReading;
 
-  @Generated(hash = 1716092295)
+  @Property(nameInDb = "result")
+  public   int      result;  //1=识别成功且与读数匹配 2=识别成功与读数不匹配 3=无法识别 0=未识别
+
+  @Generated(hash = 797248506)
+public ReadImageBean(Long id, String localPath, String webPath, Long rdReading,
+        Long orcReading, int result) {
+    this.id = id;
+    this.localPath = localPath;
+    this.webPath = webPath;
+    this.rdReading = rdReading;
+    this.orcReading = orcReading;
+    this.result = result;
+}
+
+@Generated(hash = 1716092295)
   public ReadImageBean() {
   }
 
@@ -97,4 +106,20 @@ public class ReadImageBean  implements Serializable {
   public void setRdReading(Long rdReading) {
       this.rdReading = rdReading;
   }
+
+public Long getOrcReading() {
+    return this.orcReading;
+}
+
+public void setOrcReading(Long orcReading) {
+    this.orcReading = orcReading;
+}
+
+public int getResult() {
+    return this.result;
+}
+
+public void setResult(int result) {
+    this.result = result;
+}
 }

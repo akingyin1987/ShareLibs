@@ -15,7 +15,6 @@ import com.zlcdgroup.libs.db.ReadImageBean;
 import com.zlcdgroup.libs.ocr.api.OcrApi;
 import com.zlcdgroup.libs.ocr.api.RetrofitUtil;
 import com.zlcdgroup.libs.ocr.vo.VoReadingdata;
-import com.zlcdgroup.libs.utils.RxUtil;
 import com.zlcdgroup.taskManager.ApiTaskCallBack;
 import com.zlcdgroup.taskManager.MultiTaskManager;
 import com.zlcdgroup.taskManager.enums.TaskManagerStatusEnum;
@@ -73,16 +72,18 @@ public class OcrDownloadFileActivity extends AppCompatActivity {
     if(null != taskManager){
       taskManager.cancelTasks();
     }
-    OcrApi  api = RetrofitUtil.createApi(OcrApi.class,"http://139.129.205.241/MRMSEIZFYB/");
+    OcrApi  api = RetrofitUtil.createApi(OcrApi.class,"http://139.129.205.241/MRMSEIZFJB/");
     taskManager = new MultiTaskManager(10);
      String  userId="15080121202741817269";
      String  imei ="868508027262370";
-    String  jobid="16122122100977601146";
+    String  jobid="17010303212059429985";
     VoReadingdata  readingdata = new VoReadingdata();
 
-    int  total = 650;
+    int  total = 338;
     readingdata.setRdJobId(jobid);
-     for(int i=0;i<(650/50+1);i++){
+    int  count = total/10+1;
+    System.out.println("total="+total);
+     for(int i=0;i<count+1;i++){
        DownloadReadDataTask  task1  = new DownloadReadDataTask(jobid,imei,userId,readingdata,i+1,api);
        taskManager.addTask(task1);
      }
@@ -116,7 +117,7 @@ public class OcrDownloadFileActivity extends AppCompatActivity {
     List<ReadImageBean>  readImageBeanList = dao.queryBuilder().where(ReadImageBeanDao.Properties.LocalPath.isNull()).build().list();
     filemanager = new MultiTaskManager(20);
     for(ReadImageBean  readImageBean : readImageBeanList){
-      DownImageTask  task = new DownImageTask(readImageBean,"http://139.129.205.241/MRMSEIZFYB/upload/",api);
+      DownImageTask  task = new DownImageTask(dao,readImageBean,"http://139.129.205.241/MRMSEIZFJB/upload/",api);
       filemanager.addTask(task);
     }
     filemanager.setCallBack(new ApiTaskCallBack() {

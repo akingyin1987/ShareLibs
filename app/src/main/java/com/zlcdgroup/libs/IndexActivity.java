@@ -1,6 +1,5 @@
 package com.zlcdgroup.libs;
 
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -16,27 +15,23 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
 import cafe.adriel.androidaudiorecorder.model.AudioChannel;
 import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
 import cafe.adriel.androidaudiorecorder.model.AudioSource;
-
 import com.cooltechworks.views.ScratchTextView;
-
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.zlcdgroup.camera.GoogleCameraActivity;
 import com.zlcdgroup.camera.MaterialCamera;
 import com.zlcdgroup.camera.internal.CameraIntentKey;
 import com.zlcdgroup.libs.config.AppConfig;
-import com.zlcdgroup.libs.ocr.OcrActivity;
+import com.zlcdgroup.libs.ocr.Ocr2Activity;
 import com.zlcdgroup.libs.tusdkcamera.TuSdkCameraActivity;
 import java.io.File;
 import java.util.Date;
@@ -46,7 +41,6 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 import org.easydarwin.video.recoder.activity.VideoRecorderActivity;
 import rx.functions.Action1;
 import si.virag.fuzzydateformatter.FuzzyDateTimeFormatter;
-
 import us.pinguo.edit.sdk.base.PGEditResult;
 import us.pinguo.edit.sdk.base.PGEditSDK;
 
@@ -152,7 +146,7 @@ public class IndexActivity  extends AppCompatActivity {
     findViewById(R.id.ocr).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent  intent = new Intent(IndexActivity.this, OcrActivity.class);
+        Intent  intent = new Intent(IndexActivity.this, Ocr2Activity.class);
         startActivity(intent);
       }
     });

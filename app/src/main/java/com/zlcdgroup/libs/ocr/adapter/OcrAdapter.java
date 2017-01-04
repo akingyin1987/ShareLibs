@@ -37,7 +37,7 @@ public class OcrAdapter  extends  BaseTemplateAdapter<OcrVo> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         ImageLoader.getInstance().displayImage("file://"+getItem(position).localpath,viewHolder.imageView);
-        System.out.println("text="+getItem(position).getOcrtext());
+
         viewHolder.textView.setText(getItem(position).getOcrtext());
         return convertView;
     }

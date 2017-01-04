@@ -9,7 +9,7 @@
     <attr name="cornerBottomRightRadius" format="reference|dimension" />
     <!-- border -->
     <attr name="border" format="string" />
-    <attr name="borderWidth" format="reference|dimension" />
+    <attr name="border_Width" format="reference|dimension" />
     <attr name="borderPadding" format="reference|dimension" />
     <attr name="borderColor" format="reference|color" />
 
@@ -27,7 +27,7 @@
         <attr name="cornerBottomLeftRadius" />
         <attr name="cornerBottomRightRadius" />
         <attr name="border" />
-
+        <attr name="border_Width" />
         <attr name="borderPadding" />
         <attr name="borderColor" />
         <attr name="shape" />

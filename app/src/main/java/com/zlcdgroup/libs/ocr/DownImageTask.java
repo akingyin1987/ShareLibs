@@ -6,7 +6,6 @@ import com.zlcdgroup.libs.db.DbCore;
 import com.zlcdgroup.libs.db.ReadImageBean;
 import com.zlcdgroup.libs.ocr.api.OcrApi;
 import com.zlcdgroup.libs.utils.FileUtil;
-import com.zlcdgroup.stickerlib.utils.FileUtils;
 import com.zlcdgroup.taskManager.AbsTaskRunner;
 import com.zlcdgroup.taskManager.enums.TaskStatusEnum;
 import java.io.File;
@@ -57,10 +56,13 @@ public class DownImageTask  extends AbsTaskRunner {
 
   public String   baseUrl;
 
-  public DownImageTask(ReadImageBean readImageBean, String baseUrl, OcrApi api) {
+
+
+  public DownImageTask(ReadImageBeanDao  dao,ReadImageBean readImageBean, String baseUrl, OcrApi api) {
     this.readImageBean = readImageBean;
     this.baseUrl = baseUrl;
     this.api = api;
+    this.dao = dao;
   }
 
   private ReadImageBeanDao   dao;
@@ -87,7 +89,8 @@ public class DownImageTask  extends AbsTaskRunner {
         try {
           File    file = new File(dir,fileName);
           if(file.exists()){
-
+            readImageBean.localPath = file.getAbsolutePath();
+            dao.save(readImageBean);
             return;
           }
           is = response.body().byteStream();
@@ -97,6 +100,8 @@ public class DownImageTask  extends AbsTaskRunner {
             fos.write(buf, 0, len);
           }
           fos.flush();
+          readImageBean.localPath = file.getAbsolutePath();
+          dao.save(readImageBean);
         }catch (Exception e){
           e.printStackTrace();
         }finally {

@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zlcdgroup.dao.ReadImageBeanDao;
-import com.zlcdgroup.libs.MyApp;
 import com.zlcdgroup.libs.db.DbCore;
 import com.zlcdgroup.libs.db.ReadImageBean;
 import com.zlcdgroup.libs.ocr.api.OcrApi;
@@ -21,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import okhttp3.ResponseBody;
-
 import retrofit2.Call;
 
 
@@ -140,7 +138,7 @@ public class DownloadReadDataTask  extends AbsTaskRunner {
     dataMap.put("page",page);
     dataMap.put("personId",persionId);
     String  data = getJsonData("zlcd_mrmsei_get_reading_job_details",persionId,imei,dataMap);
-    Call<ResponseBody> responseBodyCall = api.getReadJobInfoById(data,getToken(data),"mrmsei","MRMSEI.1.14.4.161115");
+    Call<ResponseBody> responseBodyCall = api.getReadJobInfoById(data,getToken(data),"mrmsei","MRMSEI.1.15.3.161231");
     try {
       String   result = responseBodyCall.execute().body().string();
       result = URLDecoder.decode(result,"utf-8");

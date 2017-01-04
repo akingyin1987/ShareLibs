@@ -1,7 +1,5 @@
 package org.easydarwin.video.beautify.view;
 
-
-
 import akingyin.easyvideorecorder.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -63,6 +61,7 @@ public class CustomImageView extends ImageView {
 		TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomImageView, defStyle, 0);
 		int n = a.getIndexCount();
 		for (int i = 0; i < n; i++) {
+
 			int attr = a.getIndex(i);
 			if (attr == R.styleable.CustomImageView_cornerRadius) {
 				cornerRadius = CornerRadius.Parser.parse(a.getString(attr), context);

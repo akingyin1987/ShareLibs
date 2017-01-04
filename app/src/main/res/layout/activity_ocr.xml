@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             android:padding="3dp"
+             android:layout_margin="3dp"
+             android:id="@+id/tv_info"/>
+
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,10 +46,31 @@
         android:layout_weight="1"/>
 
 
-    <Button
-        android:text="刷新"
-        android:layout_width="match_parent"
+    <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_download"
+        android:orientation="horizontal">
+        <Button
+            android:text="下载数据"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_download"
         />
+        <Button
+            android:text="清除数据"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_delect"
+        />
+        <Button
+            android:text="异常图片导出"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_abnormal"
+        />
+    </LinearLayout>
+
+
 </LinearLayout>
