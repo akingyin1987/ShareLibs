@@ -3,6 +3,8 @@ package com.zlcdgroup.tuyalib;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Point;
+import java.util.List;
 
 public class Rectangle extends Shape {
 
@@ -84,7 +86,12 @@ public class Rectangle extends Shape {
 		end.y = y;
 		calculate();
 	}
-	
-	
 
+	@Override void onDrawPoints(Canvas canvas, float radius, Paint pointPaint, Paint pointFillPaint) {
+
+	}
+
+	@Override List<Point> getPoints() {
+		return null;
+	}
 }

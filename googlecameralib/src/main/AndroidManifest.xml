@@ -12,5 +12,6 @@
     limitations under the License.
 -->
 <manifest package="com.google.android.cameraview">
-    <application />
+
+  <application />
 </manifest>

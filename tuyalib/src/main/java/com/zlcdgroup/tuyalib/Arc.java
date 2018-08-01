@@ -5,6 +5,8 @@ package com.zlcdgroup.tuyalib;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
+import java.util.List;
 
 /**
  * 曲线 Created by Administrator on 2015/11/28.
@@ -104,5 +106,13 @@ public class Arc extends Shape {
 		end.x = end.x + movex;
 		end.y = end.y + movey;
 		line.move(movex,movey);
+	}
+
+	@Override void onDrawPoints(Canvas canvas, float radius, Paint pointPaint, Paint pointFillPaint) {
+
+	}
+
+	@Override List<Point> getPoints() {
+		return null;
 	}
 }

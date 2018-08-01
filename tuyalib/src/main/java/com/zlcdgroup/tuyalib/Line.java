@@ -3,6 +3,8 @@ package com.zlcdgroup.tuyalib;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Point;
+import java.util.List;
 
 public class Line extends Shape {
 	// 箭头占整图片涂鸦的比例
@@ -154,4 +156,11 @@ public class Line extends Shape {
 		end = TuYaUtil.PointRotate(centre, end, angle);
 	}
 
+	@Override void onDrawPoints(Canvas canvas, float radius, Paint pointPaint, Paint pointFillPaint) {
+
+	}
+
+	@Override List<Point> getPoints() {
+		return null;
+	}
 }

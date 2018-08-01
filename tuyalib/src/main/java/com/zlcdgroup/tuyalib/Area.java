@@ -23,7 +23,7 @@ public class Area {
 			return true;
 		}
 		return false;
-	};
+	}
 	
 	
 	public static   Area   CreateArea(Pt  statPt  ,Pt  endPt,int  length){

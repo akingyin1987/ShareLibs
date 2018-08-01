@@ -136,9 +136,13 @@ public class DownloadReadDataTask  extends AbsTaskRunner {
     Map<String,Object>  dataMap = new HashMap<>();
     dataMap.put("readingdata", voReadingdata);
     dataMap.put("page",page);
+
+    dataMap.put("jobId", jobId);
+    dataMap.put("start", page*20);
+    dataMap.put("end", (page+1)*20);
     dataMap.put("personId",persionId);
     String  data = getJsonData("zlcd_mrmsei_get_reading_job_details",persionId,imei,dataMap);
-    Call<ResponseBody> responseBodyCall = api.getReadJobInfoById(data,getToken(data),"mrmsei","MRMSEI.1.15.3.161231");
+    Call<ResponseBody> responseBodyCall = api.getReadJobInfoById(data,getToken(data),"mrmsei","MRMSEI.1.19.2.170731");
     try {
       String   result = responseBodyCall.execute().body().string();
       result = URLDecoder.decode(result,"utf-8");

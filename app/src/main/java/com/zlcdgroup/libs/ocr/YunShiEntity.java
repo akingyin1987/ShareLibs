@@ -24,6 +24,15 @@ public class YunShiEntity implements Serializable {
     private String ProcessTime;
     private String filename;
     private String Circle;
+    private String Message;
+
+    public String getMessage() {
+        return Message;
+    }
+
+    public void setMessage(String message) {
+        Message = message;
+    }
 
     public int getCode() {
         return Code;

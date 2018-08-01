@@ -1,12 +1,5 @@
 package com.zlcdgroup.tuyalib;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -28,16 +22,19 @@ import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-
-
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
-
 import com.zlcdgroup.util.TuyaDialogCallback;
 import com.zlcdgroup.util.TuyaDialogUtil;
 import com.zlcdgroup.util.TuyaFileUtils;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * 涂鸦简单处理（1、将当前获取的图片涂鸦后进行保存，分辨率前后不会发生改变。 2、对于当前图片分辨率比当前手机分辨率稍大的做了适合的缩小处理。
@@ -94,7 +91,7 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 
 
 	private int postion = 0;
-	public List<Shape> mShapes = new ArrayList<Shape>();
+	public List<Shape> mShapes = new ArrayList<>();
 	
 	public   static    final  String   tuyatemp=Environment.getExternalStorageDirectory().toString() + File.separator + "eims"+File.separator+"temp";
 
@@ -267,7 +264,8 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
             	tuyaView.moveright(5,postion);
             }
 		} else if (v.getId() == R.id.imagefilter_activity_save) {
-			saveBitmap();
+			//saveBitmap();
+			createSaveBitmap();
 
 		} else if (v.getId() == R.id.imagefilter_operate) {
 			PopupMenu popupMenu = new PopupMenu(this, settingButton);
@@ -440,11 +438,70 @@ public class TuYaActivity extends Activity implements OnClickListener, OnLongCli
 		super.onConfigurationChanged(newConfig);
 	}
 
+	public   void   createSaveBitmap(){
+		if(null == tuyaView.src){
+			Toast.makeText(TuYaActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		Bitmap  dis = Bitmap.createBitmap(tuyaView.src.getWidth(), tuyaView.src.getHeight(), Bitmap.Config.RGB_565);
+		Canvas  bufferCanvas = new Canvas(dis);
+		bufferCanvas.save();
+		bufferCanvas.drawBitmap(tuyaView.src, 0, 0, tuyaView.paint);
+		bufferCanvas.restore();
+		for (Shape shape : tuyaView.shapList) {
+			shape.draw(bufferCanvas,tuyaView.paint);
+		}
+		FileOutputStream out = null;
+		Bitmap saveBitmap = null;
+		try {
+
+			if (scale > 0) {
+				saveBitmap = CameraBitmapUtil.BitmapScale(dis, 1 / scale);
+			}
+
+			File outFile = new File(directoryPath, saveReName);
+			out = new FileOutputStream(outFile);
+			if (null == saveBitmap) {
+				saveBitmapToFile(dis, out, outFile);
+			} else {
+				saveBitmapToFile(saveBitmap, out, outFile);
+			}
+
+		} catch (Exception e) {
+
+			Toast.makeText(this, "保存失败", Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		} catch (Error e) {
+
+			Toast.makeText(this, "保存失败", Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		} finally {
+			tuyaView.setSaveBitmap(false);
+			tuyaView.invalidate();
+			if (null != saveBitmap) {
+				saveBitmap.recycle();
+				saveBitmap = null;
+			}
+			if (null != out) {
+				try {
+					out.flush();
+					out.close();
+				} catch (IOException e) {
+				}
+			}
+			System.gc();
+		}
+	}
+
 	public void saveBitmap() {
 		if (null == tuyaView.dis) {
 			Toast.makeText(TuYaActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
 			return;
 		}
+		tuyaView.setSaveBitmap(true);
+		tuyaView.invalidate();
+
 		FileOutputStream out = null;
 		Bitmap saveBitmap = null;
 		try {

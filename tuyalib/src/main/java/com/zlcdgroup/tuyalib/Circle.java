@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Point;
+import java.util.List;
 
 public class Circle extends Shape {
 	private Pt center = new Pt();
@@ -76,5 +78,13 @@ public class Circle extends Shape {
 	void spin(int angle) {
 		
 		
+	}
+
+	@Override void onDrawPoints(Canvas canvas, float radius, Paint pointPaint, Paint pointFillPaint) {
+
+	}
+
+	@Override List<Point> getPoints() {
+		return null;
 	}
 }

@@ -2,6 +2,8 @@ package com.zlcdgroup.tuyalib;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
+import java.util.List;
 
 public class MLine extends Shape {
 	private Line line = new Line();
@@ -191,5 +193,13 @@ public class MLine extends Shape {
 		line.spin(angle, center);
 		arrow.spin(angle, center);
 
+	}
+
+	@Override void onDrawPoints(Canvas canvas, float radius, Paint pointPaint, Paint pointFillPaint) {
+
+	}
+
+	@Override List<Point> getPoints() {
+		return null;
 	}
 }

@@ -51,11 +51,13 @@ public class TuYaUtil {
      */
     public  static   int  distancePoint(Pt   p1,Pt  p2){
     	
-		return (int) Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
+	    	return (int) Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
     	
     }
-    
-    
+
+	public static double getPointsDistance(float x1, float y1, float x2, float y2) {
+		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+	}
     
     /**
      *  AB 与BC垂直

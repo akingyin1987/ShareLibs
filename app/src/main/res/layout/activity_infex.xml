@@ -46,7 +46,10 @@
       android:layout_height="wrap_content"
       android:text="OCR"
       android:id="@+id/ocr"/>
-
+  <Button android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Baidu Api auth"
+      android:id="@+id/btn_baidu_auth"/>
   <RadioGroup android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"

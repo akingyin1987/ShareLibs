@@ -1,25 +1,25 @@
 package com.zlcdgroup.tuyalib;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-
-
-
-
-
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.Shader;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class TuyaView extends View  {
 	public static int strokeWidth = 5;
@@ -39,9 +39,9 @@ public class TuyaView extends View  {
 		this.tuyaMoveListion = tuyaMoveListion;
 	}
 
-	Paint paint = new Paint();
+  public 	Paint paint = new Paint();
 
-	List<Shape> shapList = new ArrayList<Shape>();
+	List<Shape> shapList = new ArrayList<>();
 
 	ShapeType currentShapeType = ShapeType.NULL;
 	
@@ -164,26 +164,23 @@ public class TuyaView extends View  {
 			postInvalidate();
 		}
 	}
-
+	public static final float POINT_RADIUS = 10; // dp，锚点绘制半价
+	private Paint mPointPaint;
+	private Paint mPointFillPaint;
+	private ShapeDrawable mMagnifierDrawable;
 	public void init() {
 		if (null == src) {
 			return;
 		}
-
 		sw = src.getWidth();
 		sh = src.getHeight();
 
 		dis = Bitmap.createBitmap(sw, sh, Bitmap.Config.RGB_565);
 		bufferCanvas = new Canvas(dis);
 
-		// px = (dm.widthPixels - dis.getWidth()) / 2;
-		// py = (dm.heightPixels - dis.getHeight()) / 2;
-
 		if (dis.getWidth() > dis.getHeight()) {
 
-			// py = (dm.widthPixels - dis.getHeight()- Offset) / 2;
 			py = 0;
-
 			if (dm.widthPixels > dm.heightPixels) {
 				px = (dm.widthPixels - dis.getWidth()) / 2;
 			} else {
@@ -196,25 +193,37 @@ public class TuyaView extends View  {
 			endy = dis.getHeight();
 			px = (dm.widthPixels - dis.getWidth()) / 2;
 			py = (dm.heightPixels - dis.getHeight() - Offset) / 2;
-
 		}
-
 		if (py < 0) {
 			py = 0;
 		}
 		if (px < 0) {
 			px = 0;
 		}
+		mPointPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		mPointPaint.setColor(0xFF00FFFF);
+		mPointPaint.setStrokeWidth(1);
+		mPointPaint.setStyle(Paint.Style.STROKE);
 
+		mPointFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		mPointFillPaint.setColor(Color.WHITE);
+		mPointFillPaint.setStyle(Paint.Style.FILL);
+		mPointFillPaint.setAlpha(175);
+		BitmapShader magnifierShader = new BitmapShader(dis, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+		mMagnifierDrawable = new ShapeDrawable(new OvalShape());
+		mMagnifierDrawable.getPaint().setShader(magnifierShader);
+		getDrawablePosition();
 	}
 
 	private int Offset = 0;
 	private int endx, endy;
 
+	private   float  mDensity = 0f;
 	public TuyaView(Context context, Bitmap src, DisplayMetrics dm) {
 		super(context);
 		this.src = src;
 		this.dm = dm;
+		mDensity = getResources().getDisplayMetrics().density;
 		Offset = dip2px(context, 48);
 
 		init();
@@ -229,19 +238,20 @@ public class TuyaView extends View  {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-
+		getDrawablePosition();
 		paint.reset();
+		paint.setAntiAlias(true);
 		paint.setColor(Color.GREEN);
 		paint.setStrokeWidth(strokeWidth);
-
+    paint.setStyle(Paint.Style.FILL);
 		drawSrc(bufferCanvas);
 
 		drawTuYa(bufferCanvas);
-
-		// canvas.drawBitmap(dis, 0,0, paint);
+		onDrawPoint(bufferCanvas);
+		onDrawMagnifier(bufferCanvas);
 		canvas.drawBitmap(dis, px, py, paint);
 
-		// canvas.drawBitmap(dis, old, now, paint);
+
 
 	}
 
@@ -273,7 +283,9 @@ public class TuyaView extends View  {
 				shape.setMypaint(selePaint);
 			}
 			shape.draw(canvas, paint);
+
 		}
+
 		if (currenShape != null) {
 			if (currenShape.getTuyaAction() != TuyaAction.MOVE) {
 				currenShape.draw(canvas, paint);
@@ -282,9 +294,41 @@ public class TuyaView extends View  {
 		}
 	}
 
+	private    boolean    isSaveBitmap = false;
+
+  public boolean isSaveBitmap() {
+    return isSaveBitmap;
+  }
+
+  public void setSaveBitmap(boolean saveBitmap) {
+    isSaveBitmap = saveBitmap;
+		System.out.println("--------setSaveBitmap-------"+isSaveBitmap);
+		System.out.println("startTime="+ getNowTime());
+  }
+
+  private   String   getNowTime(){
+		SimpleDateFormat   simpleDateFormat = new SimpleDateFormat("HH:mm:ss:SSS");
+		return  simpleDateFormat.format(new Date());
+	}
+
+  /**
+   * 画点，只画最后一个，当保存时无需画
+   * @param canvas
+   */
+	protected   void   onDrawPoint(Canvas  canvas){
+		System.out.println("onDrawPoint="+isSaveBitmap+"time="+getNowTime());
+    if(shapList.size()>0  && !isSaveBitmap){
+      float  radios = dp2px(POINT_RADIUS);
+      Shape   shape = shapList.get(shapList.size()-1);
+      shape.onDrawPoints(canvas,radios,mPointPaint,mPointFillPaint);
+    }
+  }
+
 	int mLinePoint = 0;
 	int mTurnPoint = 0;
 	@SuppressLint("ClickableViewAccessibility")
+
+	private    Shape    moveShape;
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		int x = (int) event.getX() - px;
@@ -304,6 +348,15 @@ public class TuyaView extends View  {
 		}
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN: {
+			mDraggingPoint = getNearbyPoint(event,x,y);
+			if(shapList.size()>0){
+				Shape  shape = shapList.get(shapList.size()-1);
+				boolean  result = shape.checkPoints(event,x,y,dp2px(POINT_RADIUS));
+				if(result){
+					moveShape = shape;
+					break;
+				}
+			}
 			switch (currentShapeType) {
 			case Arrow: {
 				
@@ -429,6 +482,12 @@ public class TuyaView extends View  {
 		}
 			break;
 		case MotionEvent.ACTION_UP: {
+			mDraggingPoint = null;
+			if(null != moveShape){
+				moveShape.setMovePointPt(null);
+				moveShape = null;
+				break;
+			}
 			switch (currentShapeType) {
 			case Arrow: {
 				Arrow arrow = (Arrow) currenShape;
@@ -548,7 +607,13 @@ public class TuyaView extends View  {
 		}
 			break;
 		case MotionEvent.ACTION_MOVE: {
-
+       if(null != mDraggingPoint){
+				 toImagePointSize(mDraggingPoint, event);
+			 }
+			 if(null != moveShape){
+       	moveShape.onMovePoint(x,y);
+       	break;
+			 }
 			switch (currentShapeType) {
 			case Arrow: {
 				Arrow arrow = (Arrow) currenShape;
@@ -640,6 +705,19 @@ public class TuyaView extends View  {
 			dis.recycle();
 			dis = null;
 		}
+	}
+
+
+	private void toImagePointSize(Point dragPoint, MotionEvent event) {
+		if (dragPoint == null) {
+			return;
+		}
+		System.out.println("old x="+event.getX()+"  y="+event.getY());
+		int x = (int) ((Math.min(Math.max(event.getX(), mActLeft), mActLeft + mActWidth) - mActLeft) / mScaleX);
+		int y = (int) ((Math.min(Math.max(event.getY(), mActTop), mActTop + mActHeight)- mActTop) / mScaleY);
+		dragPoint.x = x;
+		dragPoint.y = y;
+		System.out.println("new x="+x+"  y="+y);
 	}
 
 	/**
@@ -756,8 +834,121 @@ public class TuyaView extends View  {
 		}else if(tuYaColor == TuYaColor.Red){
 			selePaint.setColor(Color.RED);
 		}
-		System.out.println(tuYaColor.toString());
+
 		selePaint.setStrokeWidth(strokeWidth);
 		return selePaint;
 	}
+
+	private float[] mMatrixValue = new float[9];
+	private float mScaleX, mScaleY; // 显示的图片与实际图片缩放比
+	private int mActWidth, mActHeight, mActLeft, mActTop; //实际显示图片的位置
+
+
+	private void getDrawablePosition() {
+
+		mScaleX = 1F;
+		mScaleY = 1F;
+		int origW = dis.getWidth();
+		int origH = dis.getHeight();
+
+		mActWidth = Math.round(origW * mScaleX);
+		mActHeight = Math.round(origH * mScaleY);
+		mActLeft = (getWidth() - mActWidth) / 2;
+		mActTop = (getHeight() - mActHeight) / 2;
+	}
+
+	private static final float MAGNIFIER_CROSS_LINE_WIDTH = 0.8f; //dp，放大镜十字宽度
+	private static final float MAGNIFIER_CROSS_LINE_LENGTH = 3; //dp， 放大镜十字长度
+	private static final float MAGNIFIER_BORDER_WIDTH = 1; //dp，放大镜边框宽度
+	private Point mDraggingPoint = null;
+	private   Paint  mMagnifierPaint = null;
+	private   Paint  mMagnifierCrossPaint = null;
+	private Matrix mMagnifierMatrix = new Matrix();
+	protected void onDrawMagnifier(Canvas canvas) {
+		if ( mDraggingPoint != null) {
+			if (mMagnifierDrawable == null) {
+			  return;
+			}
+			if(null == mMagnifierPaint){
+				mMagnifierPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+				mMagnifierPaint.setColor(Color.WHITE);
+				mMagnifierPaint.setStyle(Paint.Style.FILL);
+			}
+      if(null == mMagnifierCrossPaint){
+				mMagnifierCrossPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+				mMagnifierCrossPaint.setColor(Color.BLUE);
+				mMagnifierCrossPaint.setStyle(Paint.Style.FILL);
+				mMagnifierCrossPaint.setStrokeWidth(dp2px(MAGNIFIER_CROSS_LINE_WIDTH));
+			}
+			float draggingX = getViewPointX(mDraggingPoint);
+			float draggingY = getViewPointY(mDraggingPoint);
+
+			float radius = getWidth() / 8;
+			float cx = radius;
+			int lineOffset = (int) dp2px(MAGNIFIER_BORDER_WIDTH);
+			mMagnifierDrawable.setBounds(lineOffset, lineOffset, (int)radius * 2 - lineOffset, (int)radius * 2 - lineOffset);
+			double pointsDistance = getPointsDistance(draggingX, draggingY, 0, 0);
+			if (pointsDistance < (radius * 2.5)) {
+				mMagnifierDrawable.setBounds(getWidth() - (int)radius * 2 + lineOffset, lineOffset, getWidth() - lineOffset, (int)radius * 2 - lineOffset);
+				cx = getWidth() - radius;
+			}
+			canvas.drawCircle(cx, radius, radius, mMagnifierPaint);
+			mMagnifierMatrix.setTranslate(radius - draggingX, radius - draggingY);
+			mMagnifierDrawable.getPaint().getShader().setLocalMatrix(mMagnifierMatrix);
+			mMagnifierDrawable.draw(canvas);
+
+			//画放大镜十字线
+			float crossLength = dp2px(MAGNIFIER_CROSS_LINE_LENGTH);
+			canvas.drawLine(cx, radius - crossLength, cx, radius + crossLength, mMagnifierCrossPaint);
+			canvas.drawLine(cx - crossLength, radius, cx + crossLength, radius, mMagnifierCrossPaint);
+		}
+	}
+
+
+	private static final float TOUCH_POINT_CATCH_DISTANCE = 15; //dp，触摸点捕捉到锚点的最小距离
+	private Point getNearbyPoint(MotionEvent event,int  x,int y) {
+
+		Point   p  = new Point( x,y);
+		float px = getViewPointX(p);
+		float py = getViewPointY(p);
+
+		double distance =  Math.sqrt(Math.pow(x - px, 2) + Math.pow(y - py, 2));
+		System.out.println("dis=>"+distance);
+		if (distance < dp2px(TOUCH_POINT_CATCH_DISTANCE)) {
+			return p;
+		}
+		return p;
+	}
+
+	private float getViewPointX(Point point){
+		return getViewPointX(point.x);
+	}
+
+	private float getViewPointX(float x) {
+		//return x * mScaleX + mActLeft;
+		return x * mScaleX;
+	}
+
+	private float getViewPointY(Point point){
+		return getViewPointY(point.y);
+	}
+
+	private float getViewPointY(float y) {
+	//	return y * mScaleY + mActTop;
+		return y * mScaleY ;
+	}
+
+	public float dp2px(float dp) {
+		return dp * mDensity;
+	}
+
+
+	public static double getPointsDistance(Point p1, Point p2) {
+		return getPointsDistance(p1.x, p1.y, p2.x, p2.y);
+	}
+
+	public static double getPointsDistance(float x1, float y1, float x2, float y2) {
+		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+	}
+
 }

@@ -11,7 +11,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.tencent.bugly.crashreport.CrashReport;
-
 import com.zlcdgroup.dao.BookDao;
 import com.zlcdgroup.dao.DaoMaster;
 import com.zlcdgroup.dao.DaoSession;
@@ -27,7 +26,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import org.easydarwin.video.beautify.util.ProjectUtils;
-import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.lasque.tusdk.core.TuSdk;
 
@@ -73,6 +71,7 @@ public class MyApp  extends Application {
         TuSdk.enableDebugLog(true);
         TuSdk.init(getApplicationContext(),"4387f9d67be3c238-01-k4rko1");
         initDao();
+
     }
 
 

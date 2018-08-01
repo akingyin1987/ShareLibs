@@ -15,6 +15,7 @@
 
     <SurfaceView
         android:id="@+id/surface_view"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

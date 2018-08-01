@@ -5,6 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.Point;
+import android.view.MotionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Arrow extends Shape {
 	public static final int arrowEdgeLength = 40;
@@ -29,7 +33,7 @@ public class Arrow extends Shape {
 	}
 
 	public Arrow() {
-	};
+	}
 
 	public Arrow(int width, int height, double angle, double widthscale,
 			double heightscale) {
@@ -181,26 +185,18 @@ public class Arrow extends Shape {
 			}else if(ex < sx){
 				ex = ex - offx;
 			}
-			
+
 		} else if (ex == sx) {
 			if(ey > sy){
 				ey = ey + offx;
 			}else if(ey < sy){
 				ey = ey - offx;
 			}
-			
+
 		} else {
 			double slope = Math.atan2((ey - sy) ,(ex - sx));
-//			if (ex > sx) {
-
 				ex = (float) (ex + offx * Math.cos(slope));
 				ey = (float) (ey + offx * Math.sin(slope));
-
-//			} else {
-//				ex = (float) (ex - offx * Math.cos(slope));
-//				ey = (float) (ey - offx * Math.sin(slope));
-//
-//			}
 
 		}
 		path = new Path();
@@ -209,6 +205,27 @@ public class Arrow extends Shape {
 		path.lineTo(x4, y4);
 		path.close();
 
+	}
+
+	private   void    drawArrow(){
+		float x = ex - sx;
+		float y = ey - sy;
+		double d = x * x + y * y;
+		double r = Math.sqrt(d);
+		float zx = (float) (ex - (L * x / r));
+		float zy = (float) (ey - (L * y / r));
+		float xz = zx - sx;
+		float yz = zy - sy;
+		double zd = xz * xz + yz * yz;
+		double zr = Math.sqrt(zd);
+		path = new Path();
+		path.moveTo(sx, sy);
+		path.lineTo((float) (zx + H * yz / zr), (float) (zy - H * xz / zr));
+		path.lineTo((float) (zx + H * 2 * yz / zr), (float) (zy - H * 2 * xz / zr));
+		path.lineTo(ex, ey);
+		path.lineTo((float) (zx - H * 2 * yz / zr), (float) (zy + H * 2 * xz / zr));
+		path.lineTo((float) (zx - H * yz / zr), (float) (zy + H * xz / zr));
+		path.close();
 	}
 
 	// 计算
@@ -276,4 +293,51 @@ public class Arrow extends Shape {
 		calculate();
 	}
 
+	@Override void onDrawPoints(Canvas canvas, float radius, Paint pointPaint, Paint pointFillPaint) {
+		canvas.drawCircle(start.x, start.y, radius, pointFillPaint);
+		canvas.drawCircle(start.x, start.y, radius, pointPaint);
+		canvas.drawCircle(end.x, end.y, radius, pointFillPaint);
+		canvas.drawCircle(end.x, end.y, radius, pointPaint);
+	}
+
+	private   List<Point>   mPoints;
+	@Override List<Point> getPoints() {
+		if(null == mPoints){
+			mPoints = new ArrayList<>();
+
+		}
+		if(end.x>0 && end.y>0){
+			mPoints.clear();
+			mPoints.add(new Point(start.x,start.y));
+			mPoints.add(new Point(end.x,end.y));
+		}
+		return mPoints;
+	}
+
+
+	@Override protected boolean checkPoints(MotionEvent event, int x, int y, float radius) {
+		super.checkPoints(event, x, y, radius);
+		setMovePointPt(null);
+		double  d1 =TuYaUtil.getPointsDistance(x,y,start.x,start.y);
+		if(d1<radius){
+			setMovePointPt(start);
+			return  true;
+		}else{
+			d1 = TuYaUtil.getPointsDistance(x,y,end.x,end.y);
+			if(d1<radius){
+				setMovePointPt(end);
+				return  true;
+			}
+		}
+		return  false;
+	}
+
+	@Override protected void onMovePoint(int moveX, int moveY) {
+		super.onMovePoint(moveX, moveY);
+		if(null!= getMovePointPt()){
+			getMovePointPt().x = moveX;
+			getMovePointPt().y = moveY;
+			calculate();
+		}
+	}
 }

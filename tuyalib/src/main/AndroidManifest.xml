@@ -10,10 +10,11 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-
             android:screenOrientation="portrait" >
+
+
             <intent-filter>
-                <action android:name="com.zlcdgroup.tuya"/>
+                <action android:name="com.akingyin.tuya"/>
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="tuya/*" />
             </intent-filter>

@@ -2,6 +2,8 @@ package com.zlcdgroup.tuyalib;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
+import java.util.List;
 
 public class TurnPaintAround extends Shape{
 	
@@ -75,4 +77,11 @@ public class TurnPaintAround extends Shape{
 		arrow.setEnd(x, y);
 	}
 
+	@Override void onDrawPoints(Canvas canvas, float radius, Paint pointPaint, Paint pointFillPaint) {
+
+	}
+
+	@Override List<Point> getPoints() {
+		return null;
+	}
 }

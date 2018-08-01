@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zlcdgroup.camera.internal.CameraFragment;
@@ -25,21 +27,15 @@ import com.zlcdgroup.libs.ocr.adapter.OcrAdapter;
 import com.zlcdgroup.libs.ocr.api.OcrApi;
 import com.zlcdgroup.libs.ocr.api.RetrofitUtil;
 import com.zlcdgroup.libs.utils.Base64Util;
-import com.zlcdgroup.libs.utils.ImageDecoder;
 import com.zlcdgroup.libs.utils.ImageUtils;
 import com.zlcdgroup.libs.utils.RxUtil;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import java.util.Locale;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -75,7 +71,7 @@ public class OcrActivity extends AppCompatActivity {
         TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         imei = tm.getDeviceId();
 
-        WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifi = (WifiManager)getApplicationContext(). getSystemService(Context.WIFI_SERVICE);
         if(null != wifi){
             WifiInfo info = wifi.getConnectionInfo();
             mac = info.getMacAddress().toLowerCase();
@@ -188,7 +184,7 @@ public class OcrActivity extends AppCompatActivity {
 
     }
 
-   public SimpleDateFormat  formatter = new SimpleDateFormat("yyyymmdd-hhmmss-SSSS");
+   public SimpleDateFormat  formatter = new SimpleDateFormat("yyyyMMdd-HHmmss-SSSS", Locale.CHINA);
     public YunShiEntity checkImageMap(int  degree,OcrVo  ocrVo,String imei,String macAddress,OcrApi  api){
       if(degree>0){
         ImageUtils.rotateBitmap(degree,ocrVo.localpath);
@@ -196,8 +192,9 @@ public class OcrActivity extends AppCompatActivity {
         String  image = Base64Util.FileToBase64(ocrVo.localpath);
 
       try {
-        YunShiEntity  yunShiEntity =  api.getImageOcrMapByYushi(image,"Android","QCZLCD",imei,formatter.format(new Date()),macAddress,"重庆","重庆","[0,0]").execute().body();
-        System.out.println("code="+yunShiEntity.getCode()+":"+degree);
+        System.out.println(formatter.format(new Date()));
+        YunShiEntity  yunShiEntity =  api.getImageOcrMapByYushi(image,"Android","QCZLCD",imei,formatter.format(new Date()),macAddress,"重庆","重庆","0,0").execute().body();
+        System.out.println("code="+yunShiEntity.getCode()+":"+degree+yunShiEntity.getMessage());
         if(yunShiEntity.getCode() == 0 || degree == 270){
           return  yunShiEntity;
         }
@@ -258,15 +255,17 @@ public class OcrActivity extends AppCompatActivity {
         }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<OcrVo>() {
                     @Override public void onCompleted() {
+                      System.out.println("datas.size="+datas.size());
                         adapter.appendToTopList(datas);
                     }
 
                     @Override public void onError(Throwable e) {
-
+                          System.out.println("onError");
+                         e.printStackTrace();
                     }
 
                     @Override public void onNext(OcrVo ocrVo) {
-
+                      System.out.println("onNext");
                     }
                 });
     }

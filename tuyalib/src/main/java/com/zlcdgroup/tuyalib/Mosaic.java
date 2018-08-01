@@ -6,7 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Point;
 import android.graphics.Rect;
+import java.util.List;
 
 public class Mosaic extends Shape {
 	
@@ -182,5 +184,13 @@ public class Mosaic extends Shape {
 	void move(int movex, int movey) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override void onDrawPoints(Canvas canvas, float radius, Paint pointPaint, Paint pointFillPaint) {
+
+	}
+
+	@Override List<Point> getPoints() {
+		return null;
 	}
 }

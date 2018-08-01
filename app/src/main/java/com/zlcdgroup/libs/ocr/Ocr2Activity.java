@@ -70,7 +70,7 @@ public class Ocr2Activity extends AppCompatActivity {
     TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
     imei = tm.getDeviceId();
 
-    WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+    WifiManager wifi = (WifiManager)getApplicationContext(). getSystemService(Context.WIFI_SERVICE);
     if (null != wifi) {
       WifiInfo info = wifi.getConnectionInfo();
       mac = info.getMacAddress().toLowerCase();

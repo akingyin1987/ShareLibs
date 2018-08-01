@@ -99,7 +99,9 @@ public interface OcrApi {
    * @return
    */
     @FormUrlEncoded
-    @POST("water/pc/getDigit")
+    //@POST("water/help/meter_api")
+   // @POST("water/pc/getDigit")
+    @POST("water/whole_pic/getDigit ")
     Call<YunShiEntity> getImageOcrMapByYushi(  @Field("Image")String  image,
                                                  @Field("ClientType")String ClientType,
                                                  @Field("UserID")String UserID,

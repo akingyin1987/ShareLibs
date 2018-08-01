@@ -8,7 +8,6 @@ import com.zlcdgroup.libs.utils.Base64Util;
 import com.zlcdgroup.libs.utils.ImageUtils;
 import com.zlcdgroup.taskManager.AbsTaskRunner;
 import com.zlcdgroup.taskManager.enums.TaskStatusEnum;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -44,7 +43,7 @@ public class OcrReadTask  extends AbsTaskRunner {
 
   @Override public void onToDo() {
     YunShiEntity   yunShiEntity =  checkImageMap(1,0,mReadImageBean,imei,macAddress,api);
-    if(null != yunShiEntity && yunShiEntity.getCode() == 0){
+    if(null != yunShiEntity && yunShiEntity.getCode() == 0&& !yunShiEntity.getValue().contains("XXXXX")){
       Double  value = Double.parseDouble(yunShiEntity.getValue().split(",")[0]);
       mReadImageBean.orcReading = value.longValue();
       if(null != mReadImageBean.rdReading){
@@ -75,7 +74,9 @@ public class OcrReadTask  extends AbsTaskRunner {
 
     try {
       YunShiEntity  yunShiEntity =  api.getImageOcrMapByYushi(image,"Android","QCZLCD",imei,formatter.format(new Date()),macAddress,"重庆","重庆","[0,0]").execute().body();
-      System.out.println("code="+yunShiEntity.getCode()+":"+degree);
+      if(null == yunShiEntity){
+        return  null;
+      }
       if(yunShiEntity.getCode() == 0 || degree == 270 || count == 5){
         if(count == 5){
           return  yunShiEntity;
@@ -91,7 +92,7 @@ public class OcrReadTask  extends AbsTaskRunner {
         return  yunShiEntity;
       }
 
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return   checkImageMap(count+1,degree+90,ocrVo,imei,macAddress,api);

@@ -150,10 +150,11 @@ class Camera1 extends CameraViewImpl {
     }
 
     @Override
-    void setAspectRatio(AspectRatio ratio) {
+    boolean setAspectRatio(AspectRatio ratio) {
         if (mAspectRatio == null || !isCameraOpened()) {
             // Handle this later when camera is opened
             mAspectRatio = ratio;
+            return true;
         } else if (!mAspectRatio.equals(ratio)) {
             final Set<Size> sizes = mPreviewSizes.sizes(ratio);
             if (sizes == null) {
@@ -161,8 +162,10 @@ class Camera1 extends CameraViewImpl {
             } else {
                 mAspectRatio = ratio;
                 adjustCameraParameters();
+                return true;
             }
         }
+        return false;
     }
 
     @Override
@@ -215,7 +218,6 @@ class Camera1 extends CameraViewImpl {
             mCamera.autoFocus(new Camera.AutoFocusCallback() {
                 @Override
                 public void onAutoFocus(boolean success, Camera camera) {
-                    System.out.println("success=="+success);
                     takePictureInternal();
                 }
             });
@@ -225,13 +227,11 @@ class Camera1 extends CameraViewImpl {
     }
 
     void takePictureInternal() {
-        mCamera.takePicture(new Camera.ShutterCallback() {
-            @Override public void onShutter() {
-
-            }
-        }, null, null, new Camera.PictureCallback() {
-            @Override public void onPictureTaken(byte[] data, Camera camera) {
+        mCamera.takePicture(null, null, null, new Camera.PictureCallback() {
+            @Override
+            public void onPictureTaken(byte[] data, Camera camera) {
                 mCallback.onPictureTaken(data);
+                camera.cancelAutoFocus();
                 camera.startPreview();
             }
         });
